@@ -20,6 +20,13 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     if (loggedin) window.location.reload();
   });
 
+  var jqt = $.jQTouch({
+    updatehash: false,
+    hashquery: true,
+    clearInitHash: false
+  });
+  $("#jqt").data("jqt", jqt);
+
   // <Application Adding>
   // Add application should wait until setDoc() is first called
   var modelReadyLatch = Threads.latchbinder();
@@ -56,6 +63,24 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         //@TODO -- for UI work, we just by pass the model and call handler directly
         my.items.handler.added({id: appid, item: itemjson});
       },
+      error: function(request, textStatus, errorThrown) {
+        var exception = {datasetname: 'my.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+        exception.nested = {request: request, status: textStatus, exception: errorThrown};
+        if (err) {
+          err(exception);
+        }
+      }
+    });
+  };
+
+  function loadDetails(appid, options, fn, err) {
+    var apppath = '/mirror/' + appid + '/details.json';
+    $.ajax({
+      type: 'GET',
+      url: apppath,
+      dataType: 'json',
+      beforeSend: function(xhr) {},
+      success: fn,
       error: function(request, textStatus, errorThrown) {
         var exception = {datasetname: 'my.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
         exception.nested = {request: request, status: textStatus, exception: errorThrown};
@@ -130,9 +155,21 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
   $(document).ready(function() {
     loadApp("editor");
-  });
 
-  $("#z-listpane").live("pagein", function() {
+    $("#z-detailpane").bind("pagein", function(event, info) {
+      loadDetails(info.search.appid, function() {
+        var $newitem = $("#diritem-template").tmpl(event.item);
+        var $container = $("#z-listpane ul#applist");
+        $container.append($newitem);
+      }, function(error) {
+        alert(error);
+      })
+    });
+
+    $("#backbutton").bind("click", function(event) {
+      console.warn("<back> tapped");
+      jqt.goBack();
+    });
   });
 
   // Items handler listens to CRUD events from model

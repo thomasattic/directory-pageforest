@@ -109,6 +109,30 @@
       font-size: 16px; font-weight: bold; text-shadow: rgba(255,255,255,.8) 0 1px 0;
       text-align: center;
     }
+
+    .buttonbar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 35px;
+      -webkit-border-radius: 0 0 6px 6px; -moz-border-radius: 0 0 6px 6px; border-radius: 0 0 6px 6px;
+      background-image: -webkit-gradient(linear, left top, left bottom,
+        from(#EEFDE9), color-stop(0.05, #EEFDE9), color-stop(0.5, #BAF2A8), color-stop(0.5, #B3E8A0), to(#AAEE95));
+      background-image: -moz-linear-gradient(top, #EEFDE9, #E4FBDD 5%, #BAF2A8 50%, #B3E8A0 50%, #AAEE95);
+      background-color: #AAEE95;
+      font-family: Verdana, Arial, san-serif;
+      font-size: 14px;
+      margin-left: 16px;
+      padding: 0 5px;
+      z-index: 2;
+    }
+
+    .buttonbar span {
+      box-sizing: border-box;
+      margin: 4px;
+      line-height: 27px;
+      float: left;
+      color: #464646;
+    }
   </style>
 
   <script>
@@ -161,6 +185,11 @@
   </script>
   <script id="diritem-template" type="text/x-jquery-tmpl">
     <li data-id="${appid}" class="arrow" draggable="false">
+      <a href="${next}"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>${title}</a>
+    </li>
+  </script>
+  <script id="dirdetail-template" type="text/x-jquery-tmpl">
+    <li data-id="${appid}" class="arrow" draggable="false">
       <a href="${next}" title="${title}" draggable="false"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div></a>
     </li>
   </script>
@@ -180,6 +209,8 @@
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
         <div class="showoninit emboss">
+            <ul id="applist" class="edgetoedge">
+            </ul>
             <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
                 <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
                 <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
@@ -190,6 +221,9 @@
     <div>
       <ul class="hidden" id="replacement">
       </ul>
+    </div>
+    <div class="buttonbar">
+      <span id="backbutton">Back</span>
     </div>
     <div class="nonpage">
       <!--
