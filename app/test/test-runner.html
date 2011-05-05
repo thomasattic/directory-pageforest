@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Pageforest Client Unit Tests</title>
+<link rel="stylesheet" type="text/css" href="/lib/beta/css/client.css" />
+<script type="text/javascript"
+        src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="/lib/beta/js/utils.js"></script>
+<script type="text/javascript" src="/static/src/js/timer.js"></script>
+<script type="text/javascript" src="/static/src/js/unit.js"></script>
+<script type="text/javascript" src="/static/src/js/crypto.js"></script>
+<script type="text/javascript" src="test-client.js"></script>
+<script type="text/javascript" src="test-storage.js"></script>
+<script type="text/javascript" src="test-scratch.js"></script>
+</head>
+
+<body onload="run();">
+<h1 id="title"><script>document.write(document.title);</script></h1>
+
+<script>
+var scratchTest = namespace.lookup('com.pageforest.scratch.test');
+var clientTest = namespace.lookup('com.pageforest.client.test');
+var storageTest = namespace.lookup('com.pageforest.storage.test');
+var unit = namespace.lookup('org.startpad.unit');
+
+function run() {
+    unit.runTests([scratchTest, clientTest, storageTest]);
+}
+</script>
+
+<div id="divUnit" style="font-family: Courier;"></div>
+
+</body>
+</html>

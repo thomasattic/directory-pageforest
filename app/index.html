@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Apps Directory</title>
+  <link rel="icon" type="image/png" href="/images/icon.png" />
+  <link rel="apple-touch-icon" href="/images/touch.png" />
+  <link rel="stylesheet" type="text/css" href="/lib/beta/css/client.css" />
+  <style type="text/css" media="screen">@import "./jslib/jqtouch/jqtouch/jqtouch.css";</style>
+  <style type="text/css" media="screen">@import "./jslib/jqtouch/themes/apple/theme.css";</style>
+  <style type="text/css" media="screen">
+    html, body {
+       min-height: 100%;
+    }
+
+    body {
+       -webkit-box-shadow: inset 1px 1px 10px rgba(127, 127, 127, 0.75);
+       background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #AAA), color-stop(0.5, #999), color-stop(0.5, #999), color-stop(1, #666));
+       background-image: -moz-linear-gradient(top, #AAA, #999 50%, #999 50%, #666);
+       background-repeat: repeat-x;
+       background-color: darkgrey;
+    }
+
+    #jqt > div#z-listpane, #jqt > form, #jqt > div {
+       background-image: none;
+       background-color: transparent;
+    }
+
+    body #phantom, body .phantom {
+      display: block; position: absolute;
+      width: 64px; height: 64px;
+      background-color: rgba(255, 255, 255, 0.5);
+      -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px;
+      -webkit-user-drag: none;
+      cursor: pointer;
+      z-index: 5; opacity: 0.7;
+      background-repeat: no-repeat;
+      -webkit-background-size: contain;
+      background-size: contain;
+      background-position: 50% 50%;
+      -webkit-background-origin: content-box;
+      -webkit-transition-duration: 250ms;
+      -webkit-transition-timing-function: linear;
+      -webkit-transition-property: width, height;
+    }
+
+    body #phantom.active, body .phantom.active {
+      width: 68px; height: 68px;
+    }
+
+    .invisible {
+      visibility: hidden;
+    }
+
+    @media only screen and (min-device-width: 768px) {
+    }
+
+    .buttonbar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 35px;
+      -webkit-border-radius: 0 0 6px 6px; -moz-border-radius: 0 0 6px 6px; border-radius: 0 0 6px 6px;
+      background-image: -webkit-gradient(linear, left top, left bottom,
+        from(#EEFDE9), color-stop(0.05, #EEFDE9), color-stop(0.5, #BAF2A8), color-stop(0.5, #B3E8A0), to(#AAEE95));
+      background-image: -moz-linear-gradient(top, #EEFDE9, #E4FBDD 5%, #BAF2A8 50%, #B3E8A0 50%, #AAEE95);
+      background-color: #AAEE95;
+      font-family: Verdana, Arial, san-serif;
+      font-size: 14px;
+      margin-left: 16px;
+      padding: 0 5px;
+      z-index: 2;
+    }
+
+    .buttonbar span {
+      box-sizing: border-box;
+      margin: 4px;
+      line-height: 27px;
+      float: left;
+      color: #464646;
+    }
+
+    .buttonbar span:hover, .buttonbar span:active {
+      color: #000;
+      background-color: #D2E6B3;
+      cursor: pointer;
+    }
+
+    #jqt:not(.initstate) .showoninit {
+       display: none;
+    }
+
+    #jqt:not(.nouserstate) .showonnouser {
+       display: none;
+    }
+
+    #pfSave,
+    .nonpage,
+    .hidden,
+    .hidden > * {
+       display: none;
+    }
+
+    #jqt .emboss {
+      display: block; position: relative;
+      -webkit-box-sizing: border-box;
+      width: 100%; line-height: 20px;
+      padding: 15px; padding-top: 20% !important;
+      border-top: 1px solid rgba(76, 86, 108, .3);
+      color: rgb(76, 76, 76);
+      font-size: 16px; font-weight: bold; text-shadow: rgba(255,255,255,.8) 0 1px 0;
+      text-align: center;
+    }
+  </style>
+
+  <script>
+    // For offline - capable applications
+    function handleAppCache() {
+      if (typeof applicationCache == 'undefined') {
+          return;
+      }
+      if (applicationCache.status == applicationCache.UPDATEREADY) {
+          applicationCache.swapCache();
+          if (prompt("New version is available. Do you want to refresh?")) {
+            location.reload();
+          }
+          return;
+      }
+      applicationCache.addEventListener('updateready', handleAppCache, false);
+    };
+    handleAppCache();
+  </script>
+  <!--
+     These scripts provide access to the standard Client library
+     for Pageforest apps.  jQuery and JSON, are also required
+     by the Client library.
+
+     Note that the "beta" versions of the library are used.  These
+     are the most up to date versions.  You can change "beta" to
+     "0.6" if you want the latest frozen version of the libraries.
+
+     API reference: http://code.google.com/p/pageforest/wiki/ClientLibrary
+    -->
+  <script src="/lib/beta/js/pf-client.js" type="application/x-javascript" charset="utf-8"></script>
+
+  <script src="./jslib/lib/date.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="./jslib/lib/json2.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./jslib/lib/jquery.jsonp-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./jslib/lib/jquery.tmpl.min.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="./jslib/beedesk/utilities.js" type="application/x-javascript" charset="utf-8"></script>
+
+  <script src="./jslib/jqtouch/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="./jslib/touchlayer/src/gestures.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="./jslib/beedesk/jqt.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="./jslib/lib/jquery.quicksand.js" type="application/x-javascript" charset="utf-8"></script>
+
+  <!-- The scratch application code is in main.js -->
+  <script src="model.js" type="text/javascript"></script>
+  <script src="main.js" type="text/javascript">
+  </script>
+  <script id="diritem-group-template" type="text/x-jquery-tmpl">
+    <ul id="${id}" class="grid"></ul>
+  </script>
+  <script id="diritem-template" type="text/x-jquery-tmpl">
+    <li data-id="${appid}" class="arrow" draggable="false">
+      <a href="${next}" title="${title}" draggable="false"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div></a>
+    </li>
+  </script>
+  </head>
+  <body>
+    <div id="jqt" class="initstate unfixed">
+      <div id="z-listpane" class="pane form" section="aside">
+        <ul id="applist" class="plastic">
+        </ul>
+        <div class="showoninit emboss">
+            <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
+                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+                <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
+                <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
+            </div>Loading</div>
+        <div class="showonnouser emboss">Please sign in</div>
+      </div>
+      <div id="z-detailpane" class="pane form" section="aside">
+        <div class="showoninit emboss">
+            <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
+                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+                <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
+                <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
+            </div>Loading...</div>
+      </div>
+    </div>
+    <div>
+      <ul class="hidden" id="replacement">
+      </ul>
+    </div>
+    <div class="nonpage">
+      <!--
+         Standard Google Analytics tracking.  This can be removed from your own app,
+         or replaced with your own account id.
+        -->
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-2072869-7']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+              '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+    </div> <!-- page -->
+  </body>
+</html>

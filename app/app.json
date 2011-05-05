@@ -1,0 +1,35 @@
+{
+  "application": "my",
+  "cloneable": false,
+  "created": {
+    "__class__": "Date",
+    "isoformat": "2011-04-01T20:46:39.434459Z"
+  },
+  "icon": "images/icon.png",
+  "modified": {
+    "__class__": "Date",
+    "isoformat": "2011-05-04T18:55:53.793255Z"
+  },
+  "owner": "beedesk",
+  "readers": [
+    "public"
+  ],
+  "referers": [
+    "http://my.pageforest.com/",
+    "http://my-dev.pageforest.com/",
+    "http://www.pageforest.com/"
+  ],
+  "secureData": false,
+  "sha1": "a33564856e5285baf4779299fd377401b4051fd7",
+  "size": 396,
+  "tags": [
+    "directory",
+    "apps"
+  ],
+  "title": "My Apps",
+  "url": "http://my.pageforest.com/",
+  "writers": [
+    "mckoss",
+    "beedesk"
+  ]
+}
