@@ -1220,16 +1220,28 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt ul.grid li .icon,
-#jqt ul.smallgrid li .icon {
-    display: block;
-    width: 57px;
-    height: 57px;
+#jqt ul.smallgrid li .icon,
+#jqt ul.plastic li .icon {
     background-size: cover;
     background-position: 50% 50%;
     -webkit-background-origin: content-box;
     background-color: white;
     -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px;
     -webkit-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; -moz-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt;
+}
+
+#jqt ul.plastic li .icon {
+    display: inline-block;
+    width: 49px;
+    height: 49px;
+    text-align: middle;
+}
+
+#jqt ul.grid li .icon,
+#jqt ul.smallgrid li .icon {
+    display: block;
+    width: 57px;
+    height: 57px;
 }
 
 #jqt ul.grid li.active .icon,
