@@ -26,7 +26,6 @@
 */
 (function($) {
     $.jQTouch = function(options) {
-
         var SUPPORT_TOUCH = (typeof Touch != "undefined");
         var START_EVENT = SUPPORT_TOUCH? 'touchstart' : 'mousedown';
         var MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove';
@@ -34,7 +33,9 @@
         var CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout'; // mouseout on document
 
         // Initialize internal variables
-        var $body,
+        var state_started,
+            state_initialized,
+            $body,
             $head=$('head'),
             hist=[],
             newPageCount=0,
@@ -1408,11 +1409,8 @@
 
         }; // End touch handler
 
-        // Get the party started
-        init(options);
-
         // Document ready stuff
-        $(document).ready(function() {
+        function start() {
 
             // Store some properties in the jQuery support object
             $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix != "undefined");
@@ -1695,6 +1693,19 @@
               window.scrollTo(0, 1);
             }, 1000);
             startHashCheck();
+        };
+
+        // Get the party started
+        if (!state_initialized) {
+          init(options);
+          state_initialized = true;
+        }
+
+        $(document).ready(function() {
+          if (!state_started) {
+            start();
+            state_started = true;
+          }
         });
 
         // Expose public methods and properties
