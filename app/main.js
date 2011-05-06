@@ -171,6 +171,35 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         var $newitem = $("#dirdetail-template").tmpl(data);
         var $container = $("#z-detailpane #appdetail");
         $container.append($newitem);
+
+        var KEY_ISCROLL_OBJ = 'iscroll_object';
+        $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
+          var $wrapper = $(wrap);
+          var data = $wrapper.data(KEY_ISCROLL_OBJ);
+          if (data === undefined || data === null) {
+            var scroll;
+            var options = {};
+            if ($wrapper.hasClass("scrollrefresh")) {
+              options = {
+                pullToRefresh: "down"
+              };
+            } else if ($wrapper.hasClass("carousel")) {
+              options = {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                  var active = document.querySelector('#jqt .carousel ul.indicator > li.on');
+                  if (active) active.className = '';
+                  document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'on';
+                }
+              }
+            }
+            scroll = new iScroll(wrap, options);
+            $wrapper.data(KEY_ISCROLL_OBJ, scroll);
+            scroll.refresh();
+          }
+        });
       }, function(error) {
         console.error(JSON.stringify(error));
       })

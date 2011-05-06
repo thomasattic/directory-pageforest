@@ -136,6 +136,89 @@
       float: left;
       color: #464646;
     }
+
+    #jqt .carousel {
+      background-color: #777;
+      -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, .6);
+    }
+
+    #jqt .carousel ul.indicator {
+        display: block; /*float:left;*/
+        list-style:none;
+        margin-left: auto; margin-right: auto;
+        margin-top: 10px; margin-bottom: 10px;
+    }
+
+    #jqt .carousel ul.indicator > li {
+        display: inline-block;
+        margin: 0; padding: 0;
+    }
+
+    #jqt .carousel ul.indicator {
+        width:110px;
+        /* padding:12px 0 0 30px; */
+    }
+
+    #jqt .carousel ul.indicator > li {
+        text-indent:-9999em;
+        width:8px; height:8px;
+        -webkit-border-radius:4px;
+        background: rgba(207, 207, 207, 0.5);
+        overflow:hidden;
+        margin-right:4px;
+        line-height: 8px;
+        min-height: 0;
+    }
+
+    #jqt .carousel ul.indicator > li.on {
+        background:#DDD;
+    }
+
+    #jqt .carousel ul.indicator > li:last-child {
+        margin:0;
+    }
+
+    #wrapper {
+        width:300px;
+        height:160px;
+        float:left;
+        position:relative;  /* On older OS versions "position" and "z-index" must be defined, */
+        z-index:1;          /* it seems that recent webkit is less picky and works anyway. */
+        overflow:hidden;
+
+        background:#aaa;
+        -webkit-border-radius:10px;
+        background:#e3e3e3;
+    }
+
+    #scroller {
+        width:2100px;
+        height:100%;
+        float:left;
+        padding:0;
+    }
+
+    #scroller ul {
+        list-style:none;
+        display:block;
+        float:left;
+        width:100%;
+        height:100%;
+        padding:0;
+        margin:0;
+        text-align:left;
+    }
+
+    #scroller li {
+        -webkit-box-sizing:border-box;
+        display:block; float:left;
+        width:300px; height:160px;
+        text-align:center;
+        font-family:georgia;
+        font-size:18px;
+        line-height:140%;
+    }
+
   </style>
 
   <script>
@@ -175,6 +258,7 @@
   <script src="./jslib/beedesk/utilities.js" type="application/x-javascript" charset="utf-8"></script>
 
   <script src="./jslib/jqtouch/jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="./jslib/jqtouch/extensions/iscroll/iscroll.js" type="application/x-javascript" charset="utf-8"></script>
   <script src="./jslib/touchlayer/src/gestures.js" type="application/x-javascript" charset="utf-8"></script>
   <script src="./jslib/beedesk/jqt.js" type="application/x-javascript" charset="utf-8"></script>
   <script src="./jslib/lib/jquery.quicksand.js" type="application/x-javascript" charset="utf-8"></script>
@@ -197,17 +281,36 @@
     </li>
   </script>
   <script id="dirdetail-template" type="text/x-jquery-tmpl">
-    <ul class="detail" data-id="${appid}" draggable="false">
-      <li class="header">
-        <div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
-        ${title}
-        <small class="super">${owner}</small>
-        <small class="sub">${tag}</small>
-      </li>
-      <li class="description"><pre>${description}</pre></li>
-      <li class="">
-      </li>
-    </ul>
+    <div>
+      <ul class="detail" data-id="${appid}" draggable="false">
+        <li class="header">
+          <div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
+          ${title}
+          <small class="super">${owner}</small>
+          <small class="sub">${tag}</small>
+        </li>
+        <li class="description"><pre>${description}</pre></li>
+      </ul>
+      <div class="carousel s-scrollwrapper drawer">
+        <ul id="scroller" class="">
+            <li><strong>1.</strong> <em>A robot may not injure a human being or, through inaction, allow a human being to come to harm.</em></li>
+            <li><strong>2.</strong> <em>A robot must obey any orders given to it by human beings, except where such orders would conflict with the First Law.</em></li>
+            <li><strong>3.</strong> <em>A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.</em></li>
+            <li><strong>Zeroth Law:</strong> <em>A robot may not harm humanity, or, by inaction, allow humanity to come to harm.</em></li>
+            <li><strong>Lyuben Dilov's Forth law:</strong> <em>A robot must establish its identity as a robot in all cases.</em></li>
+            <li><strong>Harry Harrison's Forth law:</strong> <em>A robot must reproduce. As long as such reproduction does not interfere with the First or Second or Third Law.</em></li>
+            <li><strong>Nikola Kesarovski's Fifth law:</strong> <em>A robot must know it is a robot.</em></li>
+        </ul>
+        <ul class="indicator">
+          <li class="on">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+        </ul>
+    </div>
   </script>
   </head>
   <body>
