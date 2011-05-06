@@ -25,7 +25,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     hashquery: true,
     clearInitHash: false
   });
-  $("#jqt").data("jqt", jqt);
 
   // <Application Adding>
   // Add application should wait until setDoc() is first called
@@ -51,6 +50,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.title = appjson.title;
         itemjson.owner = appjson.owner;
         itemjson.next = '#z-detailpane';
+        itemjson.tag = Strings.join(", ", appjson.tags);
 
         // itemjson: {<appid>: {icon: '', url: '', title: ''}
         /*
@@ -73,14 +73,27 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     });
   };
 
-  function loadDetails(appid, options, fn, err) {
-    var apppath = '/mirror/' + appid + '/details.json';
+  function loadDetail(appid, options, fn, err) {
+    var apppath = '/mirror/' + appid + '/detail.json';
     $.ajax({
       type: 'GET',
       url: apppath,
       dataType: 'json',
       beforeSend: function(xhr) {},
-      success: fn,
+      success: function(appjson) {
+        var itemjson = {};
+        var iconurl = '/static/images/icon.png';
+        if (appjson.icon) {
+            iconurl = '/mirror/' + appid + '/' + appjson.icon;
+        }
+
+        itemjson.icon = iconurl;
+        itemjson.appid = appid;
+        itemjson.title = appjson.title;
+        itemjson.owner = appjson.owner;
+        itemjson.tag = Strings.join(", ", appjson.tags);
+        fn(itemjson);
+      },
       error: function(request, textStatus, errorThrown) {
         var exception = {datasetname: 'my.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
         exception.nested = {request: request, status: textStatus, exception: errorThrown};
@@ -155,19 +168,26 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
   $(document).ready(function() {
     loadApp("editor");
+    loadApp("my");
+    loadApp("beedesk-test");
+    loadApp("chess");
+    loadApp("directory-dev");
 
     $("#z-detailpane").bind("pagein", function(event, info) {
-      loadDetails(info.search.appid, function() {
-        var $newitem = $("#diritem-template").tmpl(event.item);
-        var $container = $("#z-listpane ul#applist");
+      loadDetail(info.search.appid, {}, function(data) {
+        var $newitem = $("#dirdetail-template").tmpl(data);
+        var $container = $("#z-detailpane #appdetail");
         $container.append($newitem);
       }, function(error) {
-        alert(error);
+        console.error(JSON.stringify(error));
       })
+    });
+    $("#z-detailpane").bind("pagein", function(event, info) {
+      var $container = $("#z-detailpane ul#appdetail");
+      $container.children().remove();
     });
 
     $("#backbutton").bind("click", function(event) {
-      console.warn("<back> tapped");
       jqt.goBack();
     });
   });

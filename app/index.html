@@ -3,7 +3,6 @@
   <head>
   <title>Apps Directory</title>
   <link rel="icon" type="image/png" href="/images/icon.png" />
-  <link rel="apple-touch-icon" href="/images/touch.png" />
   <link rel="stylesheet" type="text/css" href="/lib/beta/css/client.css" />
   <style type="text/css" media="screen">@import "./jslib/jqtouch/jqtouch/jqtouch.css";</style>
   <style type="text/css" media="screen">@import "./jslib/jqtouch/themes/apple/theme.css";</style>
@@ -185,13 +184,23 @@
   </script>
   <script id="diritem-template" type="text/x-jquery-tmpl">
     <li data-id="${appid}" class="arrow" draggable="false">
-      <a href="${next}"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>${title}</a>
+      <a href="${next}"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
+          ${title}
+          <small class="super">${owner}</small>
+          <small class="sub">${tag}</small>
+          <input type="hidden" data-sourcename="appid" name="appid" value="${appid}">
+      </a>
     </li>
   </script>
   <script id="dirdetail-template" type="text/x-jquery-tmpl">
-    <li data-id="${appid}" class="arrow" draggable="false">
-      <a href="${next}" title="${title}" draggable="false"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div></a>
-    </li>
+    <ul class="detail" data-id="${appid}" draggable="false">
+      <li class="header">
+        <div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
+        ${title}
+        <small class="super">${owner}</small>
+        <small class="sub">${tag}</small>
+      </li>
+    </ul>
   </script>
   </head>
   <body>
@@ -208,9 +217,9 @@
         <div class="showonnouser emboss">Please sign in</div>
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
+        <div id="appdetail">
+        </div>
         <div class="showoninit emboss">
-            <ul id="applist" class="edgetoedge">
-            </ul>
             <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
                 <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
                 <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>

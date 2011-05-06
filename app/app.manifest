@@ -21,9 +21,10 @@ NETWORK:
 #! EXCLUDE: jslib/jqtouch/themes/jqt
 #! EXCLUDE: jslib/touchlayer/examples
 #! EXCLUDE: test
-# TOTAL FILES: 51 (559,835 bytes)
-# SIGNATURE: c0ee070bc9285b221395a15d4d1f3964938da35e
+# TOTAL FILES: 63 (681,232 bytes)
+# SIGNATURE: 5ed214642061af81372656a911747c4026dd0ba6
 CACHE:
+detail.json
 dnd.js
 images/gradient.jpg
 images/icon.png
@@ -32,6 +33,17 @@ images/touch.png
 index.html
 jslib/beedesk/jqt.js
 jslib/beedesk/utilities.js
+jslib/jqtouch/extensions/iscroll/iscroll.js
+jslib/jqtouch/extensions/iscroll/pull-icon.png
+jslib/jqtouch/extensions/iscroll/pull-icon_2x.png
+jslib/jqtouch/extensions/jqt.autotitles.js
+jslib/jqtouch/extensions/jqt.floaty.js
+jslib/jqtouch/extensions/jqt.location.js
+jslib/jqtouch/extensions/jqt.offline.js
+jslib/jqtouch/extensions/spinningwheel/date.js
+jslib/jqtouch/extensions/spinningwheel/spinningwheel.js
+jslib/jqtouch/extensions/spinningwheel/sw-alpha.png
+jslib/jqtouch/extensions/spinningwheel/sw-slot-border.png
 jslib/jqtouch/jqtouch/jqtouch.css
 jslib/jqtouch/jqtouch/jqtouch.js
 jslib/jqtouch/jqtouch/jquery-1.5.1.min.js

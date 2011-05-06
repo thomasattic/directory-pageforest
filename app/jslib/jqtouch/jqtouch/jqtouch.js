@@ -1695,19 +1695,6 @@
             startHashCheck();
         };
 
-        // Get the party started
-        if (!state_initialized) {
-          init(options);
-          state_initialized = true;
-        }
-
-        $(document).ready(function() {
-          if (!state_started) {
-            start();
-            state_started = true;
-          }
-        });
-
         // Expose public methods and properties
         publicObj = {
             hist: hist,
@@ -1716,6 +1703,26 @@
             goTo: goTo,
             submitForm: submitHandler
         };
+
+        // Get the party started
+        if ($("#jqt").data("jqt") === undefined) {
+          $("#jqt").data("jqt", publicObj);
+
+          if (!state_initialized) {
+            init(options);
+            state_initialized = true;
+          }
+
+          $(document).ready(function() {
+            if (!state_started) {
+              start();
+              state_started = true;
+            }
+          });
+        } else {
+          publicObj = undefined;
+          console.warn("jQTouch has been previously initialized.");
+        }
 
         return publicObj;
     };
