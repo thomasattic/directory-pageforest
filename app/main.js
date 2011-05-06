@@ -175,8 +175,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         console.error(JSON.stringify(error));
       })
     });
-    $("#z-detailpane").bind("pagein", function(event, info) {
-      var $container = $("#z-detailpane ul#appdetail");
+    $("#z-detailpane").bind("pageout", function(event, info) {
+      var $container = $("#z-detailpane #appdetail");
       $container.children().remove();
     });
 
