@@ -1,5 +1,5 @@
 {
-  "application": "my",
+  "application": "directory",
   "cloneable": false,
   "created": {
     "__class__": "Date",
@@ -15,8 +15,8 @@
     "public"
   ],
   "referers": [
-    "http://my.pageforest.com/",
-    "http://my-dev.pageforest.com/",
+    "http://directory.pageforest.com/",
+    "http://directory-dev.pageforest.com/",
     "http://www.pageforest.com/"
   ],
   "secureData": false,
@@ -26,8 +26,8 @@
     "directory",
     "apps"
   ],
-  "title": "My Apps",
-  "url": "http://my.pageforest.com/",
+  "title": "Directory",
+  "url": "http://directory.pageforest.com/",
   "writers": [
     "mckoss",
     "beedesk"
