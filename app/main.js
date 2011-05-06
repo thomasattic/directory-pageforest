@@ -159,6 +159,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     }
   });
 
+  var resizeTimer;
   $(document).ready(function() {
     loadApp("editor");
     loadApp("my");
@@ -202,7 +203,16 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         });
       }, function(error) {
         console.error(JSON.stringify(error));
-      })
+      });
+
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeCarousel, 50);
+    });
+    $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
+      if (info.direction == 'in') {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeCarousel, 50);
+      }
     });
     $("#z-detailpane").bind("pageout", function(event, info) {
       var $container = $("#z-detailpane #appdetail");
@@ -211,6 +221,24 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
     $("#backbutton").bind("click", function(event) {
       jqt.goBack();
+    });
+
+    function resizeCarousel() {
+      console.warn("resizing... carousel");
+      var $container = $("#jqt > .current .carousel");
+      if ($container.length > 0) {
+        var $ul = $container.find("> .scroller");
+        var $items = $ul.find("> li");
+
+        var width = $(window).width();
+        $items.width((width) + "px");
+        $ul.width(($items.length * width) + "px");
+      }
+    }
+
+    $(window).bind("resize", function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeCarousel, 50);
     });
   });
 
