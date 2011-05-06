@@ -38,7 +38,7 @@
 
     var generatedRows = 0;
     function loaded() {
-      $("#jqt").children().each(function (i, pane) {
+      $("#jqt").bind("pageinit", function (i, pane) {
         $(pane).find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
           var $wrapper = $(wrap);
   
@@ -48,24 +48,19 @@
             var options = {};
             if ($wrapper.hasClass("scrollrefresh")) {
               options = {
-                pullToRefresh: "down",
-                onPullDown: function () {
-                  setTimeout(function () {
-                    var el, li, i;
-                    el = $("#z-inboxtask")[0];
-    
-                    for (i=0; i<3; i++) {
-                      li = document.createElement('li');
-                      li.innerText = 'Generated row ' + (++generatedRows);
-                      el.insertBefore(li, el.childNodes[0]);
-                    }
-    
-                    scroll.refresh(); // IMPORTANT!
-                  }, 1000); // <-- Simulate network congestion, remove setTimeout from production!
-                }
+                pullToRefresh: "down"
               };
+            } else if ($wrapper.hasClass("carousel")) {
+              options = {
+                snap: true,
+                momentum: false,
+                hScrollbar: false,
+                onScrollEnd: function () {
+                  document.querySelector('#indicator > li.active').className = '';
+                  document.querySelector('#indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'active';
+                }
+              }
             }
-
             scroll = new iScroll(wrap, options);
             $wrapper.data(KEY_ISCROLL_OBJ, scroll);
             scroll.refresh();
