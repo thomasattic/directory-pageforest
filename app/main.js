@@ -85,6 +85,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.owner = appjson.owner;
         itemjson.tag = Strings.join(", ", appjson.tags);
         itemjson.description = appjson.description;
+        itemjson.screenshots = [{url: iconurl}, {url: iconurl}];
         fn(itemjson);
       },
       error: function(request, textStatus, errorThrown) {
@@ -230,9 +231,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         var $ul = $container.find("> .scroller");
         var $items = $ul.find("> li");
 
-        var width = $(window).width();
-        $items.width((width) + "px");
-        $ul.width(($items.length * width) + "px");
+        if ($items.length > 0) {
+          var width = $(window).width();
+          $items.width((width) + "px");
+          $ul.width(($items.length * width) + "px");
+        }
       }
     }
 
