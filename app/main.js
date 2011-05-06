@@ -52,14 +52,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.next = '#z-detailpane';
         itemjson.tag = Strings.join(", ", appjson.tags);
 
-        // itemjson: {<appid>: {icon: '', url: '', title: ''}
-        /*
-        my.items.create(appid, itemjson, function() {
-          if (fn) {
-            fn(appid, itemjson);
-          }
-        }, err);
-        */
         //@TODO -- for UI work, we just by pass the model and call handler directly
         my.items.handler.added({id: appid, item: itemjson});
       },
@@ -92,6 +84,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.title = appjson.title;
         itemjson.owner = appjson.owner;
         itemjson.tag = Strings.join(", ", appjson.tags);
+        itemjson.description = appjson.description;
         fn(itemjson);
       },
       error: function(request, textStatus, errorThrown) {

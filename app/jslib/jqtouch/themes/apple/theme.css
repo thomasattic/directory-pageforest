@@ -2397,6 +2397,22 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(127, 127, 127, 0.75)), to(rgba(127, 127, 127, 0)))
 }
 
+#jqt ul.detail li.description {
+    text-shadow: none;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: justify;
+}
+
+#jqt ul.detail li.description pre {
+    font: 14px "Helvetica Neue", Helvetica;
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 #jqt ul.plastic li > .icon, #jqt ul.plastic li > a:only-of-type .icon,
 #jqt ul.detail li > .icon, #jqt ul.detail li > a:only-of-type .icon {
     display: inline-block;

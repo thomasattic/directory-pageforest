@@ -111,10 +111,12 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
     ns.extend({
         'onReady': onReady,
         'onUserChange': onUserChange,
+        /*
         'getDoc': getDoc,
-        'setDoc': setDoc,
         'getDocid': getDocid,
         'setDocid': setDocid,
+        */
+        'setDoc': setDoc,
         'items': items,
         'modelReady': modelReadyCallbacks,
         'loggedin': loggedin,
@@ -180,81 +182,6 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
 
     // setDoc is called whenever your document is be reloaded.
     function setDoc(json) {
-        // doc schema: {blob: {schema: 1, items: {<appid>: {icon: '', url: '', title: ''}, order: []}}}
-        var i, len;
-        var id, item, olditem, event, after;
-
-        var hasitem = !!json && !!json.blob && !!json.blob.items;
-        if (!hasitem) {
-            return;
-        }
-
-        var data = json.blob;
-
-        var commonTheirOrder = Arrays.clone(data.order);
-        var theirs = Arrays.clone(data.order).sort();
-
-        var commonMyOrder = Arrays.clone(displayedorder);
-        var mine = Arrays.clone(displayedorder).sort();
-
-        var diff = Arrays.intersect(mine, theirs, false);
-        for (i=0, len=diff.left.length; i<len; i++) {
-          // item removed
-          id = diff.left[i];
-          olditem = displayeditems[id];
-          items.handler.removed({id: id, olditem: olditem});
-          Arrays.remove(commonMyOrder, commonMyOrder.indexOf(id));
-        }
-        for (i=0, len=diff.right.length; i<len; i++) {
-          id = diff.right[i];
-          Arrays.remove(commonTheirOrder, commonTheirOrder.indexOf(id));
-        }
-        for (i=0, len=diff.middle.length; i<len; i++) {
-          id = commonTheirOrder[i];
-          item = data.items[id];
-          olditem = displayeditems[id];
-
-          event = {id: id, item: item, olditem: olditem};
-          var theirPrev, myPrev, cur;
-          if (i>0) {
-            theirPrev = commonTheirOrder[i-1];
-            cur = commonMyOrder.indexOf(id);
-            myPrev = commonMyOrder[cur-1];
-            if (myPrev !== theirPrev) {
-              event.after = theirPrev;
-            }
-          } else {
-            theirPrev = null;
-            cur = commonMyOrder.indexOf(id);
-            if (cur !== 0) {
-              event.after = null;
-            }
-          }
-          if (!Hashs.isEquals(item, olditem) || after === undefined) {
-            // item updated
-            if (after === null) {
-              after = undefined;
-            }
-            items.handler.updated(event);
-          }
-        }
-        for (i=0, len=data.order.length; i<len; i++) {
-          // item added
-          id = data.order[i];
-          item = data.items[id];
-          if (diff.right.indexOf(id) >= 0) {
-            if (i === 0) {
-              after = undefined;
-            } else {
-              after = data.order[i-1];
-            }
-            items.handler.added({id: id, item: item, after: after});
-          }
-        }
-
-        displayedorder = data.order;
-        displayeditems = data.items;
-
         modelReadyLatch.latch();
 
         // Expose appid
@@ -267,13 +194,7 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
 
     // getDoc is called to read the state of the current document.
     function getDoc() {
-        return {
-          title: 'User workspace',
-          blob: {
-            items: displayeditems,
-            order: displayedorder
-          }
-        };
+        return {};
     }
 
     function confirmDiscard() {
