@@ -838,6 +838,7 @@
                 $node.children().find('[section]:not([section~="' + section + '"])').addClass('missection');
 
                 $body.trigger('pageInserted', {page: $node.appendTo($body)});
+                $body.trigger("pageinit", {page: $node.appendTo($body)});
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -1658,8 +1659,13 @@
             });
 
             // move to init page be specified in querystring
+            var $page = $("#jqt > " + startpage);
+            $page = $("#jqt > " + startpage);
+            $page.each(function(i, page) {
+              $body.trigger("pageinit");
+            });
+
             if (startpage) {
-              var $page = $("#jqt > " + startpage);
               var section = $page.attr("section");
               if ($page.length === 1) {
                 if (section === defaultSection) {
