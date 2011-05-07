@@ -2466,7 +2466,8 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt ul.plastic li small.super, #jqt ul.plastic li small.sub,
-#jqt ul.detail li small.super, #jqt ul.detail li small.sub {
+#jqt ul.detail li small.super, #jqt ul.detail li small.sub,
+#jqt ul.detail li a.button.end {
     display: inline-block;
     position: absolute;
     width: auto;
@@ -2498,6 +2499,13 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 
 #jqt ul.detail li small.sub {
     bottom: 4px; left: 59px;
+}
+
+#jqt ul.detail li a.button.end {
+    top: 27px; right: 25px;
+    color: white;
+    font-size: 12px;
+    -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
 }
 
 #jqt ul.plastic.minibanner, #jqt ul.plastic.bigbanner {

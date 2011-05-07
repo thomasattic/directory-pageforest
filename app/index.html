@@ -129,6 +129,10 @@
       z-index: 2;
     }
 
+    .buttonbar {
+      display: none;
+    }
+
     .buttonbar span {
       box-sizing: border-box;
       margin: 4px;
@@ -279,6 +283,7 @@
           ${title}
           <small class="super">${owner}</small>
           <small class="sub">${tag}</small>
+          <a href="${url}" class="end button white">Install</a>
         </li>
         <li class="description"><pre>${description}</pre></li>
       </ul>
@@ -304,6 +309,10 @@
   <body>
     <div id="jqt" class="initstate unfixed">
       <div id="z-listpane" class="pane form" section="aside">
+        <div class="bar">
+            <input type="radio" name="whatsup" title="Featured" checked/>
+            <input type="radio" name="whatsup" title="All"/>
+        </div>
         <ul id="applist" class="plastic">
         </ul>
         <div class="showoninit emboss">
@@ -315,6 +324,10 @@
         <div class="showonnouser emboss">Please sign in</div>
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
+        <div class="toolbar">
+            <h1>Info</h1>
+            <a href="#" class="back">Back</a>
+        </div>
         <div id="appdetail">
         </div>
         <div class="showoninit emboss">

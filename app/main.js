@@ -209,12 +209,14 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(resizeCarousel, 50);
     });
+
     $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
       if (info.direction == 'in') {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(resizeCarousel, 50);
       }
     });
+
     $("#z-detailpane").bind("pageout", function(event, info) {
       var $container = $("#z-detailpane #appdetail");
       $container.children().remove();

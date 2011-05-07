@@ -161,7 +161,7 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         ns.client = new clientLib.Client(ns);
 
         // Use the standard Pageforest UI widget.
-        ns.client.addAppBar();
+        //ns.client.addAppBar();
 
         // This app demonstrates auto-loading - will reload the doc if
         // it is changed by another user.
