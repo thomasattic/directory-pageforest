@@ -161,6 +161,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   });
 
   var resizeTimer;
+  var KEY_ISCROLL_OBJ = 'iscroll_object';
   $(document).ready(function() {
     loadApp("editor");
     loadApp("my");
@@ -168,13 +169,38 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     loadApp("chess");
     loadApp("directory-dev");
 
+    function refreshScroll($pane) {
+      $pane.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
+        var $wrapper = $(wrap);
+        var scroll = $wrapper.data(KEY_ISCROLL_OBJ);
+        if (scroll !== undefined && scroll !== null) {
+          scroll.refresh();
+        }
+      });
+    }
+
+    function resizeCarousel() {
+      console.warn("resizing... carousel");
+      var $container = $("#jqt > .current .carousel");
+      if ($container.length > 0) {
+        var $ul = $container.find("> .scroller");
+        var $items = $ul.find("> li");
+
+        if ($items.length > 0) {
+          var width = $(window).width();
+          $items.width((width) + "px");
+          $ul.width(($items.length * width) + "px");
+        }
+      }
+      refreshScroll($("#jqt > .current"));
+    }
+
     $("#z-detailpane").bind("pagein", function(event, info) {
       loadDetail(info.search.appid, {}, function(data) {
         var $newitem = $("#dirdetail-template").tmpl(data);
         var $container = $("#z-detailpane #appdetail");
         $container.append($newitem);
 
-        var KEY_ISCROLL_OBJ = 'iscroll_object';
         $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
           var $wrapper = $(wrap);
           var data = $wrapper.data(KEY_ISCROLL_OBJ);
@@ -207,7 +233,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       });
 
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resizeCarousel, 50);
+      resizeTimer = setTimeout(resizeCarousel, 150);
     });
 
     $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
@@ -225,21 +251,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     $("#backbutton").bind("click", function(event) {
       jqt.goBack();
     });
-
-    function resizeCarousel() {
-      console.warn("resizing... carousel");
-      var $container = $("#jqt > .current .carousel");
-      if ($container.length > 0) {
-        var $ul = $container.find("> .scroller");
-        var $items = $ul.find("> li");
-
-        if ($items.length > 0) {
-          var width = $(window).width();
-          $items.width((width) + "px");
-          $ul.width(($items.length * width) + "px");
-        }
-      }
-    }
 
     $(window).bind("resize", function() {
       clearTimeout(resizeTimer);
