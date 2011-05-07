@@ -206,7 +206,7 @@
       display: block; position: relative;
       width: 95%; height: 100%;
       margin-left: auto; margin-right: auto; margin-top: 5px;
-      background-size: contain;
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: 50% 50%;
       -webkit-background-origin: content-box;
@@ -214,6 +214,9 @@
       -webkit-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; -moz-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt;
     }
 
+    #jqt #z-listpane ul:not(.on) {
+      display: none;
+    }
   </style>
 
   <script>
@@ -310,9 +313,11 @@
     <div id="jqt" class="initstate unfixed">
       <div id="z-listpane" class="pane form" section="aside">
         <div class="bar">
-            <input type="radio" name="whatsup" title="Featured" checked/>
-            <input type="radio" name="whatsup" title="All"/>
+            <input type="radio" name="categories" title="Featured" value="Featured" checked/>
+            <input type="radio" name="categories" title="All" value="All"/>
         </div>
+        <ul id="featured-applist" class="plastic">
+        </ul>
         <ul id="applist" class="plastic">
         </ul>
         <div class="showoninit emboss">

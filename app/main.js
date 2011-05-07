@@ -252,6 +252,24 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       jqt.goBack();
     });
 
+    $("#z-listpane input[type='radio'][name='categories']").bind("click", function(event) {
+      var $target = $(this);
+      var val = $target.val();
+      if (val === "Featured") {
+        if (!$("#z-listpane ul#featured-applist").hasClass("on")) {
+          $("#z-listpane ul").removeClass("on");
+          $("#z-listpane ul#featured-applist").addClass("on");
+        }
+      } else if (val === "All") {
+        if (!$("#z-listpane ul#applist").hasClass("on")) {
+          $("#z-listpane ul").removeClass("on");
+          $("#z-listpane ul#applist").addClass("on");
+        }
+      } else {
+        console.error("Unexpected radio button value: " + val);
+      }
+    });
+
     $(window).bind("resize", function() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(resizeCarousel, 50);
