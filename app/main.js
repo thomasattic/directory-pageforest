@@ -199,6 +199,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       getDetail(info.search.appid, {}, function(data) {
         var $newitem = $("#dirdetail-template").tmpl(data.item);
         var $container = $("#z-detailpane #appdetail");
+        $container.children().remove();
         $container.append($newitem);
 
         $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
@@ -246,6 +247,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     $("#z-detailpane").bind("pageout", function(event, info) {
       var $container = $("#z-detailpane #appdetail");
       $container.children().remove();
+      var $newitem = $("#emptyitem-template").tmpl();
+      $container.append($newitem);
     });
 
     $("#backbutton").bind("click", function(event) {

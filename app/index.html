@@ -281,6 +281,13 @@
   <script id="diritem-group-template" type="text/x-jquery-tmpl">
     <ul id="${id}" class="grid"></ul>
   </script>
+  <script id="emptyitem-template" type="text/x-jquery-tmpl">        <div class="showoninit emboss">
+    <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
+      <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+      <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
+      <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
+      </div>Loading...</div>
+  </script>
   <script id="diritem-template" type="text/x-jquery-tmpl">
     <li data-id="${appid}" class="arrow" draggable="false">
       <a href="${next}"><div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
@@ -356,12 +363,12 @@
         </div>
         <div id="appdetail">
         </div>
-        <div class="showoninit emboss">
-            <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
-                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
-                <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
-                <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
-            </div>Loading...</div>
+<!--        <div class="showoninit emboss">-->
+<!--            <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">-->
+<!--                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>-->
+<!--                <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>-->
+<!--                <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>-->
+<!--            </div>Loading...</div>-->
       </div>
     </div>
     <div>
