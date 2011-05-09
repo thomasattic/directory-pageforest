@@ -141,6 +141,19 @@
       color: #464646;
     }
 
+    #jqt > * .footer > div {
+        display: block;
+        position: relative;
+        padding: 15px;
+        -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+        line-height: 16px; width: 100%;
+        /* background: #dce1eb; */
+        color: #444;
+        font-weight: bold; text-align: left; font-size: 12px;
+        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        border-top: 1px solid rgba(76, 86, 108, .3);
+    }
+
     #jqt .carousel {
       display: block;
       background-color: #777;
@@ -320,13 +333,21 @@
         </ul>
         <ul id="applist" class="plastic">
         </ul>
+        <div class="footer showonnouser">
+            <div>You are not sign in:
+                <!-- @TODO - hardcode path -->
+                <a href="http://www.pageforest.com/sign-in/directory-dev/" target="_blank" class="span button white nouserstate">Sign in</a>
+            </div>
+        </div>
+        <div class="footer" style="margin: 15px;">
+            <a href="#" target="_blank" class="span button white nouserstate">Sign out</a>
+        </div>
         <div class="showoninit emboss">
             <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
                 <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
                 <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
                 <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
             </div>Loading</div>
-        <div class="showonnouser emboss">Please sign in</div>
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
         <div class="toolbar">

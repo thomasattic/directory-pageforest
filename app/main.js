@@ -31,7 +31,16 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var modelReadyLatch = Threads.latchbinder();
   my.modelReady.push(modelReadyLatch.latch);
 
-  function loadApp(appid, options, fn, err) {
+  function loadApp(appid) {
+    getApp(appid, {}, function(event) {
+      //@TODO -- for UI work, we just by pass the model and call handler directly
+      my.items.handler.added(event);
+    }, function(exception) {
+      console.error(JSON.stringify(exception));
+    });
+  }
+
+  function getApp(appid, options, fn, err) {
     var apppath = '/mirror/' + appid + '/app.json';
     $.ajax({
       type: 'GET',
@@ -52,8 +61,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.next = '#z-detailpane';
         itemjson.tag = Strings.join(", ", appjson.tags);
 
-        //@TODO -- for UI work, we just by pass the model and call handler directly
-        my.items.handler.added({id: appid, item: itemjson});
+        fn({id: appid, item: itemjson});
       },
       error: function(request, textStatus, errorThrown) {
         var exception = {datasetname: 'my.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
@@ -65,37 +73,29 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     });
   };
 
-  function loadDetail(appid, options, fn, err) {
+  function getDetail(appid, options, fn, err) {
     var apppath = '/mirror/' + appid + '/detail.json';
-    $.ajax({
-      type: 'GET',
-      url: apppath,
-      dataType: 'json',
-      beforeSend: function(xhr) {},
-      success: function(appjson) {
-        var itemjson = {};
-        var iconurl = '/static/images/icon.png';
-        if (appjson.icon) {
-            iconurl = '/mirror/' + appid + '/' + appjson.icon;
+    getApp(appid, options, function(event) {
+      var itemjson = event.item;
+      $.ajax({
+        type: 'GET',
+        url: apppath,
+        dataType: 'json',
+        beforeSend: function(xhr) {},
+        success: function(appjson) {
+          itemjson.description = appjson.description;
+          //itemjson.screenshots = [{url: }, {url: iconurl}];
+          itemjson.screenshots = [];
+          fn({id: appid, item: itemjson});
+        },
+        error: function(request, textStatus, errorThrown) {
+          // detail.json is optional. we simple skip it
+          itemjson.description = "<< no description >>";
+          itemjson.screenshots = [];
+          fn({id: appid, item: itemjson});
         }
-
-        itemjson.icon = iconurl;
-        itemjson.appid = appid;
-        itemjson.title = appjson.title;
-        itemjson.owner = appjson.owner;
-        itemjson.tag = Strings.join(", ", appjson.tags);
-        itemjson.description = appjson.description;
-        itemjson.screenshots = [{url: iconurl}, {url: iconurl}];
-        fn(itemjson);
-      },
-      error: function(request, textStatus, errorThrown) {
-        var exception = {datasetname: 'my.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
-        exception.nested = {request: request, status: textStatus, exception: errorThrown};
-        if (err) {
-          err(exception);
-        }
-      }
-    });
+      });
+    }, err);
   };
 
   // Map Pageforest URL's to be relative to current domain (for non-pageforest.com hosting).
@@ -196,8 +196,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     }
 
     $("#z-detailpane").bind("pagein", function(event, info) {
-      loadDetail(info.search.appid, {}, function(data) {
-        var $newitem = $("#dirdetail-template").tmpl(data);
+      getDetail(info.search.appid, {}, function(data) {
+        var $newitem = $("#dirdetail-template").tmpl(data.item);
         var $container = $("#z-detailpane #appdetail");
         $container.append($newitem);
 

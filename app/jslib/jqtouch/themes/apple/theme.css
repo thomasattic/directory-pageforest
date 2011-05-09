@@ -657,6 +657,15 @@ body {
     border-right: 0px none transparent;
 }
 
+#jqt > * > * .button.white {
+    /* @TODO -- should merge with ".bar input[type="radio"]" eventually */
+    color: #222;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EBEBEB), color-stop(0.5, #C4C4C4), color-stop(0.5, #A7A7A7), color-stop(1, #A8A8A8));
+    -webkit-box-shadow: inset 0 1px 1px rgba(127, 127, 127, .25), 0 1px 0 rgba(127, 127, 127, 0.25);
+    text-shadow: rgba(127, 127, 127, 0.5) -0.5px -0.5px 0, rgba(255, 255, 255, 0.5) 0.5px 0.5px 0;
+    border: 1px solid #555;
+}
+
 #jqt > * > * .button.darkgrey,
 #jqt > * > * .button.lightgrey:active, #jqt > * > * .button.lightgrey.active, #jqt > * > * .button.lightgrey:checked,
 #jqt .searchbox .inputbar .button, #jqt .searchbox .optionbar .button,
@@ -671,7 +680,7 @@ body {
     text-shadow: rgba(127, 127, 127, 0.5) -1px -1px 0, rgba(127, 127, 127, 0.5) 1px 1px 0;
 }
 
-#jqt > * > * .button.darkgrey:active, #jqt > * > * .button.darkgrey.active,
+#jqt > * > * .button.darkgrey:active, #jqt > * > * .button.darkgrey.active, #jqt > * > * .button.white.active,
 #jqt .searchbox .inputbar .button:active, #jqt .searchbox .optionbar .button:active,
 #jqt .searchbox .inputbar .button.active, #jqt .searchbox .optionbar .button.active {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #8991A7), color-stop(0.5, #4D597A), color-stop(0.5, #3E4B6F), color-stop(1, #3E4A6E));
