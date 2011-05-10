@@ -257,7 +257,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
       if (info.direction == 'in') {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(resizeCarousel, 50);
+        resizeTimer = setTimeout(resizeCarousel, 150);
       }
     });
 
@@ -308,7 +308,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
     $(window).bind("resize", function() {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resizeCarousel, 50);
+      resizeTimer = setTimeout(resizeCarousel, 150);
     });
   });
 
