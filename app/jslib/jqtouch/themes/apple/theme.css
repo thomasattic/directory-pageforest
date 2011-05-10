@@ -2470,7 +2470,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     text-shadow: rgb(211,211,211) 0 1px 0;
     font-size: 13px;
     font-weight: bold;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     line-height: 24px;
 }
 

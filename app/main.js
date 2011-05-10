@@ -60,6 +60,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.title = appjson.title;
         itemjson.owner = appjson.owner;
         itemjson.next = '#z-detailpane';
+        itemjson.featured = appjson.tags.indexOf("featured") >= 0;
+        console.warn("... " + appjson.tags.indexOf("featured") + "    " + JSON.stringify(appjson.tags));
+        itemjson.dev = appid.length > 4 && Strings.endsWith(appid, "-dev");
         itemjson.tag = Strings.join(", ", appjson.tags);
 
         fn({id: appid, item: itemjson});
@@ -176,6 +179,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     loadApp("my");
     loadApp("beedesk-test");
     loadApp("chess");
+    loadApp("directory");
     loadApp("directory-dev");
 
     function refreshScroll($pane) {
@@ -264,6 +268,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       jqt.goBack();
     });
 
+    $("#z-listpane ul").removeClass("on");
+    $("#z-listpane ul#featured-applist").addClass("on");
     $("#z-listpane input[type='radio'][name='categories']").bind("click", function(event) {
       var $target = $(this);
       var val = $target.val();
@@ -297,21 +303,16 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   // Items handler listens to CRUD events from model
   my.items.handler = {
     added: function(event) {
-      var $newitem = $("#diritem-template").tmpl(event.item);
-      var $container = $("#z-listpane ul#applist");
-      if ("after" in event) {
-        if (event.after !== undefined) {
-          var $leader = $container.find("li[data-id=" + event.after + "]");
-          if ($leader.length > 0) {
-            $leader.after($newitem);
-          } else {
-            console.error("Could not find peer, '" + event.after + "'");
-            $container.append($newitem);
-          }
-        } else {
-          $container.prepend($newitem);
+      var $newitem, $container;
+
+      if (!event.item.dev) {
+        if (event.item.featured) {
+          $newitem = $("#diritem-template").tmpl(event.item);
+          $container = $("#z-listpane ul#featured-applist");
+          $container.append($newitem);
         }
-      } else {
+        $newitem = $("#diritem-template").tmpl(event.item);
+        $container = $("#z-listpane ul#applist");
         $container.append($newitem);
       }
     },

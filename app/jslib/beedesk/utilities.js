@@ -386,6 +386,9 @@ var Strings = new function() {
   this.startsWith = function(str, prefix) {
     return str.indexOf(prefix) === 0;
   }
+  this.endsWith = function(str, suffix) {
+    return str.indexOf(suffix, this.length - suffix.length) !== -1;
+  };
   return this;
 };
 
