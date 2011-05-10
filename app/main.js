@@ -54,6 +54,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
             iconurl = '/mirror/' + appid + '/' + appjson.icon;
         }
 
+        itemjson.url = normalizeHost(appjson.url);
         itemjson.signedin = loggedin;
         itemjson.icon = iconurl;
         itemjson.appid = appid;
@@ -61,7 +62,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         itemjson.owner = appjson.owner;
         itemjson.next = '#z-detailpane';
         itemjson.featured = appjson.tags.indexOf("featured") >= 0;
-        console.warn("... " + appjson.tags.indexOf("featured") + "    " + JSON.stringify(appjson.tags));
         itemjson.dev = appid.length > 4 && Strings.endsWith(appid, "-dev");
         itemjson.tag = Strings.join(", ", appjson.tags);
 
