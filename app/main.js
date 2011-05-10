@@ -1,23 +1,21 @@
 namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns) {
+  var loggedin, username;
+
   var my = namespace.lookup("com.pageforest.directory");
-
   var IS_TOUCH = 'ontouchstart' in window;
-
-  var conf = {
-    tapholdThreshold: 1000
-  }
 
   // Call the onReady function of the application when the page is loaded.
   $(document).ready(my.onReady);
 
   // If user has logged in and then logoff, we refresh the page to avoid any
   // leftover data from previous session.
-  var loggedin;
-  my.loggedin.push(function() {
+  my.loggedin.push(function(newname) {
     loggedin = true;
+    username = newname;
   });
   my.loggedout.push(function() {
     if (loggedin) window.location.reload();
+    username = undefined;
   });
 
   var jqt = $.jQTouch({
@@ -41,6 +39,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   }
 
   function getApp(appid, options, fn, err) {
+    if (!appid) {
+      console.error("appid is null");
+    }
     var apppath = '/mirror/' + appid + '/app.json';
     $.ajax({
       type: 'GET',
@@ -103,6 +104,26 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     }, err);
   };
 
+  function getInstalled(appid, options, fn, err) {
+    var apppath = '/mirror/' + appid + '/docs/' + username + '/';
+    $.ajax({
+      type: 'GET',
+      url: apppath,
+      dataType: 'json',
+      beforeSend: function(xhr) {},
+      success: function(appjson) {
+        fn({id: appid, item: appjson});
+      },
+      error: function(request, textStatus, errorThrown) {
+        var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+        exception.nested = {request: request, status: textStatus, exception: errorThrown};
+        if (err) {
+          err(exception);
+        }
+      }
+    });
+  };
+
   // Map Pageforest URL's to be relative to current domain (for non-pageforest.com hosting).
   function normalizeHost(url) {
       var appHost = window.location.host;
@@ -110,63 +131,18 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       return url;
   }
 
-  // reference: http://code.google.com/p/pageforest/source/browse/appengine/auth/middleware.py::referer_is_trusted
-  var referers;
-  function check(allowed, referer) {
-    var i, len;
-    for (i=0, len=allowed.length; i<len; i++) {
-       var prefix = allowed[i];
-       if (Strings.startsWith(referer, prefix)
-           || Strings.startsWith(referer.replace('http://', 'https://'), prefix)) {
-         return true;
-       }
-    }
-    return false;
-  }
-
-  function checkReferers(referer, fn, err) {
-    var appid = my.items.appid;
-    if (!referers) {
-      // ajax on that:
-      var apppath = '/mirror/' + appid + '/app.json';
-      $.ajax({
-        type: 'GET', url: apppath, dataType: 'json', async: false,
-        success: function(appjson) {
-          referers = appjson.referers;
-          if (check(referers, referer)) {
-            fn();
-          } else {
-            err();
-          }
-        },
-        error: function(request, textStatus, errorThrown) {
-          err();
-        }
-      });
-    } else {
-      if (check(referers, referer)) {
-        fn();
-      } else {
-        err();
-      }
-    } // these method can look much simpler if we use library such as "Promise".
-  }
-  // </Application Adding>
-
   // Manage display to indicate state
   modelReadyLatch.bind(function() {
     $("#jqt").removeClass("initstate");
     $("#jqt").removeClass("nouserstate");
   });
   my.loggedout.push(function() {
-    loggedin = undefined;
     if (!loggedin) {
       $("#jqt").removeClass("initstate");
       $("#jqt").addClass("nouserstate");
     }
   });
   my.loggedin.push(function(newname) {
-    loggedin = true;
     $("#jqt").removeClass("initstate");
     $("#jqt").removeClass("nouserstate");
 
@@ -215,6 +191,18 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         var $container = $("#z-detailpane #appdetail");
         $container.children().remove();
         $container.append($newitem);
+
+        //@TODO -- <untested> code (can't test because of bug in /mirror on getting docs of another app
+        getInstalled("my", {}, function(json) {
+          var order = json.item.blob.order;
+          var found = order.indexOf(info.search.appid) >= 0;
+          if ($container.closest('html').length) {
+            $container.addClass("installed");
+          }
+        }, function(error) {
+          console.error(JSON.stringify(error));
+        });
+        // </untested>
 
         $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
           var $wrapper = $(wrap);
@@ -289,7 +277,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       }
     });
 
-    $("#sign-out").bind("click", function(e) {
+    $(".sign-out").live("click", function(e) {
+      // use live to handle both detail (dynamic) and list page
       e.preventDefault();
       e.stopPropagation();
       my.signOut();

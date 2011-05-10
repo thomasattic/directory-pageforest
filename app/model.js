@@ -25,7 +25,7 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
             } else if (!!err) {
               err();
             } else {
-              console.error("[" + items.name + "] Cannot find item, '" + id + "'."); 
+              console.error("[" + items.name + "] Cannot find item, '" + id + "'.");
             }
         },
         create: function(id, item, fn, err) {

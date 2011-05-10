@@ -83,6 +83,14 @@
         display: none;
     }
 
+    #jqt #z-detailpane #appdetail.installed .showonnotinstalled {
+        display: none;
+    }
+
+    #jqt #z-detailpane #appdetail:not(.installed) .showoninstalled {
+        display: none;
+    }
+
     #pfSave,
     .nonpage,
     .hidden,
@@ -302,8 +310,9 @@
           ${title}
           <small class="super">${owner}</small>
           <small class="sub">${tag}</small>
-          <a href="${installurl}" target="_blank" class="end button bluegrey showonuser">Install</a>
-          <a href="" class="end button bluegrey showonnouser" disabled>Log in to Install</a>
+          <a href="${installurl}" target="_blank" class="end button bluegrey showonuser showonnotinstalled">Install</a>
+          <div class="end button bluegrey showonuser showoninstalled" disabled>INSTALLED</div>
+          <div class="end button bluegrey showonnouser" disabled>Log in to Install</div>
         </li>
         <li class="description"><pre>${description}</pre></li>
       </ul>
@@ -344,7 +353,7 @@
         </div>
         <div class="footer showonuser">
            <div class="welcome-message">Welcome</div>
-           <div><a id="sign-out" href="#" class="span button white nouserstate">Sign out</a></div>
+           <div><a href="#" class="sign-out span button white nouserstate">Sign out</a></div>
         </div>
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
@@ -361,7 +370,7 @@
         </div>
         <div class="footer showonuser">
            <div class="welcome-message">Welcome</div>
-           <div><a id="sign-out" href="#" class="span button white nouserstate">Sign out</a></div>
+           <div><a href="#" class="sign-out span button white nouserstate">Sign out</a></div>
         </div>
       </div>
     </div>
