@@ -90,11 +90,20 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         beforeSend: function(xhr) {},
         success: function(appjson) {
           itemjson.description = appjson.description;
-          //itemjson.screenshots = [{url: }, {url: iconurl}];
           itemjson.screenshots = [];
+          for (var i=0, len=appjson.screenshots.length; i<len; i++) {
+            var ssurl = '/mirror/' + appid + '/' + appjson.screenshots[i].url;
+            itemjson.screenshots.push({url: ssurl});
+          }
+
+          console.warn("detail found: " + JSON.stringify(itemjson));
           fn({id: appid, item: itemjson});
         },
         error: function(request, textStatus, errorThrown) {
+          var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+          exception.nested = {request: request, status: textStatus, exception: errorThrown};
+          console.warn("detail error: " + JSON.stringify(exception));
+
           // detail.json is optional. we simple skip it
           itemjson.description = "<< no description >>";
           itemjson.screenshots = [];
@@ -193,15 +202,17 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         $container.append($newitem);
 
         //@TODO -- <untested> code (can't test because of bug in /mirror on getting docs of another app
-        getInstalled("my", {}, function(json) {
-          var order = json.item.blob.order;
-          var found = order.indexOf(info.search.appid) >= 0;
-          if ($container.closest('html').length) {
-            $container.addClass("installed");
-          }
-        }, function(error) {
-          console.error(JSON.stringify(error));
-        });
+        if (!!username) {
+          getInstalled("my", {}, function(json) {
+            var order = json.item.blob.order;
+            var found = order.indexOf(info.search.appid) >= 0;
+            if ($container.closest('html').length) {
+              $container.addClass("installed");
+            }
+          }, function(error) {
+            console.error(JSON.stringify(error));
+          });
+        }
         // </untested>
 
         $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
