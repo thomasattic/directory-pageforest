@@ -109,14 +109,14 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
     };
 
     ns.extend({
-        'onReady': onReady,
+        'main': main,
         'onUserChange': onUserChange,
         /*
         'getDoc': getDoc,
         'getDocid': getDocid,
         'setDocid': setDocid,
-        */
         'setDoc': setDoc,
+        */
         'items': items,
         'modelReady': modelReadyCallbacks,
         'loggedin': loggedin,
@@ -160,7 +160,7 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
     // This function is called when the index.html home page
     // is loaded.  Use it to initialize your application and
     // set up the Pageforest Client Library App Bar user interface.
-    function onReady() {
+    function main() {
 
         var clientLib = namespace.lookup('com.pageforest.client');
 
@@ -178,30 +178,8 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         // the doc and logging in the user.
         ns.client.poll();
 
-    }
-
-    function getDocid() {
-        return ns.client.username;
-    }
-
-    function setDocid() {
-    }
-
-    // setDoc is called whenever your document is be reloaded.
-    function setDoc(json) {
-        modelReadyLatch.latch();
-
         // Expose appid
         items.appid = ns.client.appid;
-
-        for (i=0, len=modelReadyCallbacks.length; i<len; i++) {
-          modelReadyCallbacks[i]();
-        }
-    }
-
-    // getDoc is called to read the state of the current document.
-    function getDoc() {
-        return {};
     }
 
     function confirmDiscard() {

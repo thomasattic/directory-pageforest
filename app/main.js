@@ -5,7 +5,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var IS_TOUCH = 'ontouchstart' in window;
 
   // Call the onReady function of the application when the page is loaded.
-  $(document).ready(my.onReady);
+  $(document).ready(my.main);
 
   // If user has logged in and then logoff, we refresh the page to avoid any
   // leftover data from previous session.
@@ -195,6 +195,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       }
       refreshScroll($("#jqt > .current"));
     }
+
+    // workaround to get sign-in button working
+    // (iOS fullscreen mode must launch page using default <a> handler
+    var loginurl = "http://www.pageforest.com/sign-in/" + my.items.appid;
+    $(".sign-in-anchor").attr("href", normalizeHost(loginurl));
 
     $("#z-detailpane").bind("pagein", function(event, info) {
       getDetail(info.search.appid, {}, function(data) {
