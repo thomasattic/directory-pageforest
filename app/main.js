@@ -55,6 +55,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         }
 
         itemjson.url = normalizeHost(appjson.url);
+        itemjson.installurl = normalizeHost("http://my.pageforest.com/#installapp=" + appid);
         itemjson.signedin = loggedin;
         itemjson.icon = iconurl;
         itemjson.appid = appid;
