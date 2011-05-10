@@ -54,6 +54,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
             iconurl = '/mirror/' + appid + '/' + appjson.icon;
         }
 
+        itemjson.signedin = loggedin;
         itemjson.icon = iconurl;
         itemjson.appid = appid;
         itemjson.title = appjson.title;
@@ -154,10 +155,18 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     $("#jqt").removeClass("nouserstate");
   });
   my.loggedout.push(function() {
+    loggedin = undefined;
     if (!loggedin) {
       $("#jqt").removeClass("initstate");
       $("#jqt").addClass("nouserstate");
     }
+  });
+  my.loggedin.push(function(newname) {
+    loggedin = true;
+    $("#jqt").removeClass("initstate");
+    $("#jqt").removeClass("nouserstate");
+
+    $(".welcome-message").text("Pageforest id: " + newname);
   });
 
   var resizeTimer;

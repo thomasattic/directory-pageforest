@@ -28,26 +28,8 @@
         background-color: darkgrey;
     }
 
-    body #phantom, body .phantom {
-      display: block; position: absolute;
-      width: 64px; height: 64px;
-      background-color: rgba(255, 255, 255, 0.5);
-      -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px;
-      -webkit-user-drag: none;
-      cursor: pointer;
-      z-index: 5; opacity: 0.7;
-      background-repeat: no-repeat;
-      -webkit-background-size: contain;
-      background-size: contain;
-      background-position: 50% 50%;
-      -webkit-background-origin: content-box;
-      -webkit-transition-duration: 250ms;
-      -webkit-transition-timing-function: linear;
-      -webkit-transition-property: width, height;
-    }
-
-    body #phantom.active, body .phantom.active {
-      width: 68px; height: 68px;
+    #jqt > #z-detailpane .header a {
+        max-width: none;
     }
 
     .invisible {
@@ -91,11 +73,13 @@
         display: none;
     }
 
-    #jqt:not(.nouserstate) .showonnouser {
+    #jqt:not(.nouserstate) .showonnouser,
+    #jqt:not(.nouserstate) #z-detailpane .header .showonnouser {
         display: none;
     }
 
-    #jqt.nouserstate .showonuser {
+    #jqt.nouserstate .showonuser,
+    #jqt.nouserstate #z-detailpane .header .showonuser {
         display: none;
     }
 
@@ -146,20 +130,23 @@
     }
 
     #jqt > * .footer {
-        margin: 15px;
+        border-top: 1px solid #333;
+        background-color: #CCC;
     }
 
     #jqt > * .footer > div {
         display: block;
         position: relative;
-        padding: 15px;
+        padding: 15px 15px 15px 15px;
         -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
         line-height: 16px; width: 100%;
-        /* background: #dce1eb; */
         color: #444;
         font-weight: bold; text-align: left; font-size: 12px;
         text-shadow: rgba(255,255,255,.8) 0 1px 0;
-        border-top: 1px solid rgba(76, 86, 108, .3);
+    }
+
+    #jqt > * .footer > div + div {
+        padding-top: 0px;
     }
 
     #jqt .carousel {
@@ -315,7 +302,8 @@
           ${title}
           <small class="super">${owner}</small>
           <small class="sub">${tag}</small>
-          <a href="${url}" class="end button white">Install</a>
+          <a href="${url}" class="end button bluegrey showonuser">Install</a>
+          <a href="" class="end button bluegrey showonnouser" disabled>Log in to Install</a>
         </li>
         <li class="description"><pre>${description}</pre></li>
       </ul>
@@ -333,7 +321,7 @@
         </ul>
         </div>
       {{/if}}
-      <a href="${url}" class="pushbutton white">Try it</a>
+      <a href="${url}" class="pushbutton gray">Try it</a>
       <br></br>
     </div>
   </script>
@@ -350,13 +338,13 @@
         <ul id="applist" class="plastic">
         </ul>
         <div class="footer showonnouser">
-            <div>You are not sign in:
-                <!-- @TODO - hardcode path -->
-                <a href="http://www.pageforest.com/sign-in/directory-dev/" target="_blank" class="span button white nouserstate">Sign in</a>
-            </div>
+            <div>You are not sign in:</div>
+            <!-- @TODO - hardcode path -->
+            <div><a href="http://www.pageforest.com/sign-in/directory-dev/" target="_blank" class="span button white nouserstate">Sign in</a></div>
         </div>
         <div class="footer showonuser">
-            <a id="sign-out" href="#" class="span button white nouserstate">Sign out</a>
+           <div class="welcome-message">Welcome</div>
+           <div><a id="sign-out" href="#" class="span button white nouserstate">Sign out</a></div>
         </div>
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
@@ -366,12 +354,15 @@
         </div>
         <div id="appdetail">
         </div>
-<!--        <div class="showoninit emboss">-->
-<!--            <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">-->
-<!--                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>-->
-<!--                <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>-->
-<!--                <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>-->
-<!--            </div>Loading...</div>-->
+        <div class="footer showonnouser">
+            <div>You are not sign in:</div>
+            <!-- @TODO - hardcode path -->
+            <div><a href="http://www.pageforest.com/sign-in/directory-dev/" target="_blank" class="span button white nouserstate">Sign in</a></div>
+        </div>
+        <div class="footer showonuser">
+           <div class="welcome-message">Welcome</div>
+           <div><a id="sign-out" href="#" class="span button white nouserstate">Sign out</a></div>
+        </div>
       </div>
     </div>
     <div>

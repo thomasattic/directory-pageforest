@@ -144,7 +144,7 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
 
         var fn = !!username? loggedin: loggedout;
         for (i=0, len=fn.length; i<len; i++) {
-          fn[i]();
+          fn[i](newname);
         }
 
         if (!username) {
