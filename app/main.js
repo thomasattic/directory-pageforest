@@ -91,9 +91,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         success: function(appjson) {
           itemjson.description = appjson.description;
           itemjson.screenshots = [];
-          for (var i=0, len=appjson.screenshots.length; i<len; i++) {
-            var ssurl = '/mirror/' + appid + '/' + appjson.screenshots[i].url;
-            itemjson.screenshots.push({url: ssurl});
+          if (!!appjson.screenshots) {
+            for (var i=0, len=appjson.screenshots.length; i<len; i++) {
+              var ssurl = '/mirror/' + appid + '/' + appjson.screenshots[i].url;
+              itemjson.screenshots.push({url: ssurl});
+            }
           }
 
           console.warn("detail found: " + JSON.stringify(itemjson));
