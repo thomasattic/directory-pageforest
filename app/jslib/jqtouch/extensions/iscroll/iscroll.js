@@ -932,21 +932,26 @@ iScroll.prototype = {
 			}
 		} else if (that.options.snap) {
 			that.pagesX = [];
-			while (pos >= that.maxScrollX) {
+
+			var limit = 10;
+			while (limit-- >= 0 && pos >= that.maxScrollX) {
 				that.pagesX[page] = pos;
 				pos = pos - that.wrapperW;
 				page++;
 			}
+			pos = that.maxScrollX - 1;
 			if (that.maxScrollX%that.wrapperW) that.pagesX[that.pagesX.length] = that.maxScrollX - that.pagesX[that.pagesX.length-1] + that.pagesX[that.pagesX.length-1];
 
 			pos = 0;
 			page = 0;
 			that.pagesY = [];
-			while (pos >= that.maxScrollY) {
+			limit = 10;
+			while (limit-- >= 0 && pos >= that.maxScrollY) {
 				that.pagesY[page] = pos;
 				pos = pos - that.wrapperH;
 				page++;
 			}
+			pos = that.maxScrollY - 1;
 			if (that.maxScrollY%that.wrapperH) that.pagesY[that.pagesY.length] = that.maxScrollY - that.pagesY[that.pagesY.length-1] + that.pagesY[that.pagesY.length-1];
 		}
 		

@@ -52,7 +52,7 @@
               };
             } else if ($wrapper.hasClass("carousel")) {
               options = {
-                snap: true,
+                snap: false,
                 momentum: false,
                 hScrollbar: false,
                 onScrollEnd: function () {

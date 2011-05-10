@@ -201,6 +201,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         var $newitem = $("#dirdetail-template").tmpl(data.item);
         var $container = $("#z-detailpane #appdetail");
         $container.children().remove();
+        $container.children().die();
         $container.append($newitem);
 
         //@TODO -- <untested> code (can't test because of bug in /mirror on getting docs of another app
@@ -234,8 +235,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 hScrollbar: false,
                 onScrollEnd: function () {
                   var active = document.querySelector('#jqt .carousel ul.indicator > li.on');
+                  var target = document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')'); 
                   if (active) active.className = '';
-                  document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')').className = 'on';
+                  if (target) target.className = 'on';
                 }
               }
             }
@@ -261,6 +263,13 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
     $("#z-detailpane").bind("pageout", function(event, info) {
       var $container = $("#z-detailpane #appdetail");
+      $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
+        var $wrapper = $(wrap);
+        var scroll = $wrapper.data(KEY_ISCROLL_OBJ);
+        scroll.destroy();
+        $wrapper.removeData(KEY_ISCROLL_OBJ);
+      });
+      $container.children().die();
       $container.children().remove();
       var $newitem = $("#emptyitem-template").tmpl();
       $container.append($newitem);
