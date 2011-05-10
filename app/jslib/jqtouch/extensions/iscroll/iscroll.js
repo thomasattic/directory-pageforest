@@ -363,7 +363,7 @@ iScroll.prototype = {
 			newX = that.x + deltaX,
 			newY = that.y + deltaY;
 
-		e.preventDefault();
+		//e.preventDefault();
 
 		that.pointX = point.pageX;
 		that.pointY = point.pageY;
