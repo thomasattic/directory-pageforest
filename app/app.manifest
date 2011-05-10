@@ -21,8 +21,8 @@ NETWORK:
 #! EXCLUDE: jslib/jqtouch/themes/jqt
 #! EXCLUDE: jslib/touchlayer/examples
 #! EXCLUDE: test
-# TOTAL FILES: 63 (690,948 bytes)
-# SIGNATURE: d9ac698d97d132a486d3c2baf14a7d4e1cbf95de
+# TOTAL FILES: 63 (690,951 bytes)
+# SIGNATURE: cf17cab403e7ed85d4af08323a77aebd90ec50ac
 CACHE:
 detail.json
 dnd.js

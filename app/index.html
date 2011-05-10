@@ -82,35 +82,39 @@
     }
 
     .buttonbar span:hover, .buttonbar span:active {
-      color: #000;
-      background-color: #D2E6B3;
-      cursor: pointer;
+        color: #000;
+        background-color: #D2E6B3;
+        cursor: pointer;
     }
 
     #jqt:not(.initstate) .showoninit {
-       display: none;
+        display: none;
     }
 
     #jqt:not(.nouserstate) .showonnouser {
-       display: none;
+        display: none;
+    }
+
+    #jqt.nouserstate .showonuser {
+        display: none;
     }
 
     #pfSave,
     .nonpage,
     .hidden,
     .hidden > * {
-       display: none;
+        display: none;
     }
 
     #jqt .emboss {
-      display: block; position: relative;
-      -webkit-box-sizing: border-box;
-      width: 100%; line-height: 20px;
-      padding: 15px; padding-top: 20% !important;
-      border-top: 1px solid rgba(76, 86, 108, .3);
-      color: rgb(76, 76, 76);
-      font-size: 16px; font-weight: bold; text-shadow: rgba(255,255,255,.8) 0 1px 0;
-      text-align: center;
+        display: block; position: relative;
+        -webkit-box-sizing: border-box;
+        width: 100%; line-height: 20px;
+        padding: 15px; padding-top: 20% !important;
+        border-top: 1px solid rgba(76, 86, 108, .3);
+        color: rgb(76, 76, 76);
+        font-size: 16px; font-weight: bold; text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        text-align: center;
     }
 
     .buttonbar {
@@ -141,6 +145,10 @@
       color: #464646;
     }
 
+    #jqt > * .footer {
+        margin: 15px;
+    }
+
     #jqt > * .footer > div {
         display: block;
         position: relative;
@@ -155,80 +163,80 @@
     }
 
     #jqt .carousel {
-      display: block;
-      background-color: #777;
-      -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, .6);
-      box-sizing: border-box;
-      width: 100%; max-height:100%;
-      padding:0; margin: 0;
-      overflow-y: hidden;
+        display: block;
+        background-color: #777;
+        -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, .6);
+        box-sizing: border-box;
+        width: 100%; max-height:100%;
+        padding:0; margin: 0;
+        overflow-y: hidden;
     }
 
     #jqt .carousel ul.indicator {
-      display: block; /*float:left;*/
-      list-style:none;
-      margin-left: auto; margin-right: auto;
-      margin-top: 5px; margin-bottom: 5px;
+        display: block; /*float:left;*/
+        list-style:none;
+        margin-left: auto; margin-right: auto;
+        margin-top: 5px; margin-bottom: 5px;
     }
 
     #jqt .carousel ul.indicator > li {
-      display: inline-block;
-      margin: 0; padding: 0;
+        display: inline-block;
+        margin: 0; padding: 0;
     }
 
     #jqt .carousel ul.indicator {
-      width:110px;
-      /* padding:12px 0 0 30px; */
+        width:110px;
+        /* padding:12px 0 0 30px; */
     }
 
     #jqt .carousel ul.indicator > li {
-      text-indent: -9999em;
-      width: 8px; height: 8px; min-height: 0;
-      -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;
-      background: rgba(207, 207, 207, 0.5);
-      overflow: hidden;
-      margin-right: 4px;
-      line-height: 8px;
+        text-indent: -9999em;
+        width: 8px; height: 8px; min-height: 0;
+        -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;
+        background: rgba(207, 207, 207, 0.5);
+        overflow: hidden;
+        margin-right: 4px;
+        line-height: 8px;
     }
 
     #jqt .carousel ul.indicator > li.on {
-      background: #DDD;
+        background: #DDD;
     }
 
     #jqt .carousel ul.indicator > li:last-child {
-      margin: 0;
+        margin: 0;
     }
 
     #jqt .carousel ul.scroller {
-      display: block; float: left;
-      box-sizing: border-box;
-      width: auto;
-      padding: 0; margin: 0;
-      overflow-y: hidden;
+        display: block; float: left;
+        box-sizing: border-box;
+        width: auto;
+        padding: 0; margin: 0;
+        overflow-y: hidden;
     }
 
     #jqt .carousel ul.scroller > li {
-      -webkit-box-sizing: border-box;
-      display: block; float: left; position: relative;
-      width: 320px; height: 370px;
-      text-align: center;
+        -webkit-box-sizing: border-box;
+        display: block; float: left; position: relative;
+        width: 320px; height: 370px;
+        text-align: center;
     }
 
     #jqt .carousel ul.scroller > li .screenshot {
-      -webkit-box-sizing: border-box;
-      display: block; position: relative;
-      width: 95%; height: 100%;
-      margin-left: auto; margin-right: auto; margin-top: 5px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: 50% 50%;
-      -webkit-background-origin: content-box;
-      background-color: white;
-      -webkit-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; -moz-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt;
+        -webkit-box-sizing: border-box;
+        display: block; position: relative;
+        width: 95%; height: 100%;
+        margin-left: auto; margin-right: auto; margin-top: 5px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        -webkit-background-origin: content-box;
+        background-color: white;
+        -webkit-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; -moz-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt;
     }
 
     #jqt #z-listpane ul:not(.on) {
-      display: none;
+        display: none;
     }
   </style>
 
@@ -281,11 +289,12 @@
   <script id="diritem-group-template" type="text/x-jquery-tmpl">
     <ul id="${id}" class="grid"></ul>
   </script>
-  <script id="emptyitem-template" type="text/x-jquery-tmpl">        <div class="showoninit emboss">
-    <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
-      <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
-      <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
-      <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
+  <script id="emptyitem-template" type="text/x-jquery-tmpl">
+    <div class="emboss">
+      <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
+        <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+        <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
+        <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
       </div>Loading...</div>
   </script>
   <script id="diritem-template" type="text/x-jquery-tmpl">
@@ -346,15 +355,9 @@
                 <a href="http://www.pageforest.com/sign-in/directory-dev/" target="_blank" class="span button white nouserstate">Sign in</a>
             </div>
         </div>
-        <div class="footer" style="margin: 15px;">
-            <a href="#" target="_blank" class="span button white nouserstate">Sign out</a>
+        <div class="footer showonuser">
+            <a id="sign-out" href="#" class="span button white nouserstate">Sign out</a>
         </div>
-        <div class="showoninit emboss">
-            <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
-                <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
-                <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
-                <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
-            </div>Loading</div>
       </div>
       <div id="z-detailpane" class="pane form" section="aside">
         <div class="toolbar">

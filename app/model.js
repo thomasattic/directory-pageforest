@@ -123,8 +123,15 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         'loggedout': loggedout,
         'appid': appid,
         'confirmDiscard': confirmDiscard,
-        'onError': onError
+        'onError': onError,
+        'signOut': signOut
     });
+
+    function signOut() {
+      console.warn("siging out");
+      ns.client.signOut();
+      console.warn("siged out");
+    }
 
     // This function is called when pageforest client code polled for
     // the first time.

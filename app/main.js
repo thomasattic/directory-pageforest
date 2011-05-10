@@ -273,6 +273,12 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       }
     });
 
+    $("#sign-out").bind("click", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      my.signOut();
+    });
+
     $(window).bind("resize", function() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(resizeCarousel, 50);
