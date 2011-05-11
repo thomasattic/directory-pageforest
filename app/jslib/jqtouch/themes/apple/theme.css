@@ -24,8 +24,8 @@ body {
     -webkit-user-select: ignore;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
-    -webkit-box-pack: start;
-    -webkit-box-align: stretch;
+    -webkit-box-pack: justify; -moz-box-pack: justify; box-pack: justify;
+    -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
     min-height: 100%;
 }
 
@@ -48,8 +48,7 @@ body {
     display: -webkit-box; display: -moz-box; display: box;
     position: relative;
     box-flex: 10;
-    -webkit-box-flex: 10;
-    -moz-box-flex: 10;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     min-height: 100%;
     bottom: 0; left: 0; right: 0;
     margin: 0px; margin-top: 0px;
@@ -91,8 +90,7 @@ body {
     top: 0; left: 0; right: 0;
     /* min-height: 100%; */
     padding-top: 0px; padding-bottom: 0px;
-    -webkit-box-flex: 10;
-    -moz-box-flex: 10;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     /* border-top workaround the bug/feature that mobile safari skip the child (such as ui) padding */
     border-top: 1px solid transparent;
     margin-top: -1px;
@@ -102,8 +100,7 @@ body {
 #jqt > * > .sw-slots-wrapper {
     top: 0; left: 0; right: 0;
     padding-top: 0px; padding-bottom: 0px;
-    -webkit-box-flex: 10;
-    -moz-box-flex: 10;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
 }
 
 #jqt > * .contentwrap > .content,
@@ -117,8 +114,8 @@ body {
 
 #jqt > * > .content {
     -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
-    -webkit-box-pack: start;
-    -webkit-box-align: stretch;
+    -webkit-box-pack: justify; -moz-box-pack: justify; box-pack: justify;
+    -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
 }
 
 /* @end */
@@ -129,11 +126,10 @@ body {
 
 #jqt > * .toolbar, #jqt > * .navibar, #jqt > * .bar {
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
-    -webkit-box-pack: justify;
-    -webkit-box-align: center;
+    -webkit-box-pack: justify; -moz-box-pack: justify; box-pack: justify;
+    -webkit-box-align: center; -moz-box-align: center; box-align: center;
     -webkit-box-orient: horizontal; -moz-box-orient: horizontal; box-orient: horizontal;
-    -webkit-box-flex: 0;
-    -moz-box-flex: 0;
+    -webkit-box-flex: 0; -moz-box-flex: 0; box-flex: 0;
     border: none;
     height: 44px;
     text-align: center;
@@ -141,12 +137,14 @@ body {
     background-image: -moz-linear-gradient(top, #b0bccd, #889bb3 50%, #8195af 50%, #6d84a2);
 }
 
-#jqt > * .navibar, #jqt > * .bar {
+#jqt > * > .navibar, #jqt > * > .bar {
     display: -webkit-box; display: -moz-box; display: box;
+    -webkit-box-flex: 0; -moz-box-flex: 10; box-flex: 10;
+    -webkit-box-orient: horizontal; -moz-box-orient: horizontal; box-orient: horizontal;
 }
 
 #jqt > * .toolbar {
-    -webkit-box-flex: 0;
+    -webkit-box-flex: 0; -moz-box-flex: 0; box-flex: 0;
     border-top: 1px solid #CDD5DF;
     border-bottom: 1px solid #2d3642;
     padding: 6px 5px 6px 5px;
@@ -154,7 +152,7 @@ body {
 }
 
 #jqt > * .bar {
-    -webkit-box-flex: 0;
+    width: 100%;
     border-top: 1px solid #CDD5DF;
     border-bottom: 1px solid #2d3642;
     padding: 6px 5px 6px 5px;
@@ -2183,9 +2181,8 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt ul.mail, #jqt ul.message, #jqt ul.detail {
     -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0;
     margin: 0;
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
+    width: 100%;
+    border-left: 0; border-right: 0; border-top: 0;
 }
 
 #jqt ul.metal {
