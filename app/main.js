@@ -188,7 +188,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       var $appanchor = $dom.find("table:first-of-type tr td:first-of-type a:first-of-type");
       $appanchor.each(function(i, item) {
         var appid = $(item).attr("href").substring(6).slice(0, -1);
-        console.warn("a.href: " + appid);
         if (appid) {
           loadApp(appid);
         }
