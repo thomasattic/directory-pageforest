@@ -115,6 +115,25 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     }, err);
   };
 
+  function getAllApps(appid, fn, err) {
+    var apppath = '/mirror/' + appid + '/apps';
+    $.ajax({
+      type: 'GET',
+      url: apppath,
+      dataType: 'html',
+      beforeSend: function(xhr) {},
+      success: fn,
+      error: function(request, textStatus, errorThrown) {
+        var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+        exception.nested = {request: request, status: textStatus, exception: errorThrown};
+        if (err) {
+          err(exception);
+        }
+      },
+      async: true
+    });
+  };
+
   function getInstalled(appid, options, fn, err) {
     var apppath = '/mirror/' + appid + '/docs/' + username + '/';
     $.ajax({
@@ -131,7 +150,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         if (err) {
           err(exception);
         }
-      }
+      },
+      async: true
     });
   };
 
@@ -163,12 +183,21 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var resizeTimer;
   var KEY_ISCROLL_OBJ = 'iscroll_object';
   $(document).ready(function() {
-    loadApp("editor");
-    loadApp("my");
-    loadApp("beedesk-test");
-    loadApp("chess");
-    loadApp("directory");
-    loadApp("directory-dev");
+    getAllApps("www", function(html) {
+      var $dom = $(html);
+      var $appanchor = $dom.find("table:first-of-type tr td:first-of-type a:first-of-type");
+      $appanchor.each(function(i, item) {
+        setTimeout(function() {
+          var appid = $(item).attr("href").substring(6).slice(0, -1);
+          console.warn("a.href: " + appid);
+          if (appid) {
+            loadApp(appid);
+          }
+        }, 50);
+      });
+    }, function(exception) {
+      console.warn("Error loading list of application." + JSON.stringify(exception));
+    });
 
     function refreshScroll($pane) {
       $pane.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
