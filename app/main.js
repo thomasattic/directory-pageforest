@@ -266,6 +266,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       }
     });
 
+    $("#z-detailpane #appdetail").append($("#emptydetail-template").tmpl());
     $("#z-detailpane").bind("pageout", function(event, info) {
       var $container = $("#z-detailpane #appdetail");
       $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
@@ -276,7 +277,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       });
       $container.children().die();
       $container.children().remove();
-      var $newitem = $("#emptyitem-template").tmpl();
+      var $newitem = $("#emptydetail-template").tmpl();
       $container.append($newitem);
     });
 
