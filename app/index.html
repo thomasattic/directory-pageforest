@@ -172,16 +172,16 @@
         list-style:none;
         margin-left: auto; margin-right: auto;
         margin-top: 5px; margin-bottom: 5px;
+        width: 110px;
+        /* padding: 12px 0 0 30px; */
     }
 
     #jqt .carousel ul.indicator > li {
         display: inline-block;
-        margin: 0; padding: 0;
-    }
-
-    #jqt .carousel ul.indicator {
-        width:110px;
-        /* padding:12px 0 0 30px; */
+        position: relative;
+        left: 40px;
+        margin: 0; margin-left: auto; margin-right: auto;
+        padding: 0;
     }
 
     #jqt .carousel ul.indicator > li {
@@ -203,7 +203,7 @@
     }
 
     #jqt .carousel ul.scroller {
-        display: block; float: left;
+        display: block; /* float: left; */
         box-sizing: border-box;
         width: 1600%;
         padding: 0; margin: 0;
@@ -318,16 +318,16 @@
       </ul>
       {{if screenshots[0]}}
         <div class="carousel s-scrollwrapper drawer">
-        <ul class="scroller">
+          <ul class="scroller">
+              {{each screenshots}}
+                <li><div class="screenshot" style="background-image: url(${$value.url});"></div></li>
+              {{/each}}
+          </ul>
+          <ul class="indicator">
             {{each screenshots}}
-              <li><div class="screenshot" style="background-image: url(${$value.url});"></div></li>
+              <li class="{{if $index == 0}} on{{/if}}">o</li>
             {{/each}}
-        </ul>
-        <ul class="indicator">
-          {{each screenshots}}
-            <li class="{{if $index == 0}} on{{/if}}">o</li>
-          {{/each}}
-        </ul>
+          </ul>
         </div>
       {{/if}}
       <a href="${url}" target="_blank" class="pushbutton gray">Try it</a>
