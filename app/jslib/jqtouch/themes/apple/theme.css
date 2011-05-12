@@ -223,6 +223,7 @@ body {
 #jqt > * > * .button,
 #jqt > * > * .tog,
 #jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar .actionButton, #jqt .toolbar .done,
 #jqt .toolbar input[type="submit"], #jqt .toolbar input[type="reset"],
@@ -274,10 +275,12 @@ body {
 #jqt > * > * .button:not(.backarrowgreyblue), /* default */
 #jqt > * > * .tog,
 #jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar input[type="reset"] {
     border: 1px solid #45505d;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5), color-stop(0.5, #5877a2), color-stop(0.5, #476999), color-stop(1, #4a6c9b));
+    background-image: -moz-linear-gradient(top, #7d88a5, #5877a2 50%, #476999 50%, #4a6c9b);
     -webkit-box-shadow: inset 0 1px 1px rgba(127, 127, 127, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
@@ -286,12 +289,14 @@ body {
 #jqt .toolbar input[type="submit"] {
     border: 1px solid #55606d;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #77A2F8), color-stop(0.5, #225FDA), color-stop(0.5, #1F55C3), color-stop(1, #1F57C6));
+    background-image: -moz-linear-gradient(top, #77A2F8, #225FDA 50%, #1F55C3 50%, #1F57C6);
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 #jqt > * > * .button.red {
     border: 1px solid #55606d;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DB898F), color-stop(0.5, #D05761), color-stop(0.5, #BD1421), color-stop(1, #BC1421));
+    background-image: -moz-linear-gradient(top, #DB898F, #D05761 50%, #BD1421 50%, #BC1421);
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
@@ -301,6 +306,7 @@ body {
     margin-top: -1px;
     border-width: 1px 8px 2px 14px;
     -webkit-border-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAeCAYAAAC16ufeAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAPpSURBVHjaYvz//z8DIbBi2wmmr1+//Dp+aB/z3ds3GD68f8tAc8DIyKCopMpg4+C6TVFFLSLQyeAzQAAxEnLssi3HRZ88vH9p84aVEtLyqgxSssoMvPyCNHfr/3//GJ4/vc9w68o5BhNzq1/GZlZqAAHEQkjTk8cPFm3bvF7CwsGfQVBUnIGNg5OBmZmFgR6AW0CEQVxGmeHUoW1sAkLCuwACCG/ITlm8pXrdikUtxnY+DMJi0gxMTEwM9AYg971+8Zjhya3z/wECCGcQTV+202b9qmWNmsZODAJCUgz//jIA8T+GgQD8ghIM9/4yMAIEEFbHzl17UHTPjs2rpRR0mEUk5Bn+DJAjkXIbMPnxMQAEEFbHXr96cdG3X/8l1FS0Gf4Co+Hv3z8MAw2Y2TgYAAIIw7H98zZVHzty2MPEIRjoUGaGv7//MQwGAIpcgABCcey05Xtt9mzf3KikZcHAysbJ8PfPX4bBAv7+/csAEEBwx05Zulv02uXzq7//ZWFWFJNn+DWIHAoCoHwDEEBwx3788H7R2dOnJbStfIDRDw33QQT+/vvPABBAYMdOWLSzGhj9HtJqZgxMLJwMv/8MLofCQhYggFj6Fmy3uXLxbOMfZl4GXhEpoOBfhsEI/gKrX4AAYnn/7u3qs2fOMGta+DH8+8cIqjMGpWP/AdMmQACx7N+1TUJazZyBkZl10IYqLGQBAoiFX0SG4fs/doZ/n74zDGbw5dtPBoAAYvL0cGZg/vsRGMx/gE1IxkGLQe1bgABievfpm6S7nTHDtw/PGYhpiA8kAAggps+f/7389ef/JjtTDYZvH18wQD0x+DDQsQABxNRdHvz/x68/EUJCgqdUZYUZfnz9MGhDFiCAwK3pprzg7x8/f/PR1VS+w8Pyi+HPrx8MEL8MLgwQQPCmf3N+yOs37z/721safPzz5TWwuP076JICQACh9FNaCkKvffzyI8jBUvfX5/fPB10FARBAGJ0qYJLYx8TClmioIQPMcG8GlWMBAghrD7Am03+ZrLRkk7QIB8PPb58G3JH/gR1ADnZWBoAAwtldLU32rjfWU1/GyfgNmOEGtnb7DbRfRJCPASCA8PatX7z+lGhvob/v77c3wO7Nz4EJVWBF9ePTGwZdDeWXAAGE17GdpRG/3nz8FuTpaHqT8ec7hu+f3wG7Or/p1Mr6w/DrxxeGT28eMZjqqXz/9Z/RCSCAGImpYiv6VqpIivAdu3rzgej9R88YPn+hfbLg4GBnEBfhZzDQVgM2uxmDqjP8NwEEECOx7YHSruUaokK85/h4ODlZWWg/fARqrn7/8Yvh9fvPpq0FoWdAYgABBgDDnYD+KxtqGwAAAABJRU5ErkJggg==) 0 8 0 14;
+    background-image: -moz-linear-gradient(top, #7d88a5, #5877a2 50%, #476999 50%, #4a6c9b);
 }
 
 #jqt > * > * .button,
@@ -315,6 +321,7 @@ body {
 #jqt > * > * .button,
 #jqt > * > * .tog,
 #jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar .actionButton, #jqt .toolbar .done,
 #jqt .toolbar input[type="submit"], #jqt .toolbar input[type="reset"] {
@@ -373,45 +380,80 @@ body {
 }
 
 #jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt > * .buttonset .button {
     -webkit-box-flex: 1;
     max-width: none;
-    -webkit-appearance: none;
+    -webkit-appearance: none; -moz-appearance: none;
     -webkit-text-decorations-in-effect: none;
     margin-left: 0px;
     margin-right: 0px;
+    overflow: hidden;
 }
 
 #jqt > * > .navibar input[type="radio"]:first-of-type, #jqt > * > .toolbar input[type="radio"]:first-of-type, #jqt > * .bar input[type="radio"]:first-of-type,
+#jqt > * > .navibar label.radio:first-of-type, #jqt > * > .toolbar label.radio:first-of-type, #jqt > * .bar label.radio:first-of-type,
 #jqt > * .buttonset .button:first-of-type:not(.right),  #jqt > * .buttonset .button.right:last-of-type {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
 }
 
 #jqt > * > .navibar input[type="radio"]:first-of-type:not(:first-child), #jqt > * > .toolbar input[type="radio"]:first-of-type:not(:first-child), #jqt > * .bar input[type="radio"]:first-of-type:not(:first-child),
+#jqt > * > .navibar label.radio:first-of-type:not(:first-child), #jqt > * > .toolbar label.radio:first-of-type:not(:first-child), #jqt > * .bar label.radio:first-of-type:not(:first-child),
 #jqt > * .buttonset .button:first-of-type:not(:first-child) {
     margin-left: 20px;
 }
 
 #jqt > * > .navibar input[type="radio"]:last-of-type, #jqt > * > .toolbar input[type="radio"]:last-of-type, #jqt > * .bar input[type="radio"]:last-of-type,
+#jqt > * > .navibar label.radio:last-of-type, #jqt > * > .toolbar label.radio:last-of-type, #jqt > * .bar label.radio:last-of-type,
 #jqt > * .buttonset .button:last-of-type:not(.right), #jqt > * .buttonset .button.right:first-of-type {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
 
 #jqt > * > .navibar input[type="radio"]:not(:last-of-type), #jqt > * > .toolbar input[type="radio"]:not(:last-of-type), #jqt > * .bar input[type="radio"]:not(:last-of-type),
+#jqt > * > .navibar label.radio:not(:last-of-type), #jqt > * > .toolbar label.radio:not(:last-of-type), #jqt > * .bar label.radio:not(:last-of-type),
 #jqt > * .buttonset .button:not(:last-of-type):not(.right), #jqt > * .buttonset .button.right:not(:first-of-type) {
     border-right: 0px none transparent;
 }
 
 #jqt > * > .navibar input[type="radio"]:last-of-type:not(:last-child), #jqt > * > .toolbar input[type="radio"]:last-of-type:not(:last-child), #jqt > * .bar input[type="radio"]:last-of-type:not(:last-child),
+#jqt > * > .navibar label.radio:last-of-type:not(:last-child), #jqt > * > .toolbar label.radio:last-of-type:not(:last-child), #jqt > * .bar label.radio:last-of-type:not(:last-child),
 #jqt .buttonset .button:last-of-type:not(:last-child) {
     margin-right: 20px;
+}
+
+#jqt > * > .navibar label.radio input[type="radio"], #jqt > * > .toolbar label.radio input[type="radio"], #jqt > * .bar label.radio input[type="radio"],
+#jqt .bar .button {
+    opacity: 0;
+}
+
+#jqt > * > .navibar label.radio span, #jqt > * > .toolbar label.radio span, #jqt > * .bar label.radio span,
+#jqt .bar label.radio span {
+    display: block; position: relative;
+    top: -30px;
+    margin-left: -10px; margin-right: -10px;
+}
+
+#jqt > * > .navibar label.radio input[type="radio"]:checked + span,
+#jqt > * > .toolbar label.radio input[type="radio"]:checked + span,
+#jqt > * .bar label.radio input[type="radio"]:checked + span,
+#jqt .bar label.radio input[type="radio"]:checked + span {
+    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
+        color-stop(0.5, #3a4e78), color-stop(0.5, #253C6A), color-stop(1, #273f6d));
+    background-image: -moz-linear-gradient(top, #7d88a5, #3a4e78 50%, #253C6A 50%, #273f6d);
+    color: #fff;
+    text-shadow: none;
 }
 
 #jqt > * > .navibar input[type="radio"]:after, #jqt > * > .toolbar input[type="radio"]:after, #jqt > * .bar input[type="radio"]:after,
 #jqt .bar .button:after {
     content: attr(title);
+}
+
+#jqt > * > .navibar label.radio input[type="radio"]:after, #jqt > * > .toolbar label.radio input[type="radio"]:after, #jqt > * .bar label.radio input[type="radio"]:after,
+#jqt .bar .button:after {
+    display: none; content: "";
 }
 
 #jqt > * > * .button:not(.backarrowgreyblue).active, #jqt .toolbar .add.active,
@@ -431,17 +473,20 @@ body {
     /* workaround the flicker between deactived and checked using in-between color*/
     background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #49628D), color-stop(0.5, #365281), color-stop(1, #385584));
+    background-image: -moz-linear-gradient(top, #7d88a5, #49628D 50%, #365281 50%, #385584);
 }
 
 #jqt > * > .navibar input[type="radio"]:checked, #jqt > * > .toolbar input[type="radio"]:checked, #jqt > * .bar input[type="radio"]:checked {
     background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #3a4e78), color-stop(0.5, #253C6A), color-stop(1, #273f6d));
+    background-image: -moz-linear-gradient(top, #7d88a5, #3a4e78 50%, #253C6A 50%, #273f6d);
     color: #fff;
     text-shadow: none;
 }
 
 #jqt > * > * .button.red:active, #jqt > * > * .button.red.active {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #99555A), color-stop(0.5, #9A373F), color-stop(0.5, #90040F), color-stop(1, #8F040F));
+    background-image: -moz-linear-gradient(top, #99555A, #9A373F 50%, #90040F 50%, #8F040F);
 }
 
 #jqt .toolbar .back:active, #jqt .toolbar .cancel:active, #jqt > * > * .button.backarrowgreyblue:active {
@@ -603,7 +648,7 @@ body {
 }
 
 #jqt .searchbox input[type="search"] {
-    -webkit-appearance: none;
+    -webkit-appearance: none; -moz-appearance: none;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     -webkit-border-radius: 15px; -moz-border-radius: 15px; border-radius: 15px;
     -webkit-box-flex: 1;
@@ -659,6 +704,7 @@ body {
     /* @TODO -- should merge with ".bar input[type="radio"]" eventually */
     color: #222;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EBEBEB), color-stop(0.5, #C4C4C4), color-stop(0.5, #A7A7A7), color-stop(1, #A8A8A8));
+    background-image: -moz-linear-gradient(top, #EBEBEB, #C4C4C4 50%, #A7A7A7 50%, #A8A8A8);
     -webkit-box-shadow: inset 0 1px 1px rgba(127, 127, 127, .25), 0 1px 0 rgba(127, 127, 127, 0.25);
     text-shadow: rgba(127, 127, 127, 0.5) -0.5px -0.5px 0, rgba(255, 255, 255, 0.5) 0.5px 0.5px 0;
     border: 1px solid #888;
@@ -1415,7 +1461,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 
 #jqt fieldset.rounded input[type="radio"] {
     display: -webkit-box; display: -moz-box; display: box;
-    -webkit-appearance: none;
+    -webkit-appearance: none; -moz-appearance: none;
     -webkit-box-pack: justify;
     -webkit-box-align: center;
     -webkit-box-orient: horizontal; -moz-box-orient: horizontal; box-orient: horizontal;
@@ -1832,7 +1878,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     padding: 0;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     -webkit-text-size-adjust: none;
-    -webkit-appearance: none;
+    -webkit-appearance: none; -moz-appearance: none;
     -webkit-user-select: text;
 }
 
@@ -1965,7 +2011,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     background-image: url(img/chevron.png);
     background-repeat: no-repeat;
     background-position: 102% center;
-    -webkit-appearance: textfield;
+    -webkit-appearance: textfield; -moz-appearance: textfield;
     -webkit-user-select: auto;
 }
 
@@ -2088,7 +2134,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt ul li input[type="checkbox"].onoff {
     display: block;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
-    -webkit-appearance: none;
+    -webkit-appearance: none; -moz-appearance: none;
     position: relative;
     width: 94px;
     height: 27px;
