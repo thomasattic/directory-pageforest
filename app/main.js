@@ -99,15 +99,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
               itemjson.screenshots.push({url: ssurl});
             }
           }
-
-          console.warn("detail found: " + JSON.stringify(itemjson));
           fn({id: appid, item: itemjson});
         },
         error: function(request, textStatus, errorThrown) {
           var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
           exception.nested = {request: request, status: textStatus, exception: errorThrown};
-          console.warn("detail error: " + JSON.stringify(exception));
-
           // detail.json is optional. we simple skip it
           itemjson.description = "<< no description >>";
           itemjson.screenshots = [];
@@ -211,7 +207,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     }
 
     function resizeCarousel() {
-      console.warn("resizing... carousel");
       var $container = $("#jqt > .current .carousel");
       if ($container.length > 0) {
         var $ul = $container.find("> .scroller");
