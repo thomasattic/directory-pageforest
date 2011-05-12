@@ -29,10 +29,12 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var modelReadyLatch = Threads.latchbinder();
   my.modelReady.push(modelReadyLatch.latch);
 
-  function loadApp(appid) {
+  function loadApp(appid, fn, err) {
     getApp(appid, {}, function(event) {
       //@TODO -- for UI work, we just by pass the model and call handler directly
       my.items.handler.added(event);
+      if (fn)
+        fn();
     }, function(exception) {
       console.error(JSON.stringify(exception));
     });
@@ -189,7 +191,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       $appanchor.each(function(i, item) {
         var appid = $(item).attr("href").substring(6).slice(0, -1);
         if (appid) {
-          loadApp(appid);
+          loadApp(appid, function() {
+            $("#initloading").remove();
+          });
         }
       });
     }, function(exception) {
