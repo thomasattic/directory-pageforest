@@ -1466,8 +1466,8 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     min-height: 44px;
 }
 
-#jqt ul.metal, #jqt ul.plastic, #jqt ul.edgetoedge, #jqt ul.rounded,
-#jqt ul.individual {
+#jqt ul.metal li, #jqt ul.plastic li, #jqt ul.edgetoedge li, #jqt ul.rounded li,
+#jqt ul.individual li {
     border-top: 1px solid #E0E0E0;
 }
 
@@ -2317,7 +2317,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     background-color: rgb(154,159,170);
     color: #fff;
     -webkit-border-radius: 11px; -moz-border-radius: 11px; border-radius: 11px;
-    padding: 5px 10px 5px 0px;
+    padding: 5px 10px 5px 10px;
     width: auto;
     top: 0px;
 }
