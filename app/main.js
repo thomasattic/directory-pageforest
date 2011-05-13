@@ -29,10 +29,12 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var modelReadyLatch = Threads.latchbinder();
   my.modelReady.push(modelReadyLatch.latch);
 
-  function loadApp(appid) {
+  function loadApp(appid, fn, err) {
     getApp(appid, {}, function(event) {
       //@TODO -- for UI work, we just by pass the model and call handler directly
       my.items.handler.added(event);
+      if (fn)
+        fn();
     }, function(exception) {
       console.error(JSON.stringify(exception));
     });
@@ -97,15 +99,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
               itemjson.screenshots.push({url: ssurl});
             }
           }
-
-          console.warn("detail found: " + JSON.stringify(itemjson));
           fn({id: appid, item: itemjson});
         },
         error: function(request, textStatus, errorThrown) {
           var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
           exception.nested = {request: request, status: textStatus, exception: errorThrown};
-          console.warn("detail error: " + JSON.stringify(exception));
-
           // detail.json is optional. we simple skip it
           itemjson.description = "<< no description >>";
           itemjson.screenshots = [];
@@ -113,6 +111,25 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         }
       });
     }, err);
+  };
+
+  function getAllApps(appid, fn, err) {
+    var apppath = '/mirror/' + appid + '/apps';
+    $.ajax({
+      type: 'GET',
+      url: apppath,
+      dataType: 'html',
+      beforeSend: function(xhr) {},
+      success: fn,
+      error: function(request, textStatus, errorThrown) {
+        var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+        exception.nested = {request: request, status: textStatus, exception: errorThrown};
+        if (err) {
+          err(exception);
+        }
+      },
+      async: true
+    });
   };
 
   function getInstalled(appid, options, fn, err) {
@@ -131,7 +148,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         if (err) {
           err(exception);
         }
-      }
+      },
+      async: true
     });
   };
 
@@ -163,12 +181,20 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var resizeTimer;
   var KEY_ISCROLL_OBJ = 'iscroll_object';
   $(document).ready(function() {
-    loadApp("editor");
-    loadApp("my");
-    loadApp("beedesk-test");
-    loadApp("chess");
-    loadApp("directory");
-    loadApp("directory-dev");
+    getAllApps("www", function(html) {
+      var $dom = $(html);
+      var $appanchor = $dom.find("table:first-of-type tr td:first-of-type a:first-of-type");
+      $appanchor.each(function(i, item) {
+        var appid = $(item).attr("href").substring(6).slice(0, -1);
+        if (appid) {
+          loadApp(appid, function() {
+            $("#initloading").remove();
+          });
+        }
+      });
+    }, function(exception) {
+      console.warn("Error loading list of application." + JSON.stringify(exception));
+    });
 
     function refreshScroll($pane) {
       $pane.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
@@ -181,7 +207,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     }
 
     function resizeCarousel() {
-      console.warn("resizing... carousel");
       var $container = $("#jqt > .current .carousel");
       if ($container.length > 0) {
         var $ul = $container.find("> .scroller");
@@ -266,6 +291,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       }
     });
 
+    $("#z-detailpane #appdetail").append($("#emptydetail-template").tmpl());
     $("#z-detailpane").bind("pageout", function(event, info) {
       var $container = $("#z-detailpane #appdetail");
       $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
@@ -276,7 +302,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       });
       $container.children().die();
       $container.children().remove();
-      var $newitem = $("#emptyitem-template").tmpl();
+      var $newitem = $("#emptydetail-template").tmpl();
       $container.append($newitem);
     });
 

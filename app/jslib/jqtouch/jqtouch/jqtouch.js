@@ -1288,8 +1288,8 @@
             function updateChanges(e) {
                 var point = e.originalEvent;
                 var first = $.support.touch? point.changedTouches[0]: point;
-                deltaX = first.pageX - startX;
-                deltaY = first.pageY - startY;
+                deltaX = first.clientX - startX;
+                deltaY = first.clientY - startY;
                 deltaT = (new Date).getTime() - startTime;
                 var absElOffset = $el.offset();
                 elX = absElOffset.left - elStartX;

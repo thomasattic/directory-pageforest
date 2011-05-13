@@ -8,32 +8,43 @@
   <style type="text/css" media="screen">@import "./jslib/jqtouch/themes/apple/theme.css";</style>
   <style type="text/css" media="screen">
     html, body {
-       min-height: 100%;
+      min-height: 100%;
     }
 
     body {
-       -webkit-box-shadow: inset 1px 1px 10px rgba(127, 127, 127, 0.75);
-       background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #AAA), color-stop(0.5, #999), color-stop(0.5, #999), color-stop(1, #666));
-       background-image: -moz-linear-gradient(top, #AAA, #999 50%, #999 50%, #666);
-       background-repeat: repeat-x;
-       background-color: darkgrey;
+      -webkit-box-shadow: inset 1px 1px 10px rgba(127, 127, 127, 0.75);
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #AAA), color-stop(0.5, #999), color-stop(0.5, #999), color-stop(1, #666));
+      background-image: -moz-linear-gradient(top, #AAA, #999 50%, #999 50%, #666);
+      background-repeat: repeat-x;
+      background-color: darkgrey;
     }
 
     #jqt > div#z-listpane, #jqt > form, #jqt > div {
-       background-image: none;
-       background-color: transparent;
+      background-image: none;
+      background-color: transparent;
     }
 
     #jqt > #z-detailpane {
-        background-color: darkgrey;
+      background-color: darkgrey;
     }
 
     #jqt > #z-detailpane .header a {
-        max-width: none;
+      max-width: none;
     }
 
     .invisible {
       visibility: hidden;
+    }
+
+    #jqt #z-listpane > .bar {
+      padding-left: 60px;
+      padding-right: 60px;
+    }
+
+    #jqt #z-listpane > ul > li > a {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow-x: hidden;
     }
 
     @media only screen and (min-device-width: 768px) {
@@ -64,49 +75,48 @@
     }
 
     .buttonbar span:hover, .buttonbar span:active {
-        color: #000;
-        background-color: #D2E6B3;
-        cursor: pointer;
+      color: #000;
+      background-color: #D2E6B3;
+      cursor: pointer;
     }
 
     #jqt:not(.initstate) .showoninit {
-        display: none;
+      display: none;
     }
 
     #jqt:not(.nouserstate) .showonnouser,
     #jqt:not(.nouserstate) #z-detailpane .header .showonnouser {
-        display: none;
+      display: none;
     }
 
     #jqt.nouserstate .showonuser,
     #jqt.nouserstate #z-detailpane .header .showonuser {
-        display: none;
+      display: none;
     }
 
     #jqt #z-detailpane #appdetail.installed .showonnotinstalled {
-        display: none;
+      display: none;
     }
 
     #jqt #z-detailpane #appdetail:not(.installed) .showoninstalled {
-        display: none;
+      display: none;
     }
-
     #pfSave,
     .nonpage,
     .hidden,
     .hidden > * {
-        display: none;
+      display: none;
     }
 
     #jqt .emboss {
-        display: block; position: relative;
-        -webkit-box-sizing: border-box;
-        width: 100%; line-height: 20px;
-        padding: 15px; padding-top: 20% !important;
-        border-top: 1px solid rgba(76, 86, 108, .3);
-        color: rgb(76, 76, 76);
-        font-size: 16px; font-weight: bold; text-shadow: rgba(255,255,255,.8) 0 1px 0;
-        text-align: center;
+      display: block; position: relative;
+      -webkit-box-sizing: border-box;
+      width: 100%; line-height: 20px;
+      padding: 15px; padding-top: 20% !important;
+      border-top: 1px solid rgba(76, 86, 108, .3);
+      color: rgb(76, 76, 76);
+      font-size: 16px; font-weight: bold; text-shadow: rgba(255,255,255,.8) 0 1px 0;
+      text-align: center;
     }
 
     .buttonbar {
@@ -138,96 +148,96 @@
     }
 
     #jqt > * .footer {
-        border-top: 1px solid #333;
-        background-color: #CCC;
+      border-top: 1px solid #333;
+      background-color: #CCC;
     }
 
     #jqt > * .footer > div {
-        display: block;
-        position: relative;
-        padding: 15px 15px 15px 15px;
-        -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
-        line-height: 16px; width: 100%;
-        color: #444;
-        font-weight: bold; text-align: left; font-size: 12px;
-        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+      display: block;
+      position: relative;
+      padding: 15px 15px 15px 15px;
+      -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+      line-height: 16px; width: 100%;
+      color: #444;
+      font-weight: bold; text-align: left; font-size: 12px;
+      text-shadow: rgba(255,255,255,.8) 0 1px 0;
     }
 
     #jqt > * .footer > div + div {
-        padding-top: 0px;
+      padding-top: 0px;
     }
 
     #jqt .carousel {
-        display: block;
-        background-color: #777;
-        -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, .6);
-        box-sizing: border-box;
-        width: 100%; max-height:100%;
-        padding:0; margin: 0;
-        overflow-y: hidden;
+      display: block;
+      background-color: #777;
+      -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, .6);
+      box-sizing: border-box;
+      width: 100%; max-height:100%;
+      padding:0; margin: 0;
+      overflow-y: hidden;
     }
 
     #jqt .carousel ul.indicator {
-        display: block; /*float:left;*/
-        list-style:none;
-        margin-left: auto; margin-right: auto;
-        margin-top: 5px; margin-bottom: 5px;
+      display: block; /*float:left;*/
+      list-style:none;
+      margin-left: auto; margin-right: auto;
+      margin-top: 5px; margin-bottom: 5px;
+      width: 110px;
+      /* padding: 12px 0 0 30px; */
     }
 
     #jqt .carousel ul.indicator > li {
-        display: inline-block;
-        margin: 0; padding: 0;
-    }
-
-    #jqt .carousel ul.indicator {
-        width:110px;
-        /* padding:12px 0 0 30px; */
+      display: inline-block;
+      position: relative;
+      left: 40px;
+      margin: 0; margin-left: auto; margin-right: auto;
+      padding: 0;
     }
 
     #jqt .carousel ul.indicator > li {
-        text-indent: -9999em;
-        width: 8px; height: 8px; min-height: 0;
-        -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;
-        background: rgba(207, 207, 207, 0.5);
-        overflow: hidden;
-        margin-right: 4px;
-        line-height: 8px;
+      text-indent: -9999em;
+      width: 8px; height: 8px; min-height: 0;
+      -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;
+      background: rgba(207, 207, 207, 0.5);
+      overflow: hidden;
+      margin-right: 4px;
+      line-height: 8px;
     }
 
     #jqt .carousel ul.indicator > li.on {
-        background: #DDD;
+      background: #DDD;
     }
 
     #jqt .carousel ul.indicator > li:last-child {
-        margin: 0;
+      margin: 0;
     }
 
     #jqt .carousel ul.scroller {
-        display: block; float: left;
-        box-sizing: border-box;
-        width: 1600%;
-        padding: 0; margin: 0;
-        overflow-y: hidden;
+      display: block; /* float: left; */
+      box-sizing: border-box;
+      width: 1600%;
+      padding: 0; margin: 0;
+      overflow-y: hidden;
     }
 
     #jqt .carousel ul.scroller > li {
-        -webkit-box-sizing: border-box;
-        display: block; float: left; position: relative;
-        width: 320px; height: 370px;
-        text-align: center;
+      -webkit-box-sizing: border-box;
+      display: block; float: left; position: relative;
+      width: 320px; height: 370px;
+      text-align: center;
     }
 
     #jqt .carousel ul.scroller > li .screenshot {
-        -webkit-box-sizing: border-box;
-        display: block; position: relative;
-        width: 95%; height: 100%;
-        margin-left: auto; margin-right: auto; margin-top: 5px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-        -webkit-background-origin: content-box;
-        background-color: grey;
-        -webkit-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; -moz-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt;
+      -webkit-box-sizing: border-box;
+      display: block; position: relative;
+      width: 95%; height: 100%;
+      margin-left: auto; margin-right: auto; margin-top: 5px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-background-origin: content-box;
+      background-color: grey;
+      -webkit-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; -moz-box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt; box-shadow: rgba(0,0,0,0.5) 2pt 2pt 4pt;
     }
 
     #jqt #z-listpane ul:not(.on) {
@@ -284,7 +294,7 @@
   <script id="diritem-group-template" type="text/x-jquery-tmpl">
     <ul id="${id}" class="grid"></ul>
   </script>
-  <script id="emptyitem-template" type="text/x-jquery-tmpl">
+  <script id="emptydetail-template" type="text/x-jquery-tmpl">
     <div class="emboss">
       <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
         <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
@@ -312,22 +322,22 @@
           <small class="sub">${tag}</small>
           <a href="${installurl}" target="_blank" class="end button bluegrey showonuser showonnotinstalled">Install</a>
           <div class="end button bluegrey showonuser showoninstalled" disabled>INSTALLED</div>
-          <div class="end button bluegrey showonnouser" disabled>Log in to Install</div>
+          <div class="end button bluegrey showonnouser nopad" disabled>Log in to Install</div>
         </li>
         <li class="description"><pre>${description}</pre></li>
       </ul>
       {{if screenshots[0]}}
         <div class="carousel s-scrollwrapper drawer">
-        <ul class="scroller">
+          <ul class="scroller">
+              {{each screenshots}}
+                <li><div class="screenshot" style="background-image: url(${$value.url});"></div></li>
+              {{/each}}
+          </ul>
+          <ul class="indicator">
             {{each screenshots}}
-              <li><div class="screenshot" style="background-image: url(${$value.url});"></div></li>
+              <li class="{{if $index == 0}} on{{/if}}">o</li>
             {{/each}}
-        </ul>
-        <ul class="indicator">
-          {{each screenshots}}
-            <li class="{{if $index == 0}} on{{/if}}">o</li>
-          {{/each}}
-        </ul>
+          </ul>
         </div>
       {{/if}}
       <a href="${url}" target="_blank" class="pushbutton gray">Try it</a>
@@ -339,13 +349,19 @@
     <div id="jqt" class="initstate unfixed">
       <div id="z-listpane" class="pane form" section="aside">
         <div class="bar">
-            <input type="radio" name="categories" title="Featured" value="Featured" checked/>
-            <input type="radio" name="categories" title="All" value="All"/>
+            <label class="radio"><input type="radio" name="categories" title="Featured" value="Featured" checked><span>Featured</span></label>
+            <label class="radio"><input type="radio" name="categories" title="All" value="All"><span>All</span></label>
         </div>
         <ul id="featured-applist" class="plastic">
         </ul>
         <ul id="applist" class="plastic">
         </ul>
+        <div id="initloading" class="emboss">
+          <div class="spinner animate" style="width: 26px; height: 26px; margin: -8px 0;">
+            <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div><div class="bar4"></div>
+            <div class="bar5"></div><div class="bar6"></div><div class="bar7"></div><div class="bar8"></div>
+            <div class="bar9"></div><div class="bar10"></div><div class="bar11"></div><div class="bar12"></div>
+          </div>Loading...</div>
         <div class="footer showonnouser">
             <div>You are not sign in:</div>
             <!-- @TODO - hardcode path -->
