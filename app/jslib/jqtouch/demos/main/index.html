@@ -225,6 +225,9 @@
                         $('#movie').css('display', 'block');
                     }
                 });
+                $('#editmode').bind('tap', function() {
+                  $('#grid').find('ul.grid').toggleClass('editmode');
+                });
             });
         </script>
     </head>
@@ -762,6 +765,7 @@
                 <div class="toolbar">
                     <h1>Grid Lists</h1>
                     <a href="#" class="back">Back</a>
+                    <div id="editmode" class="button">Edit</div>
                 </div>
                 <div class="s-scrollwrapper contentwrap">
                   <form class="s-scrollpane" id="gridpane">
