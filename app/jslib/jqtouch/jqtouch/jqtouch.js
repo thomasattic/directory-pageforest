@@ -80,6 +80,7 @@
             defaultAnimation: 'slide',
             defaultModifier: '',
             updatehash: true,
+            clearInitHash: true,
             hashquery: false,
             inputguard: true,
             inputtypes: ["input[type='text']", "input[type='password']", "input[type='tel']", "input[type='number']", "input[type='search']", "input[type='email']", "input[type='url']", "select", "textarea"],
@@ -1682,11 +1683,11 @@
             }
 
             // update browser url
-            var searchString = getSearchString(search);
-            var hrefPart = jQTSettings.hashquery? {hash: optPrefix('#', '')}: {search: optPrefix('?', searchString)};
-            var newloc = replaceHrefPart(window.location, hrefPart);
-            if (!!window.history && !!window.history.replaceState) {
-               window.history.replaceState({}, "page", newloc);
+            if (jQTSettings.clearInitHash && !!window.history && !!window.history.replaceState) {
+              var searchString = getSearchString(search);
+              var hrefPart = jQTSettings.hashquery? {hash: optPrefix('#', '')}: {search: optPrefix('?', searchString)};
+              var newloc = replaceHrefPart(window.location, hrefPart);
+              window.history.replaceState({}, "page", newloc);
             }
 
             // guard input for proper scroll behaviour
