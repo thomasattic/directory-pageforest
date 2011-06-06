@@ -29,15 +29,26 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var modelReadyLatch = Threads.latchbinder();
   my.modelReady.push(modelReadyLatch.latch);
 
-  function loadApp(appid, fn, err) {
-    getApp(appid, {}, function(event) {
-      //@TODO -- for UI work, we just by pass the model and call handler directly
-      my.items.handler.added(event);
-      if (fn)
-        fn();
-    }, function(exception) {
-      console.error(JSON.stringify(exception));
-    });
+  function getAppDataForTemplate(appid, appjson) {
+    var itemjson = {};
+    var iconurl = '/static/images/icon.png';
+    if (appjson.icon) {
+        iconurl = '/mirror/' + appid + '/' + appjson.icon;
+    }
+
+    itemjson.url = normalizeHost(appjson.url);
+    itemjson.installurl = normalizeHost("http://my.pageforest.com/#installapp=" + appid);
+    itemjson.signedin = loggedin;
+    itemjson.icon = iconurl;
+    itemjson.appid = appid;
+    itemjson.title = appjson.title;
+    itemjson.owner = appjson.owner;
+    itemjson.next = '#z-detailpane';
+    itemjson.featured = appjson.tags.indexOf("featured") >= 0;
+    itemjson.dev = appid.length > 4 && Strings.endsWith(appid, "-dev");
+    itemjson.tag = Strings.join(", ", appjson.tags);
+
+    return itemjson;
   }
 
   function getApp(appid, options, fn, err) {
@@ -51,24 +62,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       dataType: 'json',
       beforeSend: function(xhr) {},
       success: function(appjson) {
-        var itemjson = {};
-        var iconurl = '/static/images/icon.png';
-        if (appjson.icon) {
-            iconurl = '/mirror/' + appid + '/' + appjson.icon;
-        }
-
-        itemjson.url = normalizeHost(appjson.url);
-        itemjson.installurl = normalizeHost("http://my.pageforest.com/#installapp=" + appid);
-        itemjson.signedin = loggedin;
-        itemjson.icon = iconurl;
-        itemjson.appid = appid;
-        itemjson.title = appjson.title;
-        itemjson.owner = appjson.owner;
-        itemjson.next = '#z-detailpane';
-        itemjson.featured = appjson.tags.indexOf("featured") >= 0;
-        itemjson.dev = appid.length > 4 && Strings.endsWith(appid, "-dev");
-        itemjson.tag = Strings.join(", ", appjson.tags);
-
+        var itemjson = getAppDataForTemplate(appid, appjson);
         fn({id: appid, item: itemjson});
       },
       error: function(request, textStatus, errorThrown) {
@@ -114,13 +108,21 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   };
 
   function getAllApps(appid, fn, err) {
-    var apppath = '/mirror/' + appid + '/apps';
+    var apppath = '/mirror/?method=list&all=true';
     $.ajax({
       type: 'GET',
       url: apppath,
-      dataType: 'html',
+      dataType: 'json',
       beforeSend: function(xhr) {},
-      success: fn,
+      success: function(data) {
+        for (var appid in data.items) {
+          var item = data.items[appid];
+          var itemjson = getAppDataForTemplate(appid, item);
+
+          fn({id: appid, item: itemjson});
+        }
+        $("#initloading").remove();
+      },
       error: function(request, textStatus, errorThrown) {
         var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
         exception.nested = {request: request, status: textStatus, exception: errorThrown};
@@ -181,17 +183,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var resizeTimer;
   var KEY_ISCROLL_OBJ = 'iscroll_object';
   $(document).ready(function() {
-    getAllApps("www", function(html) {
-      var $dom = $(html);
-      var $appanchor = $dom.find("table:first-of-type tr td:first-of-type a:first-of-type");
-      $appanchor.each(function(i, item) {
-        var appid = $(item).attr("href").substring(6).slice(0, -1);
-        if (appid) {
-          loadApp(appid, function() {
-            $("#initloading").remove();
-          });
-        }
-      });
+    getAllApps(my.items.appid, function(event) {
+      my.items.handler.added(event);
     }, function(exception) {
       console.warn("Error loading list of application." + JSON.stringify(exception));
     });
