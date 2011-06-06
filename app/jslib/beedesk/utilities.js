@@ -191,7 +191,7 @@ var Dates = new function() {
         result = true;
       }
     } else {
-      console.error("date: [" + datetime + "] typeof: [" + typeof(datitem) + "]");
+      console.error("date: [" + datetime + "] typeof: [" + typeof(dateitem) + "]");
     }
     return result;
   };
