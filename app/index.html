@@ -45,6 +45,8 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow-x: hidden;
+      vertical-align: baseline;
+      line-height: 44px;
     }
 
     @media only screen and (min-device-width: 768px) {
@@ -318,7 +320,7 @@
         <li class="header">
           <div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
           ${title}
-          <small class="super">${owner}</small>
+          <small class="middle">${owner}</small>
           <small class="sub">${tag}</small>
           <a href="${installurl}" target="_blank" class="end button bluegrey showonuser showonnotinstalled">Install</a>
           <div class="end button bluegrey showonuser showoninstalled" disabled>INSTALLED</div>

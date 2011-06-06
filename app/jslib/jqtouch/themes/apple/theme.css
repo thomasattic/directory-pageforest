@@ -1502,7 +1502,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     color: #222;
     list-style-type: none;
     padding: 10px;
-    line-height: 43px;
+    line-height: 23px;
     -webkit-transform: translate3d(0,0,0); /* expensive way to avoid flickr */
     min-height: 44px;
 }
@@ -2503,6 +2503,10 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     text-shadow: rgb(211,211,211) 0 1px 0;
 }
 
+#jqt ul.detail li.header {
+    line-height: 36px;
+}
+
 #jqt ul.plastic li:nth-child(odd) a, #jqt ul.detail li:nth-child(odd) {
     text-shadow: rgb(191,191,191) 0 1px 0;
 }
@@ -2517,7 +2521,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt ul.plastic li small.super, #jqt ul.plastic li small.sub,
-#jqt ul.detail li small.super, #jqt ul.detail li small.sub,
+#jqt ul.detail li small.super, #jqt ul.detail li small.sub, #jqt ul.detail li small.middle,
 #jqt ul.detail li .button.end {
     display: inline-block;
     position: absolute;
@@ -2544,8 +2548,8 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     bottom: 3px; left: 59px;
 }
 
-#jqt ul.detail li small.super {
-    top: 27px; left: 59px;
+#jqt ul.detail li small.middle {
+    top: 24px; left: 59px;
 }
 
 #jqt ul.detail li small.sub {
