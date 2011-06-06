@@ -47,7 +47,6 @@ body {
 #jqt > * .contentwrap {
     display: -webkit-box; display: -moz-box; display: box;
     position: relative;
-    box-flex: 10;
     -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     min-height: 100%;
     bottom: 0; left: 0; right: 0;
@@ -139,6 +138,7 @@ body {
 
 #jqt > * > .navibar, #jqt > * .bar {
     display: -webkit-box; display: -moz-box; display: box;
+    /* why they are different? */
     -webkit-box-flex: 0; -moz-box-flex: 10; box-flex: 10;
     -webkit-box-orient: horizontal; -moz-box-orient: horizontal; box-orient: horizontal;
 }
@@ -160,7 +160,7 @@ body {
 }
 
 #jqt > * .navibar {
-    -webkit-box-flex: 0;
+    -webkit-box-flex: 0; -moz-box-flex: 0; box-flex: 0;
     border-top: 1px solid #2d3642;
     padding: 7px 5px 9px 5px;
     background-color: black;
@@ -182,7 +182,7 @@ body {
     display: block;
     position: relative;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
-    -webkit-box-flex: 0;
+    -webkit-box-flex: 0; -moz-box-flex: 0; box-flex: 0;
 }
 
 #jqt > * > * .buttonset {
@@ -361,7 +361,7 @@ body {
 }
 
 #jqt > * > * .span {
-    -webkit-box-flex: 1;
+    -webkit-box-flex: 1; -moz-box-flex: 1; box-flex: 1;
     max-width: none;
 }
 
@@ -371,7 +371,7 @@ body {
 
 #jqt > * .buttonset .button, #jqt > * .buttonset .button + .button {
     /* reverse the effect of "#jqt > * > * .button" { border-radius: 6px; max-width: 95px; } */
-    -webkit-box-flex: 1;
+    -webkit-box-flex: 1; -moz-box-flex: 1; box-flex: 1;
     max-width: none;
     border-radius: 0px;
     margin-left: 0px;
@@ -381,7 +381,7 @@ body {
 #jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar > input[type="radio"],
 #jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt > * .buttonset .button {
-    -webkit-box-flex: 1;
+    -webkit-box-flex: 1; -moz-box-flex: 1; box-flex: 1;
     max-width: none;
     -webkit-appearance: none; -moz-appearance: none;
     -webkit-text-decorations-in-effect: none;
@@ -649,7 +649,7 @@ body {
     -webkit-appearance: none; -moz-appearance: none;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     -webkit-border-radius: 15px; -moz-border-radius: 15px; border-radius: 15px;
-    -webkit-box-flex: 1;
+    -webkit-box-flex: 1; -moz-box-flex: 1; box-flex: 1;
     padding: 1px 10px 1px 30px;
     height: 30px;
     line-height: 30px;
@@ -1032,7 +1032,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt ul.grid li, #jqt ul.smallgrid li {
     /* display: -webkit-box; display: -moz-box; display: box; */
     display: block; position: relative;
-    -webkit-box-flex: 0;
+    -webkit-box-flex: 0; -moz-box-flex: 0; box-flex: 0;
     min-height: none;
     margin-bottom: 15px;
     border: 0px; border-top: 0px none;
@@ -1630,7 +1630,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt ul li.centeredicon,
 #jqt ul li a.centeredicon {
     min-width: 60px;
-    -webkit-box-flex: 1;
+    -webkit-box-flex: 1; -moz-box-flex: 1; box-flex: 1;
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
@@ -1823,7 +1823,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt form ul li.multiline > div, #jqt ul.form li.multiline > div,
 #jqt form ul li > a.multiline > div, #jqt ul.form li > a.multiline > div {
     display: -webkit-box; display: -moz-box; display: box;
-    -webkit-box-flex: 10;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
 }
 
@@ -1939,10 +1939,8 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt ul li input[type="email"],
 #jqt ul li input[type="url"],
 #jqt ul li select  {
-    -webkit-box-flex-group: 1;
-    -webkit-box-flex: 10;
-    -moz-box-flex-group: 1;
-    -moz-box-flex: 10;
+    -webkit-box-flex-group: 1; -moz-box-flex-group: 1;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     line-height: 24px;
 }
 
@@ -2007,7 +2005,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     min-height: 120px;
     font-size: inherited;
     -webkit-user-select: auto;
-    -webkit-box-flex: 1;
+    -webkit-box-flex: 1; -moz-box-flex: 1; box-flex: 1;
 }
 
 #jqt form ul li select, #jqt ul.form li select {
@@ -2042,7 +2040,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt form ul li input[readonly]::before, #jqt ul.form li input[readonly]::before,
 #jqt fieldset.rounded input[type="radio"]::before {
     display: block;
-    -webkit-box-flex: 10;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     content: attr(title);
     font: 17px "Helvetica Neue", Helvetica;
     font-weight: bold;
@@ -2330,7 +2328,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     position: relative;
     font-weight: normal;
     font-size: 13px;
-    -webkit-box-flex: 10;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     top: 0; bottom: 0;
     background-color: lightgrey;
 }
