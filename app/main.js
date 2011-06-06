@@ -269,12 +269,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
             scroll.refresh();
           }
         });
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeCarousel, 150);
       }, function(error) {
         console.error(JSON.stringify(error));
       });
-
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resizeCarousel, 150);
     });
 
     $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
