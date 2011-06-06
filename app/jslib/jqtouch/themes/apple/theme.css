@@ -429,7 +429,7 @@ body {
 #jqt > * > .navibar label.radio span, #jqt > * > .toolbar label.radio span, #jqt > * .bar label.radio span,
 #jqt .bar label.radio span {
     display: block; position: relative;
-    top: -30px;
+    top: -28px;
     margin-left: -10px; margin-right: -10px;
 }
 
