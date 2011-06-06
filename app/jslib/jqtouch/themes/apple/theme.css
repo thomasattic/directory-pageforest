@@ -1417,7 +1417,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt .pushbutton:active, #jqt .pushbutton.active,
 #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active,
 #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active {
-    -webkit-border-image: url(img/activeButton.png) 0 12 0 12; -moz-border-image: url(img/redButton.png) 0 12 0 12; border-image: url(img/activeButton.png) 0 12 0 12;
+    -webkit-border-image: url(img/activeButton.png) 0 12 0 12; -moz-border-image: url(img/activeButton.png) 0 12 0 12; border-image: url(img/activeButton.png) 0 12 0 12;
 }
 
 /* @end */
