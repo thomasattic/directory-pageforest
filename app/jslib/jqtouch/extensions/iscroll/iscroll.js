@@ -65,7 +65,7 @@ function iScroll (el, options) {
 	if (that.options.HWCompositing) {
 		that.scroller.style.cssText += '-webkit-transition-property:-webkit-transform;-webkit-transform-origin:0 0;-webkit-transform:' + trnOpen + '0,0' + trnClose;
 	} else {
-		that.scroller.style.cssText += '-webkit-transition-property:top,left;-moz-transition-property:top,left;-webkit-transform-origin:0 0;top:0;left:0';
+		that.scroller.style.cssText += '-webkit-transition-property:top,left;-moz-transition-property:top,left;transition-property:top,left;-webkit-transform-origin:0 0;top:0;left:0';
 	}
 
 	if (that.options.HWTransition) {
