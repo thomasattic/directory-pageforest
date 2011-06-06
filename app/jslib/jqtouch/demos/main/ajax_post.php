@@ -11,7 +11,7 @@ if ($_POST["zip"]) {
 <div>
     <div class="toolbar">
         <h1><?php echo $title ?></h1>
-        <a href="#" class="button back">Back</a>
+        <a href="#" class="back">Back</a>
     </div>
     <ul class="edgetoedge">
     <?php

@@ -24,7 +24,7 @@ body {
     -webkit-user-select: ignore;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
-    -webkit-box-pack: justify; -moz-box-pack: justify; box-pack: justify;
+    -webkit-box-pack: start; -moz-box-pack: start; box-pack: start;
     -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
     min-height: 100%;
 }
@@ -114,7 +114,7 @@ body {
 
 #jqt > * > .content {
     -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
-    -webkit-box-pack: justify; -moz-box-pack: justify; box-pack: justify;
+    -webkit-box-pack: start; -moz-box-pack: start; box-pack: start;
     -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
 }
 
@@ -137,7 +137,7 @@ body {
     background-image: -moz-linear-gradient(top, #b0bccd, #889bb3 50%, #8195af 50%, #6d84a2);
 }
 
-#jqt > * > .navibar, #jqt > * > .bar {
+#jqt > * > .navibar, #jqt > * .bar {
     display: -webkit-box; display: -moz-box; display: box;
     -webkit-box-flex: 0; -moz-box-flex: 10; box-flex: 10;
     -webkit-box-orient: horizontal; -moz-box-orient: horizontal; box-orient: horizontal;
@@ -222,7 +222,7 @@ body {
 
 #jqt > * > * .button,
 #jqt > * > * .tog,
-#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar > input[type="radio"],
 #jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar .actionButton, #jqt .toolbar .done,
@@ -273,7 +273,7 @@ body {
 #jqt > * > * .button.greyblue,
 #jqt > * > * .button:not(.backarrowgreyblue), /* default */
 #jqt > * > * .tog,
-#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar > input[type="radio"],
 #jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar input[type="reset"] {
@@ -319,7 +319,7 @@ body {
 
 #jqt > * > * .button,
 #jqt > * > * .tog,
-#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar > input[type="radio"],
 #jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar .actionButton, #jqt .toolbar .done,
@@ -378,7 +378,7 @@ body {
     margin-right: 0px;
 }
 
-#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar input[type="radio"],
+#jqt > * > .navibar input[type="radio"], #jqt > * > .toolbar input[type="radio"], #jqt > * .bar > input[type="radio"],
 #jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio,
 #jqt > * .buttonset .button {
     -webkit-box-flex: 1;
@@ -390,40 +390,39 @@ body {
     overflow: hidden;
 }
 
-#jqt > * > .navibar input[type="radio"]:first-of-type, #jqt > * > .toolbar input[type="radio"]:first-of-type, #jqt > * .bar input[type="radio"]:first-of-type,
+#jqt > * > .navibar input[type="radio"]:first-of-type, #jqt > * > .toolbar input[type="radio"]:first-of-type, #jqt > * .bar > input[type="radio"]:first-of-type,
 #jqt > * > .navibar label.radio:first-of-type, #jqt > * > .toolbar label.radio:first-of-type, #jqt > * .bar label.radio:first-of-type,
 #jqt > * .buttonset .button:first-of-type:not(.right),  #jqt > * .buttonset .button.right:last-of-type {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
 }
 
-#jqt > * > .navibar input[type="radio"]:first-of-type:not(:first-child), #jqt > * > .toolbar input[type="radio"]:first-of-type:not(:first-child), #jqt > * .bar input[type="radio"]:first-of-type:not(:first-child),
+#jqt > * > .navibar input[type="radio"]:first-of-type:not(:first-child), #jqt > * > .toolbar input[type="radio"]:first-of-type:not(:first-child), #jqt > * .bar > input[type="radio"]:first-of-type:not(:first-child),
 #jqt > * > .navibar label.radio:first-of-type:not(:first-child), #jqt > * > .toolbar label.radio:first-of-type:not(:first-child), #jqt > * .bar label.radio:first-of-type:not(:first-child),
 #jqt > * .buttonset .button:first-of-type:not(:first-child) {
     margin-left: 20px;
 }
 
-#jqt > * > .navibar input[type="radio"]:last-of-type, #jqt > * > .toolbar input[type="radio"]:last-of-type, #jqt > * .bar input[type="radio"]:last-of-type,
+#jqt > * > .navibar input[type="radio"]:last-of-type, #jqt > * > .toolbar input[type="radio"]:last-of-type, #jqt > * .bar > input[type="radio"]:last-of-type,
 #jqt > * > .navibar label.radio:last-of-type, #jqt > * > .toolbar label.radio:last-of-type, #jqt > * .bar label.radio:last-of-type,
 #jqt > * .buttonset .button:last-of-type:not(.right), #jqt > * .buttonset .button.right:first-of-type {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
 
-#jqt > * > .navibar input[type="radio"]:not(:last-of-type), #jqt > * > .toolbar input[type="radio"]:not(:last-of-type), #jqt > * .bar input[type="radio"]:not(:last-of-type),
+#jqt > * > .navibar input[type="radio"]:not(:last-of-type), #jqt > * > .toolbar input[type="radio"]:not(:last-of-type), #jqt > * .bar > input[type="radio"]:not(:last-of-type),
 #jqt > * > .navibar label.radio:not(:last-of-type), #jqt > * > .toolbar label.radio:not(:last-of-type), #jqt > * .bar label.radio:not(:last-of-type),
 #jqt > * .buttonset .button:not(:last-of-type):not(.right), #jqt > * .buttonset .button.right:not(:first-of-type) {
     border-right: 0px none transparent;
 }
 
-#jqt > * > .navibar input[type="radio"]:last-of-type:not(:last-child), #jqt > * > .toolbar input[type="radio"]:last-of-type:not(:last-child), #jqt > * .bar input[type="radio"]:last-of-type:not(:last-child),
+#jqt > * > .navibar input[type="radio"]:last-of-type:not(:last-child), #jqt > * > .toolbar input[type="radio"]:last-of-type:not(:last-child), #jqt > * .bar > input[type="radio"]:last-of-type:not(:last-child),
 #jqt > * > .navibar label.radio:last-of-type:not(:last-child), #jqt > * > .toolbar label.radio:last-of-type:not(:last-child), #jqt > * .bar label.radio:last-of-type:not(:last-child),
 #jqt .buttonset .button:last-of-type:not(:last-child) {
     margin-right: 20px;
 }
 
-#jqt > * > .navibar label.radio input[type="radio"], #jqt > * > .toolbar label.radio input[type="radio"], #jqt > * .bar label.radio input[type="radio"],
-#jqt .bar .button {
+#jqt > * > .navibar label.radio input[type="radio"], #jqt > * > .toolbar label.radio input[type="radio"], #jqt > * .bar > label.radio input[type="radio"] {
     opacity: 0;
 }
 
@@ -445,7 +444,7 @@ body {
     text-shadow: none;
 }
 
-#jqt > * > .navibar input[type="radio"]:after, #jqt > * > .toolbar input[type="radio"]:after, #jqt > * .bar input[type="radio"]:after,
+#jqt > * > .navibar input[type="radio"]:after, #jqt > * > .toolbar input[type="radio"]:after, #jqt > * .bar > input[type="radio"]:after,
 #jqt .bar .button:after {
     content: attr(title);
 }
@@ -467,15 +466,15 @@ body {
     text-shadow: none;
 }
 
-#jqt > * > .navibar input[type="radio"]:active, #jqt > * > .toolbar input[type="radio"]:active, #jqt > * .bar input[type="radio"]:active,
-#jqt > * > .navibar input[type="radio"].active, #jqt > * > .toolbar input[type="radio"].active, #jqt > * .bar input[type="radio"].active {
+#jqt > * > .navibar input[type="radio"]:active, #jqt > * > .toolbar input[type="radio"]:active, #jqt > * .bar > input[type="radio"]:active,
+#jqt > * > .navibar input[type="radio"].active, #jqt > * > .toolbar input[type="radio"].active, #jqt > * .bar > input[type="radio"].active {
     /* workaround the flicker between deactived and checked using in-between color*/
     background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #49628D), color-stop(0.5, #365281), color-stop(1, #385584));
     background-image: -moz-linear-gradient(top, #7d88a5, #49628D 50%, #365281 50%, #385584);
 }
 
-#jqt > * > .navibar input[type="radio"]:checked, #jqt > * > .toolbar input[type="radio"]:checked, #jqt > * .bar input[type="radio"]:checked {
+#jqt > * > .navibar input[type="radio"]:checked, #jqt > * > .toolbar input[type="radio"]:checked, #jqt > * .bar > input[type="radio"]:checked {
     background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #3a4e78), color-stop(0.5, #253C6A), color-stop(1, #273f6d));
     background-image: -moz-linear-gradient(top, #7d88a5, #3a4e78 50%, #253C6A 50%, #273f6d);
@@ -497,8 +496,8 @@ body {
 #jqt > * > * .button.brightblue[disabled], #jqt > * > * .button.brightblue:disabled,
 #jqt > * > * .button[disabled], #jqt > * > * .button:disabled,
 #jqt > * > * .tog[disabled], #jqt > * > * .tog:disabled,
-#jqt > * > .navibar input[type="radio"][disabled], #jqt > * > .toolbar input[type="radio"][disabled], #jqt > * .bar input[type="radio"][disabled],
-#jqt > * > .navibar input[type="radio"]:disabled, #jqt > * > .toolbar input[type="radio"]:disabled, #jqt > * .bar input[type="radio"]:disabled,
+#jqt > * > .navibar input[type="radio"][disabled], #jqt > * > .toolbar input[type="radio"][disabled], #jqt > * .bar > input[type="radio"][disabled],
+#jqt > * > .navibar input[type="radio"]:disabled, #jqt > * > .toolbar input[type="radio"]:disabled, #jqt > * .bar > input[type="radio"]:disabled,
 #jqt .toolbar .add[disabled], #jqt .toolbar .leftButton[disabled],
 #jqt .toolbar .add:disabled, #jqt .toolbar .leftButton:disabled,
 #jqt .toolbar .actionButton[disabled], #jqt .toolbar .done[disabled],
@@ -1248,6 +1247,11 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
       color-stop(4%, rgba(255,255,255,0.3)),
       color-stop(8%, rgba(31,31,31,0.1)),
       color-stop(38%, rgba(239,239,239,0.1)));
+}
+
+#jqt ul.grid li a[title] ~ small,
+#jqt ul.smallgrid li a[title] ~ small {
+    bottom: 10%;
 }
 
 #jqt ul.grid li .icon .mask,
