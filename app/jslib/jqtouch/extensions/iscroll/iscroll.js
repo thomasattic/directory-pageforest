@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * iScroll v4.0 Beta 4
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -7,11 +7,11 @@
  * Copyright (c) 2010 Matteo Spinelli, http://cubiq.org/
  * Released under MIT license
  * http://cubiq.org/dropbox/mit-license.txt
- * 
+ *
  * Last updated: 2011.03.10
- * 
+ *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * 
+ *
  */
 
 (function(){
@@ -59,13 +59,13 @@ function iScroll (el, options) {
 		that.options[i] = options[i];
 	}
 
-	that.options.HWCompositing = that.options.HWCompositing && hasCompositing;
-	that.options.HWTransition = that.options.HWTransition && hasCompositing;
-	
+	that.options.HWCompositing = options.HWCompositing && hasCompositing;
+	that.options.HWTransition = options.HWTransition && hasCompositing;
+
 	if (that.options.HWCompositing) {
 		that.scroller.style.cssText += '-webkit-transition-property:-webkit-transform;-webkit-transform-origin:0 0;-webkit-transform:' + trnOpen + '0,0' + trnClose;
 	} else {
-		that.scroller.style.cssText += '-webkit-transition-property:top,left;-webkit-transform-origin:0 0;top:0;left:0';
+		that.scroller.style.cssText += '-webkit-transition-property:top,left;-moz-transition-property:top,left;-webkit-transform-origin:0 0;top:0;left:0';
 	}
 
 	if (that.options.HWTransition) {
@@ -74,10 +74,10 @@ function iScroll (el, options) {
 
 	that.options.hScrollbar = that.options.hScroll && that.options.hScrollbar;
 	that.options.vScrollbar = that.options.vScroll && that.options.vScrollbar;
-	
+
 	that.pullDownToRefresh = that.options.pullToRefresh == 'down' || that.options.pullToRefresh == 'both';
 	that.pullUpToRefresh = that.options.pullToRefresh == 'up' || that.options.pullToRefresh == 'both';
-	
+
 	if (that.pullDownToRefresh) {
 		div = doc.createElement('div');
 		div.className = 'iScrollPullDown';
@@ -87,7 +87,7 @@ function iScroll (el, options) {
 		that.pullDownEl = div;
 		that.pullDownLabel = div.getElementsByTagName('span')[1];
 	}
-	
+
 	if (that.pullUpToRefresh) {
 		div = doc.createElement('div');
 		div.className = 'iScrollPullUp';
@@ -110,11 +110,11 @@ function iScroll (el, options) {
 		that._bind('gesturestart');
 		that.scroller.style.webkitTransform = that.scroller.style.webkitTransform + ' scale(1)';
 	}
-	
+
 	if (!hasTouch) {
 		that._bind('mousewheel');
 	}
-	
+
 	if (that.options.checkDOMChange) {
 		that.DOMChangeInterval = setInterval(function () { that._checkSize(); }, 250);
 	}
@@ -128,7 +128,7 @@ iScroll.prototype = {
 	offsetTop: 0,
 	scale: 1, lastScale: 1,
 	contentReady: true,
-	
+
 	handleEvent: function (e) {
 		var that = this;
 
@@ -147,7 +147,7 @@ iScroll.prototype = {
 			case 'mousewheel': that._wheel(e); break;
 		}
 	},
-	
+
 	_scrollbar: function (dir) {
 		var that = this,
 			doc = document,
@@ -205,7 +205,7 @@ iScroll.prototype = {
 		// Reset position
 		that._indicatorPos(dir, true);
 	},
-	
+
 	_resize: function () {
 		var that = this;
 
@@ -215,7 +215,7 @@ iScroll.prototype = {
 			that.refresh();
 		}, 0);
 	},
-	
+
 	_checkSize: function () {
 		var that = this,
 			scrollerW,
@@ -230,29 +230,32 @@ iScroll.prototype = {
 
 		that.refresh();
 	},
-	
+
 	_pos: function (x, y) {
 		var that = this;
 
 		that.x = that.hScroll ? x : 0;
 		that.y = that.vScroll ? y : 0;
 
-		that.scroller.style.webkitTransform = trnOpen + that.x + 'px,' + that.y + 'px' + trnClose + ' scale(' + that.scale + ')';
-//		that.scroller.style.left = that.x + 'px';
-//		that.scroller.style.top = that.y + 'px';
+		if (that.options.HWCompositing) {
+			that.scroller.style.webkitTransform = trnOpen + that.x + 'px,' + that.y + 'px' + trnClose + ' scale(' + that.scale + ')';
+		} else {
+			that.scroller.style.left = that.x + 'px';
+			that.scroller.style.top = that.y + 'px';
+		}
 
 		that._indicatorPos('h');
 		that._indicatorPos('v');
 	},
-	
+
 	_indicatorPos: function (dir, hidden) {
 		var that = this,
 			pos = dir == 'h' ? that.x : that.y;
-		
+
 		if (!that[dir + 'Scrollbar']) return;
-		
+
 		pos = that[dir + 'ScrollbarProp'] * pos;
-	
+
 		if (pos < 0) {
 			pos = that.options.fixedScrollbar ? 0 : pos + pos*3;
 			if (that[dir + 'ScrollbarIndicatorSize'] + pos < 9) pos = -that[dir + 'ScrollbarIndicatorSize'] + 8;
@@ -264,17 +267,17 @@ iScroll.prototype = {
 		that[dir + 'ScrollbarWrapper'].style.opacity = hidden && that.options.hideScrollbar ? '0' : '1';
 		that[dir + 'ScrollbarIndicator'].style.webkitTransform = trnOpen + (dir == 'h' ? pos + 'px,0' : '0,' + pos + 'px') + trnClose;
 	},
-	
+
 	_transitionTime: function (time) {
 		var that = this;
-		
+
 		time += 'ms';
 		that.scroller.style.webkitTransitionDuration = time;
 
 		if (that.hScrollbar) that.hScrollbarIndicator.style.webkitTransitionDuration = time;
 		if (that.vScrollbar) that.vScrollbarIndicator.style.webkitTransitionDuration = time;
 	},
-	
+
 	_start: function (e) {
 		var that = this,
 			point = hasTouch ? e.changedTouches[0] : e,
@@ -297,9 +300,9 @@ iScroll.prototype = {
 		that.dirX = 0;
 		that.dirY = 0;
 		that.returnTime = 0;
-		
+
 		that._transitionTime(0);
-		
+
 		if (that.options.momentum) {
 			if (that.scrollInterval) {
 				clearInterval(that.scrollInterval);
@@ -319,7 +322,7 @@ iScroll.prototype = {
 					that._pos(matrix.left.replace(/[^0-9]/g)*1, matrix.top.replace(/[^0-9]/g)*1);
 				}
 			}
-			
+
 		}
 
 		that.scroller.style.webkitTransitionTimingFunction = 'cubic-bezier(0.33,0.66,0.66,1)';
@@ -329,7 +332,7 @@ iScroll.prototype = {
 		that.startY = that.y;
 		that.pointX = point.pageX;
 		that.pointY = point.pageY;
-		
+
 		that.startTime = e.timeStamp;
 
 		if (that.options.onScrollStart) that.options.onScrollStart.call(that);
@@ -347,11 +350,11 @@ iScroll.prototype = {
 			that._bind(END_EV);
 			that._bind(CANCEL_EV);
 			if (!hasTouch) {
-			  document.addEventListener('mouseout', this, false);
+				document.addEventListener('mouseout', this, false);
 			}
 //		}, 0);
 	},
-	
+
 	_move: function (e) {
 		if (hasTouch && e.touches.length > 1) return;
 		if (!hasTouch && e.ctrlKey) return;
@@ -372,7 +375,7 @@ iScroll.prototype = {
 		if (newX > 0 || newX < that.maxScrollX) {
 			newX = that.options.bounce ? that.x + (deltaX / 2.4) : newX >= 0 || that.maxScrollX >= 0 ? 0 : that.maxScrollX;
 		}
-		if (newY > 0 || newY < that.maxScrollY) { 
+		if (newY > 0 || newY < that.maxScrollY) {
 			newY = that.options.bounce ? that.y + (deltaY / 2.4) : newY >= 0 || that.maxScrollY >= 0 ? 0 : that.maxScrollY;
 
 			// Pull down to refresh
@@ -384,7 +387,7 @@ iScroll.prototype = {
 					that.pullDownEl.className = 'iScrollPullDown';
 					that.pullDownLabel.innerText = that.options.pullDownLabel[0];
 				}
-				
+
 				if (that.pullUpToRefresh && newY < that.maxScrollY - that.offsetTop) {
 					that.pullUpEl.className = 'iScrollPullUp flip';
 					that.pullUpLabel.innerText = that.options.pullUpLabel[1];
@@ -402,7 +405,7 @@ iScroll.prototype = {
 			that.absDistY = m.abs(that.distY);
 			return;
 		}
-		
+
 		// Lock direction
 		if (that.options.lockDirection) {
 			if (that.absDistX > that.absDistY+3) {
@@ -413,7 +416,7 @@ iScroll.prototype = {
 				deltaX = 0;
 			}
 		}
-		
+
 		that.moved = true;
 		that._pos(newX, newY);
 		that.dirX = deltaX > 0 ? -1 : deltaX < 0 ? 1 : 0;
@@ -457,7 +460,7 @@ iScroll.prototype = {
 		if (!hasTouch) {
 			document.removeEventListener('mouseout', that, false);
 		}
-		
+
 		if (that.zoomed) return;
 
 		if (!that.moved) {
@@ -544,7 +547,7 @@ iScroll.prototype = {
 			that.scrollTo(newPosX, newPosY, newDuration);
 			return;
 		}
-		
+
 		// Do we need to snap?
 		if (that.options.snap) {
 			snap = that._snap(that.x, that.y);
@@ -556,7 +559,7 @@ iScroll.prototype = {
 
 		that._resetPos();
 	},
-	
+
 	_resetPos: function (time) {
 		var that = this,
 			resetX = that.x,
@@ -602,7 +605,7 @@ iScroll.prototype = {
 
 		that.scrollTo(resetX, resetY, time);
 	},
-	
+
 	_timedScroll: function (destX, destY, runtime) {
 		var that = this,
 			startX = that.x, startY = that.y,
@@ -610,16 +613,16 @@ iScroll.prototype = {
 			easeOut;
 
 		that._transitionTime(0);
-		
+
 		if (that.scrollInterval) {
 			clearInterval(that.scrollInterval);
 			that.scrollInterval = null;
 		}
-		
+
 		that.scrollInterval = setInterval(function () {
 			var now = (new Date).getTime(),
 				newX, newY;
-				
+
 			if (now >= startTime + runtime) {
 				clearInterval(that.scrollInterval);
 				that.scrollInterval = null;
@@ -628,7 +631,7 @@ iScroll.prototype = {
 				that._transitionEnd();
 				return;
 			}
-	
+
 			now = (now - startTime) / runtime - 1;
 			easeOut = m.sqrt(1 - now * now);
 			newX = (destX - startX) * easeOut + startX;
@@ -636,10 +639,10 @@ iScroll.prototype = {
 			that._pos(newX, newY);
 		}, 20);
 	},
-	
+
 	_transitionEnd: function (e) {
 		var that = this;
-		
+
 		if (e) e.stopPropagation();
 
 		that._unbind('webkitTransitionEnd');
@@ -647,7 +650,7 @@ iScroll.prototype = {
 		that._resetPos(that.returnTime);
 		that.returnTime = 0;
 	},
-	
+
 
 	/**
 	 *
@@ -659,7 +662,7 @@ iScroll.prototype = {
 
 		that._transitionTime(0);
 		that.lastScale = 1;
-		
+
 		if (that.options.onZoomStart) that.options.onZoomStart.call(that);
 
 		that._unbind('gesturestart');
@@ -667,7 +670,7 @@ iScroll.prototype = {
 		that._bind('gestureend');
 		that._bind('gesturecancel');
 	},
-	
+
 	_gestChange: function (e) {
 		var that = this,
 			scale = that.scale * e.scale,
@@ -708,7 +711,7 @@ iScroll.prototype = {
 		that._unbind('gestureend');
 		that._unbind('gesturecancel');
 	},
-	
+
 	_wheel: function (e) {
 		var that = this,
 			deltaX = that.x + e.wheelDeltaX / 12,
@@ -723,7 +726,7 @@ iScroll.prototype = {
 		that.scrollTo(deltaX, deltaY, 0);
 	},
 
-	
+
 	/**
 	 *
 	 * Utilities
@@ -736,7 +739,7 @@ iScroll.prototype = {
 			newDist = (speed * speed) / (2 * deceleration),
 			newTime = 0, outsideDist = 0;
 
-		// Proportinally reduce speed if we are outside of the boundaries 
+		// Proportinally reduce speed if we are outside of the boundaries
 		if (dist > 0 && newDist > maxDistUpper) {
 			outsideDist = size / (6 / (newDist / speed * deceleration));
 			maxDistUpper = maxDistUpper + outsideDist;
@@ -760,13 +763,13 @@ iScroll.prototype = {
 	_offset: function (el, tree) {
 		var left = -el.offsetLeft,
 			top = -el.offsetTop;
-			
+
 		if (!tree) return { x: left, y: top };
 
 		while (el = el.offsetParent) {
 			left -= el.offsetLeft;
 			top -= el.offsetTop;
-		} 
+		}
 
 		return { x: left, y: top };
 	},
@@ -862,7 +865,7 @@ iScroll.prototype = {
 			that._unbind('gesturecancel');
 		}
 	},
-	
+
 	refresh: function () {
 		var that = this,
 			pos = 0, page = 0,
@@ -908,7 +911,7 @@ iScroll.prototype = {
 		that.maxScrollY = that.wrapperH - that.scrollerH;
 		that.dirX = 0;
 		that.dirY = 0;
-		
+
 		that._transitionTime(0);
 
 		that.hScroll = that.options.hScroll && that.maxScrollX < 0;
@@ -954,7 +957,7 @@ iScroll.prototype = {
 			pos = that.maxScrollY - 1;
 			if (that.maxScrollY%that.wrapperH) that.pagesY[that.pagesY.length] = that.maxScrollY - that.pagesY[that.pagesY.length-1] + that.pagesY[that.pagesY.length-1];
 		}
-		
+
 		// Recalculate wrapper offsets
 		if (that.options.zoom) {
 			offsets = that._offset(that.wrapper, true);
@@ -966,7 +969,7 @@ iScroll.prototype = {
 			oldHeight = oldHeight - that.scrollerH + that.y;
 			that.scrollTo(0, oldHeight, 0);
 		}
-		
+
 		that._resetPos();
 	},
 
@@ -1008,7 +1011,7 @@ iScroll.prototype = {
 
 	scrollToPage: function (pageX, pageY, time) {
 		var that = this, x, y;
-		
+
 		if (that.options.snap) {
 			pageX = pageX == 'next' ? that.currPageX+1 : pageX == 'prev' ? that.currPageX-1 : pageX;
 			pageY = pageY == 'next' ? that.currPageY+1 : pageY == 'prev' ? that.currPageY-1 : pageY;
