@@ -44,7 +44,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     itemjson.title = appjson.title;
     itemjson.owner = appjson.owner;
     itemjson.next = '#z-detailpane';
-    itemjson.featured = appjson.tags.indexOf("featured") >= 0;
+    itemjson.featured = appjson.tags.indexOf("pf:featured") >= 0;
     itemjson.dev = appid.length > 4 && Strings.endsWith(appid, "-dev");
     itemjson.tag = Strings.join(", ", appjson.tags);
 
