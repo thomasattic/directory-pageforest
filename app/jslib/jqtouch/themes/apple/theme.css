@@ -430,7 +430,7 @@ body {
 #jqt .bar label.radio span {
     display: block; position: relative;
     top: -28px;
-    margin-left: -8px; margin-right: -8px;
+    margin-left: -9px; margin-right: -9px;
 }
 
 #jqt > * > .navibar label.radio:first-of-type span, #jqt > * > .toolbar label.radio:first-of-type span, #jqt > * .bar label.radio:first-of-type span,
