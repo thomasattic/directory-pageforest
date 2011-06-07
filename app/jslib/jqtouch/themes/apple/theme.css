@@ -518,7 +518,7 @@ body {
 }
 
 #jqt .toolbar .back:active, #jqt .toolbar .cancel:active, #jqt > * > * .button.backarrowgreyblue:active {
-    background-color: #365281;
+    background-color: #365281\9;
     -webkit-border-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAeCAYAAAC16ufeAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAPlSURBVHjaYvz//z8DIbBi2wnLz58/te7cst7x0YN7DJ8/vmegOWBkZJCRU2Bw9fDbJKeoHBThZfEXIIAYCTl22ZbjonduXru0cd1yCTFJBQYxSTkGbj5+mrv1/79/DK9fPGZ4fO8Gg6m59S8rO6d0gABiIaTpzq3ri7ZsWCOhb+rKwCcszMDCxsHAzMzMQA/AxSfIICIpz3Dp3GE2MQnJ+QABhDdk++etr16xaHaLtqkTA7+gOAMTExMDvQHIfe/fPmd4+eAqA0AA4QzZ6ct22qxcMr9RSduSgYdPjAEYK0D8j2EgAA+vKMPjPwwMAAGE1bFz1x4UXb9qyWpRaTVmARFphr9/B8aRyICVnYcBIICwOvbMqaOLvv36LyEnp8rwDxgN//7/HXDHMgPzCkAAYTi2Z/b66hNHD3tomXoAHcnE8O/PwIcqCIAiFyCAUBw7bflem81rVzRKKxsysLByMvz9859hsIC/wPwCEEBwx05Zulv0wpkTq7//Y2WWEpJh+P33L8NgAqB8AxBAcMd+eP9u0cnjxyRUjJ2B0Q+S/T+oHPsP6CiAAAI7dsKindUb1yz3EFPUZ2Bk4gCG6j+GwQZAbgIIIJa+BduVTh871PiPhZeBW0gCGNx/GQYjAIUsQACxvH71ouzs2TPMSgauDBB3/h+0jgUIIOYv3/9tFpTRYWDj4gdXbYMVf/30lgEggFgExeQYvjJxM3z88oNhMINv338xAAQQU1CQLwPLv0/AJtlfYBOScdBiUPsWIICY3n36ZhTo6cDw49NrBmIa4gMJAAKICVjYXvjx6+8mD0dThp9f3jBAPTH4MNCxAAHE1Jgb/P/Xn38RAgJ8p5RlRBh+fv80aEMWIIDAremmvODvX7//9jEx0LrDw/yL4e/vnwwQvwwuDBBA8KZ/c37I68/ff/u7Olp+/PvtLbC4/TvokgJAAKH0U1oKQq/9/MMY5O1i/evb59eDroIACCCMThUwSexjYedMtDHRZvjx+f2gcixAAGHtAdZk+i+TlZZsUpASYPj1/cuAOxJUB7CzsTAABBDO7mpZik+9paneMi6m78AMN7C12x9ghhfk52EACCC8fetXb78kerna7fv3/R2w1/BrYEIVWFH9+vKewcrM6CNAAOF1bGdpxK93n38EBXjZ32T69YHhx9ePwJbZH/q0soD2/P75jeHr++cMjjbG3/8wsgQBBBAjMVVsRd9KFQEu5mMXr94Rvf/wKcPXb7RPFuzsbAxiIgIMtpamwGY3Y1B1hv8mgABiJLY9UNq1XI+Hk/nEv98/OFlZaD989AfoRD4BYYa3H7/GtRaELgaJAQQYABf579XVOHe5AAAAAElFTkSuQmCC) 0 8 0 14;
     color: #fff;
 }
@@ -1425,25 +1425,25 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt .whiteButton, #jqt .pushbutton.white {
-    background-color: #A7A7A7;
+    background-color: #A7A7A7\9;
     -webkit-border-image: url(img/whiteButton.png) 0 12 0 12; -moz-border-image: url(img/whiteButton.png) 0 12 0 12; border-image: url(img/whiteButton.png) 0 12 0 12;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 
 #jqt .grayButton, #jqt .pushbutton.gray {
-    background-color: #141414;
+    background-color: #141414\9;
     -webkit-border-image: url(img/grayButton.png) 0 12 0 12; -moz-border-image: url(img/grayButton.png) 0 12 0 12; border-image: url(img/grayButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
 #jqt .redButton, #jqt .pushbutton.red {
-    background-color: #D93D3A;
+    background-color: #D93D3A\9;
     -webkit-border-image: url(img/redButton.png) 0 12 0 12; -moz-border-image: url(img/redButton.png) 0 12 0 12; border-image: url(img/redButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
 #jqt .greenButton, #jqt .pushbutton.green {
-    background-color: #2EAD37;
+    background-color: #2EAD37\9;
     -webkit-border-image: url(img/greenButton.png) 0 12 0 12; -moz-border-image: url(img/redButton.png) 0 12 0 12; border-image: url(img/greenButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
@@ -1451,7 +1451,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt .pushbutton:active, #jqt .pushbutton.active,
 #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active,
 #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active {
-    background-color: #448AEA;
+    background-color: #448AEA\9;
     -webkit-border-image: url(img/activeButton.png) 0 12 0 12; -moz-border-image: url(img/activeButton.png) 0 12 0 12; border-image: url(img/activeButton.png) 0 12 0 12;
 }
 
@@ -2297,9 +2297,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt ul.message li:last-child,
 #jqt ul.message li:last-child > a:only-of-type,
 #jqt ul.detail li:first-child,
-#jqt ul.detail li:first-child > a:only-of-type,
 #jqt ul.detail li:last-child,
-#jqt ul.detail li:last-child > a:only-of-type,
 #jqt ul.metal li:first-child,
 #jqt ul.metal li:first-child > a:only-of-type,
 #jqt ul.metal li:last-child,
