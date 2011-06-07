@@ -247,10 +247,6 @@ body {
     -webkit-user-drag: none;
 }
 
-#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio {
-    float: left;
-}
-
 #jqt > * > .navibar .icon, #jqt > * > .toolbar .icon, #jqt > * .bar .icon {
     display: block;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
@@ -401,6 +397,11 @@ body {
     overflow: hidden;
 }
 
+#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio {
+    display: inline-block\9; /* workaround ie's lack of box-flex */
+    padding-left: 40px\9; padding-right: 40px\9;
+}
+
 #jqt > * > .navibar input[type="radio"]:first-of-type, #jqt > * > .toolbar input[type="radio"]:first-of-type, #jqt > * .bar > input[type="radio"]:first-of-type,
 #jqt > * > .navibar label.radio:first-of-type, #jqt > * > .toolbar label.radio:first-of-type, #jqt > * .bar label.radio:first-of-type,
 #jqt > * .buttonset .button:first-of-type:not(.right),  #jqt > * .buttonset .button.right:last-of-type {
@@ -442,6 +443,7 @@ body {
     display: block; position: relative;
     top: -28px;
     margin-left: -9px; margin-right: -9px;
+    margin-left: -49px\9; margin-right: -49px\9;  /* workaround ie's lack of box-flex */
 }
 
 #jqt > * > .navibar label.radio:first-of-type span, #jqt > * > .toolbar label.radio:first-of-type span, #jqt > * .bar label.radio:first-of-type span,
