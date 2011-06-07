@@ -246,6 +246,10 @@ body {
     -webkit-user-drag: none;
 }
 
+#jqt > * > .navibar label.radio, #jqt > * > .toolbar label.radio, #jqt > * .bar label.radio {
+    float: left;
+}
+
 #jqt > * > .navibar .icon, #jqt > * > .toolbar .icon, #jqt > * .bar .icon {
     display: block;
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;

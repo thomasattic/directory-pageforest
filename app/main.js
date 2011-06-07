@@ -270,7 +270,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
           }
         });
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(resizeCarousel, 150);
+        resizeTimer = setTimeout(resizeCarousel, 0);
       }, function(error) {
         console.error(JSON.stringify(error));
       });
