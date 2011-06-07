@@ -2515,11 +2515,11 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     width: 49px;
     height: 49px;
     margin-right: 10px;
-    vertical-align: -38%;
+    vertical-align: -16px;
 }
 
 #jqt ul.detail li .icon, #jqt ul.detail li > a:only-of-type .icon {
-    vertical-align: -70%;
+    vertical-align: -32px;
 }
 
 #jqt ul.plastic li:nth-child(odd):not(.active) {
@@ -2591,7 +2591,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt ul.detail li small.middle {
-    top: 30px; left: 59px;
+    top: 33px; left: 59px;
 }
 
 #jqt ul.detail li small.sub {
