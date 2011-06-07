@@ -31,7 +31,7 @@ try:
 except ImportError:
     import simplejson as json  # Please easy_install simplejson
 
-VERSION = '1.9.8'
+VERSION = '1.9.9'
 PF_DIST_SERVER = 'http://dist.pageforest.com'
 PF_DIST_DIRECTORY = '/directory.json'
 PF_FILENAME = 'pf.py'
@@ -57,6 +57,8 @@ ERROR_FILENAME = 'pferror.html'
 IGNORE_FILENAMES = ('pf.py', 'pf', PF_FILENAME, OPTIONS_FILENAME, ERROR_FILENAME, MAKE_FILENAME,
                     '.*', '*~', '#*#', '*.bak', '*.rej', '*.orig')
 LOCAL_COMMANDS = ['dir', 'offline', 'info', 'compile', 'make', 'config']
+METAFILE_REMOVE = ('sha1', 'size', 'modified', 'created', 'docid')
+SHA_EXCLUDED = METAFILE_REMOVE + ('application',)
 
 commands = None
 
@@ -124,7 +126,8 @@ class AuthRequest(urllib2.Request):
             self.add_header('Cookie', 'sessionkey=' + options.session_key)
         if options.verbose:
             print "HTTP %s %s" % (self.get_method(), url)
-            print "Data: %s" % self.get_data()
+            if self.get_data():
+                print "Data: %s" % self.get_data()
 
 
 class PutRequest(AuthRequest):
@@ -240,6 +243,9 @@ def load_application():
         options.application = 'www'
         options.save_app = False
         options.root_url = 'http://www.%s/' % options.server
+
+    if options.command == 'feature':
+        options.save_app = False
 
     if options.application is None:
         ensure_meta()
@@ -490,7 +496,10 @@ def download_file(filename):
 
     try:
         outfile = open(filename, 'wb')
-        outfile.write(response.read())
+        data = response.read()
+        if filename == META_FILENAME:
+            data = to_json(json.loads(data), exclude=METAFILE_REMOVE)
+        outfile.write(data)
         outfile.close()
     except IOError, e:
         print "Could not write file, %s (%s)." % (filename, str(e))
@@ -585,10 +594,7 @@ def sha1_file(filename, data=None):
     # Normalize document for sha1 computation.
     if filename == META_FILENAME or is_doc_path(filename):
         try:
-            data = json.loads(data)
-            data = to_json(data, exclude=('sha1', 'size',
-                                          'modified', 'created',
-                                          'application', 'docid'))
+            data = to_json(json.loads(data), exclude=SHA_EXCLUDED)
             if options.debug:
                 print "Computing sha1 hash from:\n---\n%s\n---" % data
         except ValueError, e:
@@ -744,6 +750,41 @@ def put_command(args):
         if args and not prefix_match(args, path):
             continue
         upload_file(path)
+
+
+def feature_command(args):
+    """
+    Feature the current application in the application director.
+
+    This command is only availailable to Pageforest administrators.
+    """
+    url = url_from_path(META_FILENAME)
+    if len(args) >= 1 and args[0] not in ('on', 'off'):
+        print "Bad arument - expect 'on' or 'off'"
+        return
+    featured = len(args) >= 1 and args[0] == 'on'
+
+    try:
+        response = urllib2.urlopen(AuthRequest(url))
+    except IOError, e:
+        print "Could not download file, %s (%s)." % (url, str(e))
+        return
+
+    data = json.loads(response.read())
+    tag = 'pf:featured'
+    is_featured = tag in data['tags']
+    print "Application %s is currently %sfeatured." % (options.application,
+                                                       "" if  is_featured else "not ")
+    if len(args) < 1:
+        return
+
+    if not featured:
+        data['tags'].remove(tag)
+        tag = '-' + tag
+    data['tags'] = list(set(data['tags'] + [tag]))
+    print "Tagging %s as %s" % (options.application, tag)
+    data = to_json(data)
+    response = urllib2.urlopen(PutRequest(url), data)
 
 
 def make_command(args):
@@ -1133,6 +1174,14 @@ def listapps_command(args):
     """
     Display a list of apps that the user is allowed to write to.
     """
+    def print_app(app_name, app):
+        line = app_name
+        if app['owner'] != options.username:
+            line += ' (by %s)' % app['owner']
+        if 'pf:featured' in app['tags']:
+            line += " [featured]"
+        print line
+
     url = options.root_url + 'apps?method=list'
     response = urllib2.urlopen(AuthRequest(url))
     result = json.loads(response.read(), object_hook=as_datetime)
@@ -1140,12 +1189,12 @@ def listapps_command(args):
     print "Apps owned by you:"
     for app_name, app in apps.items():
         if app['owner'] == options.username:
-            print app_name
+            print_app(app_name, app)
 
     print "\nApps owned by others:"
     for app_name, app in apps.items():
         if app['owner'] != options.username:
-            print "%s (by %s)" % (app_name, app['owner'])
+            print_app(app_name, app)
 
 
 def info_command(args):
