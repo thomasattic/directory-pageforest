@@ -133,6 +133,7 @@ body {
     height: 44px;
     text-align: center;
     overflow: hidden;
+    background-color: #8195af;
     background-image: -moz-linear-gradient(top, #b0bccd, #889bb3 50%, #8195af 50%, #6d84a2);
 }
 
@@ -163,7 +164,7 @@ body {
     -webkit-box-flex: 0; -moz-box-flex: 0; box-flex: 0;
     border-top: 1px solid #2d3642;
     padding: 7px 5px 9px 5px;
-    background-color: black;
+    background-color: #8195AF;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#b0bccd), color-stop(0.5, #889bb3), color-stop(0.5, #8195af), to(#6d84a2));
 }
 
@@ -282,6 +283,7 @@ body {
 #jqt .toolbar .add, #jqt .toolbar .leftButton,
 #jqt .toolbar input[type="reset"] {
     border: 1px solid #45505d;
+    background-color: #476999;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5), color-stop(0.5, #5877a2), color-stop(0.5, #476999), color-stop(1, #4a6c9b));
     background-image: -moz-linear-gradient(top, #7d88a5, #5877a2 50%, #476999 50%, #4a6c9b);
     -webkit-box-shadow: inset 0 1px 1px rgba(127, 127, 127, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -291,6 +293,7 @@ body {
 #jqt .toolbar .actionButton, #jqt .toolbar .done,
 #jqt .toolbar input[type="submit"] {
     border: 1px solid #55606d;
+    background-color: #1F55C3;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #77A2F8), color-stop(0.5, #225FDA), color-stop(0.5, #1F55C3), color-stop(1, #1F57C6));
     background-image: -moz-linear-gradient(top, #77A2F8, #225FDA 50%, #1F55C3 50%, #1F57C6);
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -298,6 +301,7 @@ body {
 
 #jqt > * > * .button.red {
     border: 1px solid #55606d;
+    background-color: #BD1421;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DB898F), color-stop(0.5, #D05761), color-stop(0.5, #BD1421), color-stop(1, #BC1421));
     background-image: -moz-linear-gradient(top, #DB898F, #D05761 50%, #BD1421 50%, #BC1421);
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .25), 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -309,7 +313,10 @@ body {
     margin-top: -1px;
     border-width: 1px 8px 2px 14px;
     -webkit-border-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAeCAYAAAC16ufeAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAPpSURBVHjaYvz//z8DIbBi2wmmr1+//Dp+aB/z3ds3GD68f8tAc8DIyKCopMpg4+C6TVFFLSLQyeAzQAAxEnLssi3HRZ88vH9p84aVEtLyqgxSssoMvPyCNHfr/3//GJ4/vc9w68o5BhNzq1/GZlZqAAHEQkjTk8cPFm3bvF7CwsGfQVBUnIGNg5OBmZmFgR6AW0CEQVxGmeHUoW1sAkLCuwACCG/ITlm8pXrdikUtxnY+DMJi0gxMTEwM9AYg971+8Zjhya3z/wECCGcQTV+202b9qmWNmsZODAJCUgz//jIA8T+GgQD8ghIM9/4yMAIEEFbHzl17UHTPjs2rpRR0mEUk5Bn+DJAjkXIbMPnxMQAEEFbHXr96cdG3X/8l1FS0Gf4Co+Hv3z8MAw2Y2TgYAAIIw7H98zZVHzty2MPEIRjoUGaGv7//MQwGAIpcgABCcey05Xtt9mzf3KikZcHAysbJ8PfPX4bBAv7+/csAEEBwx05Zulv02uXzq7//ZWFWFJNn+DWIHAoCoHwDEEBwx3788H7R2dOnJbStfIDRDw33QQT+/vvPABBAYMdOWLSzGhj9HtJqZgxMLJwMv/8MLofCQhYggFj6Fmy3uXLxbOMfZl4GXhEpoOBfhsEI/gKrX4AAYnn/7u3qs2fOMGta+DH8+8cIqjMGpWP/AdMmQACx7N+1TUJazZyBkZl10IYqLGQBAoiFX0SG4fs/doZ/n74zDGbw5dtPBoAAYvL0cGZg/vsRGMx/gE1IxkGLQe1bgABievfpm6S7nTHDtw/PGYhpiA8kAAggps+f/7389ef/JjtTDYZvH18wQD0x+DDQsQABxNRdHvz/x68/EUJCgqdUZYUZfnz9MGhDFiCAwK3pprzg7x8/f/PR1VS+w8Pyi+HPrx8MEL8MLgwQQPCmf3N+yOs37z/721safPzz5TWwuP076JICQACh9FNaCkKvffzyI8jBUvfX5/fPB10FARBAGJ0qYJLYx8TClmioIQPMcG8GlWMBAghrD7Am03+ZrLRkk7QIB8PPb58G3JH/gR1ADnZWBoAAwtldLU32rjfWU1/GyfgNmOEGtnb7DbRfRJCPASCA8PatX7z+lGhvob/v77c3wO7Nz4EJVWBF9ePTGwZdDeWXAAGE17GdpRG/3nz8FuTpaHqT8ec7hu+f3wG7Or/p1Mr6w/DrxxeGT28eMZjqqXz/9Z/RCSCAGImpYiv6VqpIivAdu3rzgej9R88YPn+hfbLg4GBnEBfhZzDQVgM2uxmDqjP8NwEEECOx7YHSruUaokK85/h4ODlZWWg/fARqrn7/8Yvh9fvPpq0FoWdAYgABBgDDnYD+KxtqGwAAAABJRU5ErkJggg==) 0 8 0 14;
-    -moz-border-image: url(img/backButton.png) 0 8 0 14;
+    -moz-border-image: url(img/backButton.png) 0 8 0 14; border-image: url(img/backButton.png) 0 8 0 14;
+    background-color: #365281\9; border: 1px solid #55606d\9; /* workaround for ie */
+    padding-left: 8px\9; padding-right: 8px\9; border-radius: 6px\9;
+    height: 29px\9; min-height: 29px\9; line-height: 28px\9;
 }
 
 #jqt > * > * .button,
@@ -453,7 +460,8 @@ body {
 #jqt > * > .toolbar label.radio input[type="radio"]:checked + span,
 #jqt > * .bar label.radio input[type="radio"]:checked + span,
 #jqt .bar label.radio input[type="radio"]:checked + span {
-    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
+    background-color: #253C6A;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #3a4e78), color-stop(0.5, #253C6A), color-stop(1, #273f6d));
     background-image: -moz-linear-gradient(top, #7d88a5, #3a4e78 50%, #253C6A 50%, #273f6d);
     color: #fff;
@@ -476,7 +484,8 @@ body {
 #jqt .toolbar .leftButton.active, #jqt .toolbar .leftButton:active,
 #jqt .toolbar .actionButton:active, #jqt .toolbar .done:active, #jqt .toolbar .actionButton.active, #jqt .toolbar .done.active,
 #jqt .toolbar input[type="submit"]:active, #jqt .toolbar input[type="submit"].active, #jqt .toolbar input[type="reset"]:active, #jqt .toolbar input[type="reset"].active {
-    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
+    background-color: #253C6A;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #3a4e78), color-stop(0.5, #253C6A), color-stop(1, #273f6d));
     color: #fff;
     text-shadow: none;
@@ -485,12 +494,14 @@ body {
 #jqt > * > .navibar input[type="radio"]:active, #jqt > * > .toolbar input[type="radio"]:active, #jqt > * .bar > input[type="radio"]:active,
 #jqt > * > .navibar input[type="radio"].active, #jqt > * > .toolbar input[type="radio"].active, #jqt > * .bar > input[type="radio"].active {
     /* workaround the flicker between deactived and checked using in-between color*/
+    background-color: #365281;
     background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #49628D), color-stop(0.5, #365281), color-stop(1, #385584));
     background-image: -moz-linear-gradient(top, #7d88a5, #49628D 50%, #365281 50%, #385584);
 }
 
 #jqt > * > .navibar input[type="radio"]:checked, #jqt > * > .toolbar input[type="radio"]:checked, #jqt > * .bar > input[type="radio"]:checked {
+    background-color: #253C6A;
     background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #7d88a5),
         color-stop(0.5, #3a4e78), color-stop(0.5, #253C6A), color-stop(1, #273f6d));
     background-image: -moz-linear-gradient(top, #7d88a5, #3a4e78 50%, #253C6A 50%, #273f6d);
@@ -499,11 +510,13 @@ body {
 }
 
 #jqt > * > * .button.red:active, #jqt > * > * .button.red.active {
+    background-color: #90040F;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #99555A), color-stop(0.5, #9A373F), color-stop(0.5, #90040F), color-stop(1, #8F040F));
     background-image: -moz-linear-gradient(top, #99555A, #9A373F 50%, #90040F 50%, #8F040F);
 }
 
 #jqt .toolbar .back:active, #jqt .toolbar .cancel:active, #jqt > * > * .button.backarrowgreyblue:active {
+    background-color: #365281;
     -webkit-border-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAeCAYAAAC16ufeAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAPlSURBVHjaYvz//z8DIbBi2wnLz58/te7cst7x0YN7DJ8/vmegOWBkZJCRU2Bw9fDbJKeoHBThZfEXIIAYCTl22ZbjonduXru0cd1yCTFJBQYxSTkGbj5+mrv1/79/DK9fPGZ4fO8Gg6m59S8rO6d0gABiIaTpzq3ri7ZsWCOhb+rKwCcszMDCxsHAzMzMQA/AxSfIICIpz3Dp3GE2MQnJ+QABhDdk++etr16xaHaLtqkTA7+gOAMTExMDvQHIfe/fPmd4+eAqA0AA4QzZ6ct22qxcMr9RSduSgYdPjAEYK0D8j2EgAA+vKMPjPwwMAAGE1bFz1x4UXb9qyWpRaTVmARFphr9/B8aRyICVnYcBIICwOvbMqaOLvv36LyEnp8rwDxgN//7/HXDHMgPzCkAAYTi2Z/b66hNHD3tomXoAHcnE8O/PwIcqCIAiFyCAUBw7bflem81rVzRKKxsysLByMvz9859hsIC/wPwCEEBwx05Zulv0wpkTq7//Y2WWEpJh+P33L8NgAqB8AxBAcMd+eP9u0cnjxyRUjJ2B0Q+S/T+oHPsP6CiAAAI7dsKindUb1yz3EFPUZ2Bk4gCG6j+GwQZAbgIIIJa+BduVTh871PiPhZeBW0gCGNx/GQYjAIUsQACxvH71ouzs2TPMSgauDBB3/h+0jgUIIOYv3/9tFpTRYWDj4gdXbYMVf/30lgEggFgExeQYvjJxM3z88oNhMINv338xAAQQU1CQLwPLv0/AJtlfYBOScdBiUPsWIICY3n36ZhTo6cDw49NrBmIa4gMJAAKICVjYXvjx6+8mD0dThp9f3jBAPTH4MNCxAAHE1Jgb/P/Xn38RAgJ8p5RlRBh+fv80aEMWIIDAremmvODvX7//9jEx0LrDw/yL4e/vnwwQvwwuDBBA8KZ/c37I68/ff/u7Olp+/PvtLbC4/TvokgJAAKH0U1oKQq/9/MMY5O1i/evb59eDroIACCCMThUwSexjYedMtDHRZvjx+f2gcixAAGHtAdZk+i+TlZZsUpASYPj1/cuAOxJUB7CzsTAABBDO7mpZik+9paneMi6m78AMN7C12x9ghhfk52EACCC8fetXb78kerna7fv3/R2w1/BrYEIVWFH9+vKewcrM6CNAAOF1bGdpxK93n38EBXjZ32T69YHhx9ePwJbZH/q0soD2/P75jeHr++cMjjbG3/8wsgQBBBAjMVVsRd9KFQEu5mMXr94Rvf/wKcPXb7RPFuzsbAxiIgIMtpamwGY3Y1B1hv8mgABiJLY9UNq1XI+Hk/nEv98/OFlZaD989AfoRD4BYYa3H7/GtRaELgaJAQQYABf579XVOHe5AAAAAElFTkSuQmCC) 0 8 0 14;
     color: #fff;
 }
@@ -520,34 +533,32 @@ body {
 #jqt .toolbar .actionButton:disabled, #jqt .toolbar .done:disabled,
 #jqt .toolbar input[type="submit"][disabled], #jqt .toolbar input[type="submit"]:disabled,
 #jqt .toolbar input[type="reset"][disabled], #jqt .toolbar input[type="reset"]:disabled {
-    background-image:-webkit-gradient(linear, left top, left bottom,
+    background-color: rgba(71, 105, 153, 0.8);
+    background-image: -webkit-gradient(linear, left top, left bottom,
       color-stop(0, rgba(125, 136, 165, 0.8)), color-stop(0.5, rgba(88, 119, 162, 0.8)),
       color-stop(0.5, rgba(71, 105, 153, 0.8)), color-stop(1, rgba(74, 108, 155, 0.8)));
     color: rgba(192, 192, 192, 0.8) !important;
 }
 
 #jqt .toolbar .buttonicon, #jqt .navibar .buttonicon {
-  color: #fff;
+    color: #fff;
 }
 
 #jqt > * > * .button .redbadge {
     position: relative;
-    min-width: 16px;
-    width: 16px;
-    min-height: 16px;
+    min-width: 16px; width: 16px; min-height: 16px;
     padding: 0 4px 0 4px;
-    background-color: #C02020;
-    font-size: 10pt;
-    border-radius: 9pt;
-    border: 2pt solid white;
+    border-radius: 9pt; border: 2pt solid white;
     color: white;
+    font-size: 10pt;
     font-weight: bold;
     text-shadow: none;
+    text-align: center;
+    background-color: #C02020;
     background-image: -webkit-gradient(radial, 50% -130%, 25, 50% 0, 54, from(rgba(255,255,255,0.3)), to(rgba(255,255,255,0.1)),
       color-stop(2%, rgba(255,255,255,0.3)),
       color-stop(4%, rgba(31,31,31,0.1)),
       color-stop(38%, rgba(239,239,239,0.1)));
-    text-align: center;
 }
 
 @media only screen and (max-device-width: 320px) and (orientation:landscape) {
@@ -566,9 +577,7 @@ body {
   #jqt .toolbar .add,
   #jqt .toolbar .actionButton, #jqt .toolbar .done,
   #jqt .toolbar .back, #jqt .toolbar .cancel, #jqt > * > * .button.backarrowgreyblue {
-      height: 24px;
-      line-height: 23px;
-      min-height: 24px;
+      height: 24px; line-height: 23px; min-height: 24px;
       padding-left: 10px;
       padding-right: 10px;
       font-size: 8.5pt;
@@ -642,17 +651,15 @@ body {
 }
 
 #jqt .searchbox .inputbar, #jqt .searchbox .optionbar {
+    background-color: #BFC8CE;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#E0E4E7), color-stop(0.5, #C4CCD2), color-stop(0.5, #BFC8CE), to(#B4BEC6));
     border-bottom: 1px solid #8293A0;
 }
 
 #jqt .searchbox .smokedscreen {
-    display: none;
-    position: absolute;
+    display: none; position: absolute;
     content: "";
-    width: 100%;
-    height: 100%;
-    min-height: 100px;
+    width: 100%; height: 100%; min-height: 100px;
     z-index: 20;
     background-color: rgba(0, 0, 0, 0.4);
 }
@@ -704,6 +711,7 @@ body {
 #jqt .searchbox .inputbar input[type="radio"], #jqt .searchbox .optionbar input[type="radio"] {
     /* @TODO -- should merge with ".bar input[type="radio"]" eventually */
     color: #415E85;
+    background-color: #C3CBD2;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #D6DDE1), color-stop(0.5, #C4CDD3), color-stop(0.5, #C3CBD2), color-stop(1, #B4BEC6));
     -webkit-box-shadow: inset 0 1px 1px rgba(127, 127, 127, .25), 0 1px 0 rgba(127, 127, 127, 0.25);
     text-shadow: rgba(127, 127, 127, 0.5) -0.5px -0.5px 0, rgba(255, 255, 255, 0.5) 0.5px 0.5px 0;
@@ -717,6 +725,7 @@ body {
 #jqt > * > * .button.white {
     /* @TODO -- should merge with ".bar input[type="radio"]" eventually */
     color: #222;
+    background-color: #A7A7A7;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EBEBEB), color-stop(0.5, #C4C4C4), color-stop(0.5, #A7A7A7), color-stop(1, #A8A8A8));
     background-image: -moz-linear-gradient(top, #EBEBEB, #C4C4C4 50%, #A7A7A7 50%, #A8A8A8);
     -webkit-box-shadow: inset 0 1px 1px rgba(127, 127, 127, .25), 0 1px 0 rgba(127, 127, 127, 0.25);
@@ -734,6 +743,7 @@ body {
 #jqt .searchbox .inputbar input[type="radio"].active,
 #jqt .searchbox .optionbar input[type="radio"].active {
     color: white;
+    background-color: #7989A1;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #8C9BAF), color-stop(0.5, #7B8BA3), color-stop(0.5, #7989A1), color-stop(1, #657893));
     text-shadow: rgba(127, 127, 127, 0.5) -1px -1px 0, rgba(127, 127, 127, 0.5) 1px 1px 0;
 }
@@ -741,6 +751,7 @@ body {
 #jqt > * > * .button.darkgrey:active, #jqt > * > * .button.darkgrey.active, #jqt > * > * .button.white.active,
 #jqt .searchbox .inputbar .button:active, #jqt .searchbox .optionbar .button:active,
 #jqt .searchbox .inputbar .button.active, #jqt .searchbox .optionbar .button.active {
+    background-color: #3E4B6F;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #8991A7), color-stop(0.5, #4D597A), color-stop(0.5, #3E4B6F), color-stop(1, #3E4A6E));
 }
 
@@ -804,8 +815,8 @@ body {
     right: 0px;
     padding-bottom: 10px;
     border-top: 1px solid #333;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(160, 168, 172, 0.75)), color-stop(0.08, rgba(112, 120, 128, 0.5)), color-stop(0.08, rgba(96, 102, 114, 0.5)), to(rgba(96, 102, 114, 0.5)));
     background-color: rgba(0, 0, 0, 0.25);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(160, 168, 172, 0.75)), color-stop(0.08, rgba(112, 120, 128, 0.5)), color-stop(0.08, rgba(96, 102, 114, 0.5)), to(rgba(96, 102, 114, 0.5)));
 }
 
 #jqt > div.choicepane > div.choicefloat::before {
@@ -1401,6 +1412,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
     display: block;
     border-width: 0 12px;
+    border-radius: 8px;
     margin: 10px 10px;
     padding: 10px;
     text-align: center;
@@ -1411,21 +1423,25 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt .whiteButton, #jqt .pushbutton.white {
+    background-color: #A7A7A7;
     -webkit-border-image: url(img/whiteButton.png) 0 12 0 12; -moz-border-image: url(img/whiteButton.png) 0 12 0 12; border-image: url(img/whiteButton.png) 0 12 0 12;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 
 #jqt .grayButton, #jqt .pushbutton.gray {
+    background-color: #141414;
     -webkit-border-image: url(img/grayButton.png) 0 12 0 12; -moz-border-image: url(img/grayButton.png) 0 12 0 12; border-image: url(img/grayButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
 #jqt .redButton, #jqt .pushbutton.red {
+    background-color: #D93D3A;
     -webkit-border-image: url(img/redButton.png) 0 12 0 12; -moz-border-image: url(img/redButton.png) 0 12 0 12; border-image: url(img/redButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
 
 #jqt .greenButton, #jqt .pushbutton.green {
+    background-color: #2EAD37;
     -webkit-border-image: url(img/greenButton.png) 0 12 0 12; -moz-border-image: url(img/redButton.png) 0 12 0 12; border-image: url(img/greenButton.png) 0 12 0 12;
     color: #FFFFFF;
 }
@@ -1698,6 +1714,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 }
 
 #jqt ul li.selected, #jqt ul li > a.selected {
+    background-color: #4286f5;
     background-image: none, none, -webkit-gradient(linear, left top, left bottom, from(#4286f5), to(#194fdb)) !important;
     color: white;
 }
@@ -1708,6 +1725,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
 #jqt > * ul.rounded > li.active,
 #jqt > * ul.plastic > li.active,
 #jqt > * ul.metal > li.active {
+    background-color: #4286F5;
     background-image: none, none, -webkit-gradient(linear, left top, left bottom, from(#4286f5), to(#194fdb)) !important;
     background-image: none, none, -moz-linear-gradient(top, #4286f5, #194fdb) !important;
 }
@@ -2503,7 +2521,7 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     vertical-align: -70%;
 }
 
-#jqt ul.plastic li:nth-child(odd) {
+#jqt ul.plastic li:nth-child(odd):not(.active) {
     background-color: rgb(152,152,152);
     border-top: 1px solid rgb(181,181,181);
     border-bottom: 1px solid rgb(138,138,138);
