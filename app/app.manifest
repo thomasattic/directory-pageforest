@@ -22,8 +22,8 @@ NETWORK:
 #! EXCLUDE: jslib/jqtouch/themes/jqt
 #! EXCLUDE: jslib/touchlayer/examples
 #! EXCLUDE: test
-# TOTAL FILES: 62 (690,714 bytes)
-# SIGNATURE: 428b70c4bd3b2c641def73e58023840db04962ae
+# TOTAL FILES: 54 (596,688 bytes)
+# SIGNATURE: 6c957900a414f3cf0db2abe661df177dd2628580
 CACHE:
 detail.json
 images/gradient.jpg
@@ -75,15 +75,7 @@ jslib/jqtouch/themes/apple/img/toolButton_clicked.png
 jslib/jqtouch/themes/apple/img/toolbar.png
 jslib/jqtouch/themes/apple/img/whiteButton.png
 jslib/jqtouch/themes/apple/theme.css
-jslib/lib/date.js
-jslib/lib/jquery.jsonp-2.1.4.js
-jslib/lib/jquery.jsonp-2.1.4.min.js
-jslib/lib/jquery.quicksand.js
 jslib/lib/jquery.tmpl.js
 jslib/lib/jquery.tmpl.min.js
-jslib/lib/json2.js
-jslib/touchlayer/README
-jslib/touchlayer/license.txt
-jslib/touchlayer/src/gestures.js
 main.js
 model.js
