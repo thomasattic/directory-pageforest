@@ -260,7 +260,7 @@
       if (applicationCache.status == applicationCache.UPDATEREADY) {
           applicationCache.swapCache();
           if (prompt("New version is available. Do you want to refresh now?")) {
-            location.reload();
+              location.reload();
           }
           return;
       }
@@ -280,6 +280,7 @@
      API reference: http://code.google.com/p/pageforest/wiki/ClientLibrary
     -->
   <script src="/lib/beta/js/pf-client.js" type="application/x-javascript" charset="utf-8"></script>
+
   <script src="./jslib/lib/jquery.tmpl.min.js" type="application/x-javascript" charset="utf-8"></script>
   <script src="./jslib/beedesk/utilities.js" type="application/x-javascript" charset="utf-8"></script>
 
@@ -389,13 +390,6 @@
            <div><a href="#" class="sign-out span button white nouserstate">Sign out</a></div>
         </div>
       </div>
-    </div>
-    <div>
-      <ul class="hidden" id="replacement">
-      </ul>
-    </div>
-    <div class="buttonbar">
-      <span id="backbutton">Back</span>
     </div>
     <div class="nonpage">
       <!--
