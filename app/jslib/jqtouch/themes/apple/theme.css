@@ -1625,10 +1625,6 @@ div.spinner div.bar12 {-webkit-transform:rotate(330deg) translate(0, -142%); -we
     padding-right: 30px;
 }
 
-#jqt ul li.arrow > a:only-of-type, #jqt ul li.forward > a:only-of-type, #jqt ul li.check > a {
-    margin-right: -30px;
-}
-
 #jqt ul li > a:only-of-type {
     /* universal links on list */
     display: block; position: relative;
