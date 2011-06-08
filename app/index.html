@@ -28,7 +28,7 @@
       background-color: darkgrey;
     }
 
-    #jqt > #z-detailpane .header a {
+    #jqt > #z-detailpane .header .end {
       max-width: none;
     }
 
@@ -322,13 +322,13 @@
     <div data-id="${appid}">
       <ul class="detail">
         <li class="header">
+          <a href="${installurl}" target="_blank" class="end button bluegrey showonuser showonnotinstalled">Install</a>
+          <div class="end button bluegrey showonuser showoninstalled" disabled>INSTALLED</div>
+          <div class="end button bluegrey showonnouser nopad" disabled>Log in to Install</div>
           <div class="icon" style="background-image: url(${icon});"><div class="mask"></div></div>
           ${title}
           <small class="middle">${owner}</small>
           <small class="sub">${tag}</small>
-          <a href="${installurl}" target="_blank" class="end button bluegrey showonuser showonnotinstalled">Install</a>
-          <div class="end button bluegrey showonuser showoninstalled" disabled>INSTALLED</div>
-          <div class="end button bluegrey showonnouser nopad" disabled>Log in to Install</div>
         </li>
         <li class="description"><pre>${description}</pre></li>
       </ul>
