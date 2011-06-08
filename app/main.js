@@ -2,7 +2,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
   var loggedin, username;
 
   var my = namespace.lookup("com.pageforest.directory");
-  var IS_TOUCH = 'ontouchstart' in window;
 
   // Call the onReady function of the application when the page is loaded.
   $(document).ready(my.main);
@@ -14,7 +13,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     username = newname;
   });
   my.loggedout.push(function() {
-    if (loggedin) window.location.reload();
+    if (loggedin) {
+      window.location.reload();
+    }
     username = undefined;
   });
 
@@ -60,7 +61,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       type: 'GET',
       url: apppath,
       dataType: 'json',
-      beforeSend: function(xhr) {},
       success: function(appjson) {
         var itemjson = getAppDataForTemplate(appid, appjson);
         fn({id: appid, item: itemjson});
@@ -73,9 +73,11 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         }
       }
     });
-  };
+  }
 
   function getDetail(appid, options, fn, err) {
+    var ssurl, i, len;
+
     var apppath = '/mirror/' + appid + '/detail.json';
     getApp(appid, options, function(event) {
       var itemjson = event.item;
@@ -83,13 +85,12 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         type: 'GET',
         url: apppath,
         dataType: 'json',
-        beforeSend: function(xhr) {},
         success: function(appjson) {
           itemjson.description = appjson.description;
           itemjson.screenshots = [];
           if (!!appjson.screenshots) {
-            for (var i=0, len=appjson.screenshots.length; i<len; i++) {
-              var ssurl = '/mirror/' + appid + '/' + appjson.screenshots[i].url;
+            for (i=0, len=appjson.screenshots.length; i<len; i++) {
+              ssurl = '/mirror/' + appid + '/' + appjson.screenshots[i].url;
               itemjson.screenshots.push({url: ssurl});
             }
           }
@@ -105,26 +106,27 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         }
       });
     }, err);
-  };
+  }
 
   function getAllApps(appid, fn, err) {
+    var itemid, item, itemjson, exception;
+
     var apppath = '/mirror/?method=list&all=true';
     $.ajax({
       type: 'GET',
       url: apppath,
       dataType: 'json',
-      beforeSend: function(xhr) {},
       success: function(data) {
-        for (var appid in data.items) {
-          var item = data.items[appid];
-          var itemjson = getAppDataForTemplate(appid, item);
+        for (itemid in data.items) {
+          item = data.items[itemid];
+          itemjson = getAppDataForTemplate(itemid, item);
 
-          fn({id: appid, item: itemjson});
+          fn({id: itemid, item: itemjson});
         }
         $("#initloading").remove();
       },
       error: function(request, textStatus, errorThrown) {
-        var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+        exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
         exception.nested = {request: request, status: textStatus, exception: errorThrown};
         if (err) {
           err(exception);
@@ -132,7 +134,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       },
       async: true
     });
-  };
+  }
 
   function getInstalled(appid, options, fn, err) {
     var apppath = '/mirror/' + appid + '/docs/' + username + '/';
@@ -140,7 +142,6 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       type: 'GET',
       url: apppath,
       dataType: 'json',
-      beforeSend: function(xhr) {},
       success: function(appjson) {
         fn({id: appid, item: appjson});
       },
@@ -153,7 +154,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
       },
       async: true
     });
-  };
+  }
 
   // Map Pageforest URL's to be relative to current domain (for non-pageforest.com hosting).
   function normalizeHost(url) {
@@ -242,11 +243,12 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         // </untested>
 
         $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
+          var scroll, options;
+
           var $wrapper = $(wrap);
           var data = $wrapper.data(KEY_ISCROLL_OBJ);
           if (data === undefined || data === null) {
-            var scroll;
-            var options = {};
+            options = {};
             if ($wrapper.hasClass("scrollrefresh")) {
               options = {
                 pullToRefresh: "down"
@@ -257,12 +259,17 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 momentum: false,
                 hScrollbar: false,
                 onScrollEnd: function () {
-                  var active = document.querySelector('#jqt .carousel ul.indicator > li.on');
-                  var target = document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')'); 
-                  if (active) active.className = '';
-                  if (target) target.className = 'on';
+                  var active, target;
+                  active = document.querySelector('#jqt .carousel ul.indicator > li.on');
+                  target = document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')'); 
+                  if (active) {
+                    active.className = '';
+                  }
+                  if (target) {
+                    target.className = 'on';
+                  }
                 }
-              }
+              };
             }
             scroll = new iScroll(wrap, options);
             $wrapper.data(KEY_ISCROLL_OBJ, scroll);
@@ -277,7 +284,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
     });
 
     $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
-      if (info.direction == 'in') {
+      if (info.direction === 'in') {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(resizeCarousel, 150);
       }
