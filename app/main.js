@@ -261,7 +261,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 onScrollEnd: function () {
                   var active, target;
                   active = document.querySelector('#jqt .carousel ul.indicator > li.on');
-                  target = document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')'); 
+                  target = document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')');
                   if (active) {
                     active.className = '';
                   }
