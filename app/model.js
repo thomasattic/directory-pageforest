@@ -21,11 +21,11 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         appid: undefined,
         read: function(id, fn, err) {
             if (displayeditems[id] !== undefined) {
-              fn(id, displayeditems[id]);
+                fn(id, displayeditems[id]);
             } else if (!!err) {
-              err();
+                err();
             } else {
-              console.error("[" + items.name + "] Cannot find item, '" + id + "'.");
+                console.error("[" + items.name + "] Cannot find item, '" + id + "'.");
             }
         },
         create: function(id, item, fn, err) {
@@ -33,18 +33,21 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
                 var after;
                 if (!ns.client.username) {
                     if (err) {
-                      var exception = {datasetname: items.name, status: '401', message: 'Not signed in.', url: '', method: 'create', kind: ''};
-                      err(exception);
+                        var exception = {
+                            datasetname: items.name, status: '401', message: 'Not signed in.',
+                            url: '', method: 'create', kind: ''
+                        };
+                        err(exception);
                     }
                 } else if (!displayeditems[id]) {
                     if ("after" in item) {
-                      after = item.after;
-                      if (displayedorder.indexOf(after) < 0) {
-                        after = displayedorder[displayedorder.length - 1];
-                      }
-                      delete item.after;
+                        after = item.after;
+                        if (displayedorder.indexOf(after) < 0) {
+                            after = displayedorder[displayedorder.length - 1];
+                        }
+                        delete item.after;
                     } else {
-                      after = displayedorder[displayedorder.length - 1];
+                        after = displayedorder[displayedorder.length - 1];
                     }
 
                     displayeditems[id] = item;
@@ -77,31 +80,31 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         update: function(id, item, olditem, fn, err) {
             var event;
             if (typeof olditem === "function") {
-              err = fn;
-              fn = olditem;
+                err = fn;
+                fn = olditem;
             }
             modelReadyLatch.bind(function() {
                 event = {id: id, item: item, olditem: olditem};
                 if ("after" in item) {
-                  var after = item.after;
-                  if (after !== undefined && displayedorder.indexOf(after) < 0) {
-                    after = displayedorder[displayedorder.length - 1];
-                    if (after === id) {
-                      after = undefined;
+                    var after = item.after;
+                    if (after !== undefined && displayedorder.indexOf(after) < 0) {
+                        after = displayedorder[displayedorder.length - 1];
+                        if (after === id) {
+                            after = undefined;
+                        }
                     }
-                  }
-                  delete item.after;
+                    delete item.after;
 
-                  Arrays.remove(displayedorder, displayedorder.indexOf(id));
-                  displayedorder.splice(displayedorder.indexOf(after) + 1, 0, id);
-                  event.after = after;
+                    Arrays.remove(displayedorder, displayedorder.indexOf(id));
+                    displayedorder.splice(displayedorder.indexOf(after) + 1, 0, id);
+                    event.after = after;
                 }
 
                 //ns.client.setDirty();
                 //ns.client.save();
 
                 if (fn) {
-                  fn();
+                    fn();
                 }
                 items.handler.updated(event);
             });
@@ -128,9 +131,9 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
     });
 
     function signOut() {
-      console.warn("siging out");
-      ns.client.signOut();
-      console.warn("siged out");
+        console.warn("siging out");
+        ns.client.signOut();
+        console.warn("siged out");
     }
 
     // This function is called when pageforest client code polled for
@@ -144,13 +147,13 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
 
         var fn = !!username? loggedin: loggedout;
         for (i=0, len=fn.length; i<len; i++) {
-          fn[i](newname);
+            fn[i](newname);
         }
 
         if (!username) {
-          for (id in displayeditems) {
-            items.handler.removed({id: id, olditem: displayeditems[id]});
-          }
+            for (id in displayeditems) {
+                items.handler.removed({id: id, olditem: displayeditems[id]});
+            }
         }
     }
 
