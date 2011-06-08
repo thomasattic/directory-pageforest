@@ -66,7 +66,10 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 fn({id: appid, item: itemjson});
             },
             error: function(request, textStatus, errorThrown) {
-                var exception = {datasetname: 'my.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
+                var exception = {
+                    datasetname: 'my.pageforest', status: request.status,
+                    message: request.statusText, url: apppath, method: "read", kind: textStatus
+                };
                 exception.nested = {request: request, status: textStatus, exception: errorThrown};
                 if (err) {
                     err(exception);
@@ -97,8 +100,13 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                     fn({id: appid, item: itemjson});
                 },
                 error: function(request, textStatus, errorThrown) {
-                    var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
-                    exception.nested = {request: request, status: textStatus, exception: errorThrown};
+                    var exception = {
+                        datasetname: 'directory.pageforest', status: request.status,
+                        message: request.statusText, url: apppath, method: "read", kind: textStatus
+                    };
+                    exception.nested = {
+                        request: request, status: textStatus, exception: errorThrown
+                    };
                     // detail.json is optional. we simple skip it
                     itemjson.description = "<< no description >>";
                     itemjson.screenshots = [];
@@ -126,8 +134,13 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 $("#initloading").remove();
             },
             error: function(request, textStatus, errorThrown) {
-                exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
-                exception.nested = {request: request, status: textStatus, exception: errorThrown};
+                exception = {
+                    datasetname: 'directory.pageforest', status: request.status,
+                    message: request.statusText, url: apppath, method: "read", kind: textStatus
+                };
+                exception.nested = {
+                    request: request, status: textStatus, exception: errorThrown
+                };
                 if (err) {
                     err(exception);
                 }
@@ -146,8 +159,13 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 fn({id: appid, item: appjson});
             },
             error: function(request, textStatus, errorThrown) {
-                var exception = {datasetname: 'directory.pageforest', status: request.status, message: request.statusText, url: apppath, method: "read", kind: textStatus};
-                exception.nested = {request: request, status: textStatus, exception: errorThrown};
+                var exception = {
+                    datasetname: 'directory.pageforest', status: request.status,
+                    message: request.statusText, url: apppath, method: "read", kind: textStatus
+                };
+                exception.nested = {
+                    request: request, status: textStatus, exception: errorThrown
+                };
                 if (err) {
                     err(exception);
                 }
@@ -228,7 +246,8 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                 $container.children().die();
                 $container.append($newitem);
 
-                //@TODO -- <untested> code (can't test because of bug in /mirror on getting docs of another app
+                //@TODO -- <untested> code (can't test because of bug in /mirror
+                //on getting docs of another app
                 if (!!username) {
                     getInstalled("my", {}, function(json) {
                         var order = json.item.blob.order;
@@ -260,8 +279,12 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                                 hScrollbar: false,
                                 onScrollEnd: function () {
                                     var active, target;
-                                    active = document.querySelector('#jqt .carousel ul.indicator > li.on');
-                                    target = document.querySelector('#jqt .carousel ul.indicator > li:nth-child(' + (this.currPageX+1) + ')');
+
+                                    var activeQuery = '#jqt .carousel ul.indicator > li.on';
+                                    var curQuery = '#jqt .carousel ul.indicator > li:nth-child('
+                                          + (this.currPageX+1) + ')';
+                                    active = document.querySelector(activeQuery);
+                                    target = document.querySelector(curQuery);
                                     if (active) {
                                         active.className = '';
                                     }
