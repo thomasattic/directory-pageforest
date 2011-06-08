@@ -8,8 +8,6 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
 
     // model items
     var appid;
-    var displayedorder = [];
-    var displayeditems = {};
 
     // internal state helper
     var modelReadyLatch = Threads.latchbinder();
@@ -18,108 +16,12 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         name: "directory.pageforest",
         username: undefined,
         handler: {added: function() {}, removed: function() {}, updated: function() {}},
-        appid: undefined,
-        read: function(id, fn, err) {
-            if (displayeditems[id] !== undefined) {
-                fn(id, displayeditems[id]);
-            } else if (!!err) {
-                err();
-            } else {
-                console.error("[" + items.name + "] Cannot find item, '" + id + "'.");
-            }
-        },
-        create: function(id, item, fn, err) {
-            modelReadyLatch.bind(function() {
-                var after;
-                if (!ns.client.username) {
-                    if (err) {
-                        var exception = {
-                            datasetname: items.name, status: '401', message: 'Not signed in.',
-                            url: '', method: 'create', kind: ''
-                        };
-                        err(exception);
-                    }
-                } else if (!displayeditems[id]) {
-                    if ("after" in item) {
-                        after = item.after;
-                        if (displayedorder.indexOf(after) < 0) {
-                            after = displayedorder[displayedorder.length - 1];
-                        }
-                        delete item.after;
-                    } else {
-                        after = displayedorder[displayedorder.length - 1];
-                    }
-
-                    displayeditems[id] = item;
-                    displayedorder.splice(displayedorder.indexOf(after) + 1, 0, id);
-
-                    ns.client.setDirty();
-                    ns.client.save();
-
-                    items.handler.added({id: id, item: item, after: after});
-                } else {
-                    console.warn("app '" + id + "' already added!");
-                }
-            });
-        },
-        remove: function(id, olditem, fn, err) {
-            modelReadyLatch.bind(function() {
-                if (displayeditems[id]) {
-                    delete displayeditems[id];
-                    Arrays.remove(displayedorder, displayedorder.indexOf(id));
-
-                    ns.client.setDirty();
-                    ns.client.save();
-
-                    items.handler.removed({id: id, olditem: olditem});
-                } else {
-                    console.warn("app is not known! known app: " + JSON.stringify(displayeditems));
-                }
-            });
-        },
-        update: function(id, item, olditem, fn, err) {
-            var event;
-            if (typeof olditem === "function") {
-                err = fn;
-                fn = olditem;
-            }
-            modelReadyLatch.bind(function() {
-                event = {id: id, item: item, olditem: olditem};
-                if ("after" in item) {
-                    var after = item.after;
-                    if (after !== undefined && displayedorder.indexOf(after) < 0) {
-                        after = displayedorder[displayedorder.length - 1];
-                        if (after === id) {
-                            after = undefined;
-                        }
-                    }
-                    delete item.after;
-
-                    Arrays.remove(displayedorder, displayedorder.indexOf(id));
-                    displayedorder.splice(displayedorder.indexOf(after) + 1, 0, id);
-                    event.after = after;
-                }
-
-                //ns.client.setDirty();
-                //ns.client.save();
-
-                if (fn) {
-                    fn();
-                }
-                items.handler.updated(event);
-            });
-        }
+        appid: undefined
     };
 
     ns.extend({
         'main': main,
         'onUserChange': onUserChange,
-        /*
-        'getDoc': getDoc,
-        'getDocid': getDocid,
-        'setDocid': setDocid,
-        'setDoc': setDoc,
-        */
         'items': items,
         'modelReady': modelReadyCallbacks,
         'loggedin': loggedin,
@@ -148,12 +50,6 @@ namespace.lookup('com.pageforest.directory').defineOnce(function (ns) {
         var fn = !!username? loggedin: loggedout;
         for (i=0, len=fn.length; i<len; i++) {
             fn[i](newname);
-        }
-
-        if (!username) {
-            for (id in displayeditems) {
-                items.handler.removed({id: id, olditem: displayeditems[id]});
-            }
         }
     }
 
