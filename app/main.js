@@ -241,7 +241,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         $("#z-detailpane").bind("pagein", function(event, info) {
             getDetail(info.search.appid, {}, function(data) {
                 var $newitem = $("#dirdetail-template").tmpl(data.item);
-                var $container = $("#z-detailpane #appdetail");
+                var $container = $("#z-detailpane #appdetail").removeClass("installed");
                 $container.children().remove();
                 $container.children().die();
                 $container.append($newitem);
@@ -252,7 +252,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
                     getInstalled("my", {}, function(json) {
                         var order = json.item.blob.order;
                         var found = order.indexOf(info.search.appid) >= 0;
-                        if ($container.closest('html').length) {
+                        if (found) {
                             $container.addClass("installed");
                         }
                     }, function(error) {
