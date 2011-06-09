@@ -116,7 +116,7 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
         }, err);
     }
 
-    function getAllApps(appid, fn, err) {
+    function getAllApps(appid, fn, err, done) {
         var itemid, item, itemjson, exception;
 
         var apppath = '/mirror/?method=list&all=true';
@@ -131,7 +131,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
                     fn({id: itemid, item: itemjson});
                 }
-                $("#initloading").remove();
+                if (done) {
+                  done();
+                }
             },
             error: function(request, textStatus, errorThrown) {
                 exception = {
@@ -176,9 +178,23 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
 
     // Map Pageforest URL's to be relative to current domain (for non-pageforest.com hosting).
     function normalizeHost(url) {
-            var appHost = window.location.host;
-            url = url.replace(/\.pageforest\.com/, appHost.substr(appHost.indexOf('.')));
-            return url;
+        var appHost = window.location.host;
+        url = url.replace(/\.pageforest\.com/, appHost.substr(appHost.indexOf('.')));
+        return url;
+    }
+
+    function checkHash() {
+        var hash = window.location.hash.substr(1);
+        window.location.hash = '';
+        hash = hash.replace(/appid=(.+)$/, "$1");
+        hash = decodeURIComponent(hash);
+        if (hash) {
+            jqt.goTo({
+                to: "#z-detailpane",
+                animation: "slide",
+                search: {appid: hash}
+            });
+        }
     }
 
     // Manage display to indicate state
@@ -206,6 +222,9 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
             my.items.handler.added(event);
         }, function(exception) {
             console.warn("Error loading list of application." + JSON.stringify(exception));
+        }, function() {
+            $("#initloading").remove();
+            checkHash();
         });
 
         function refreshScroll($pane) {
@@ -233,77 +252,86 @@ namespace.lookup('com.pageforest.directory.controller').defineOnce(function (ns)
             refreshScroll($("#jqt > .current"));
         }
 
+        function populateDetail(appid) {
+            getDetail(appid, {}, function(data) {
+              var $newitem = $("#dirdetail-template").tmpl(data.item);
+              var $container = $("#z-detailpane #appdetail").removeClass("installed");
+              $container.children().remove();
+              $container.children().die();
+              $container.append($newitem);
+
+              //@TODO -- <untested> code (can't test because of bug in /mirror
+              //on getting docs of another app
+              if (!!username) {
+                  getInstalled("my", {}, function(json) {
+                      var order = json.item.blob.order;
+                      var found = order.indexOf(appid) >= 0;
+                      if (found) {
+                          $container.addClass("installed");
+                      }
+                  }, function(error) {
+                      console.error(JSON.stringify(error));
+                  });
+              }
+              // </untested>
+
+              $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
+                  var scroll, options;
+
+                  var $wrapper = $(wrap);
+                  var data = $wrapper.data(KEY_ISCROLL_OBJ);
+                  if (data === undefined || data === null) {
+                      options = {};
+                      if ($wrapper.hasClass("scrollrefresh")) {
+                          options = {
+                              pullToRefresh: "down"
+                          };
+                      } else if ($wrapper.hasClass("carousel")) {
+                          options = {
+                              snap: true,
+                              momentum: false,
+                              hScrollbar: false,
+                              onScrollEnd: function () {
+                                  var active, target;
+
+                                  var activeQuery = '#jqt .carousel ul.indicator > li.on';
+                                  var curQuery = '#jqt .carousel ul.indicator > li:nth-child('
+                                        + (this.currPageX+1) + ')';
+                                  active = document.querySelector(activeQuery);
+                                  target = document.querySelector(curQuery);
+                                  if (active) {
+                                      active.className = '';
+                                  }
+                                  if (target) {
+                                      target.className = 'on';
+                                  }
+                              }
+                          };
+                      }
+                      scroll = new iScroll(wrap, options);
+                      $wrapper.data(KEY_ISCROLL_OBJ, scroll);
+                      scroll.refresh();
+                  }
+              });
+              clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(resizeCarousel, 0);
+          }, function(error) {
+              console.error(JSON.stringify(error));
+          });
+        }
+
         // workaround to get sign-in button working
         // (iOS fullscreen mode must launch page using default <a> handler
         var loginurl = "http://www.pageforest.com/sign-in/" + my.items.appid;
         $(".sign-in-anchor").attr("href", normalizeHost(loginurl));
 
         $("#z-detailpane").bind("pagein", function(event, info) {
-            getDetail(info.search.appid, {}, function(data) {
-                var $newitem = $("#dirdetail-template").tmpl(data.item);
-                var $container = $("#z-detailpane #appdetail").removeClass("installed");
-                $container.children().remove();
-                $container.children().die();
-                $container.append($newitem);
+            populateDetail(info.search.appid);
+            window.location.hash = 'appid=' + encodeURIComponent(info.search.appid);
+        });
 
-                //@TODO -- <untested> code (can't test because of bug in /mirror
-                //on getting docs of another app
-                if (!!username) {
-                    getInstalled("my", {}, function(json) {
-                        var order = json.item.blob.order;
-                        var found = order.indexOf(info.search.appid) >= 0;
-                        if (found) {
-                            $container.addClass("installed");
-                        }
-                    }, function(error) {
-                        console.error(JSON.stringify(error));
-                    });
-                }
-                // </untested>
-
-                $container.find('.s-scrollwrapper, .s-innerscrollwrapper').each(function (i, wrap) {
-                    var scroll, options;
-
-                    var $wrapper = $(wrap);
-                    var data = $wrapper.data(KEY_ISCROLL_OBJ);
-                    if (data === undefined || data === null) {
-                        options = {};
-                        if ($wrapper.hasClass("scrollrefresh")) {
-                            options = {
-                                pullToRefresh: "down"
-                            };
-                        } else if ($wrapper.hasClass("carousel")) {
-                            options = {
-                                snap: true,
-                                momentum: false,
-                                hScrollbar: false,
-                                onScrollEnd: function () {
-                                    var active, target;
-
-                                    var activeQuery = '#jqt .carousel ul.indicator > li.on';
-                                    var curQuery = '#jqt .carousel ul.indicator > li:nth-child('
-                                          + (this.currPageX+1) + ')';
-                                    active = document.querySelector(activeQuery);
-                                    target = document.querySelector(curQuery);
-                                    if (active) {
-                                        active.className = '';
-                                    }
-                                    if (target) {
-                                        target.className = 'on';
-                                    }
-                                }
-                            };
-                        }
-                        scroll = new iScroll(wrap, options);
-                        $wrapper.data(KEY_ISCROLL_OBJ, scroll);
-                        scroll.refresh();
-                    }
-                });
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(resizeCarousel, 0);
-            }, function(error) {
-                console.error(JSON.stringify(error));
-            });
+        $("#z-detailpane").bind("pageout", function(event, info) {
+            window.location.hash = '';
         });
 
         $("#jqt > *").bind('pageAnimationEnd', function(event, info) {
