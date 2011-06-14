@@ -122,9 +122,7 @@
       }
       if (applicationCache.status == applicationCache.UPDATEREADY) {
           applicationCache.swapCache();
-          if (prompt("New version is available. Do you want to refresh now?")) {
-              location.reload();
-          }
+          location.reload();
           return;
       }
       applicationCache.addEventListener('updateready', handleAppCache, false);
