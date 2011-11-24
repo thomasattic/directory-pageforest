@@ -31,6 +31,7 @@
         var MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove';
         var END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup';
         var CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout'; // mouseout on document
+        var KEY_PAGE_INITIALIZED = 'page-initialized';
 
         // Initialize internal variables
         var state_started,
@@ -85,6 +86,8 @@
             inputguard: true,
             inputtypes: ["input[type='text']", "input[type='password']", "input[type='tel']", "input[type='number']", "input[type='search']", "input[type='email']", "input[type='url']", "select", "textarea"],
             useFastTouch: false, // Experimental.
+            useTouchScroll: true,
+            workaroundFlexboxJump: true,
 
             // animation selectors
             notransitionSelector: '',
@@ -648,6 +651,11 @@
                     // branch on href.search (ie, ..?abc=1&ijk=2)
                     if (!match(fromPage.search, toPage.search)) {
                         $('#' + fromPage.id).trigger('pageout', {hash: '#' + fromPage.id, search: fromPage.search});
+
+                        if ($('#' + toPage.id).data(KEY_PAGE_INITIALIZED) !== true) {
+                          $('#' + toPage.id).data(KEY_PAGE_INITIALIZED, true);
+                          $body.trigger('pageinit', {page: ('#' + toPage.id)});
+                        }
                         $('#' + toPage.id).trigger('pagein', {hash: '#' + toPage.id, search: toPage.search});
                         removePageInHistory(toPage.i, fromPage.i, {section: fromPage.section});
                     } else {
@@ -707,6 +715,11 @@
                     heavy: param.heavy,
                     pagecallback: function() {
                         $('#' + fromPage.id).trigger('pagesuspense', {hash: '#' + fromPage.id, search: fromPage.search});
+
+                        if (toPage.data(KEY_PAGE_INITIALIZED) !== true) {
+                          toPage.data(KEY_PAGE_INITIALIZED, true);
+                          $body.trigger('pageinit', {page: ('#' + toPage[0].id)});
+                        }
                         toPage.trigger('pagein', {hash: '#' + toPage.attr('id'), search: param.search});
                     }
                 });
@@ -722,6 +735,11 @@
                 // branch on href.search (ie, ..?abc=1&ijk=2)
                 if (!match(fromPage.search, search)) {
                     $('#' + fromPage.id).trigger('pageout', {hash: '#' + fromPage.id, search: fromPage.search});
+
+                    if (toPage.data(KEY_PAGE_INITIALIZED) !== true) {
+                      toPage.data(KEY_PAGE_INITIALIZED, true);
+                      $body.trigger('pageinit', {page: ('#' + toPage[0].id)});
+                    }
                     toPage.trigger('pagein', {hash: '#' + toPage.attr('id'), search: param.search});
                     removePageInHistory(fromPage.i, 0, {section: fromPage.section});
                     addPageToHistory(toPage, search, pageback, adjustedName);
@@ -839,7 +857,6 @@
                 $node.children().find('[section]:not([section~="' + section + '"])').addClass('missection');
 
                 $body.trigger('pageInserted', {page: $node.appendTo($body)});
-                $body.trigger("pageinit", {page: $node.appendTo($body)});
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -943,21 +960,72 @@
             var $form = $el.closest('form');
             if ($form.length) {
                 var evt = $.Event("submit");
-                evt.preventDefault();
+                //evt.preventDefault();
                 $form.trigger(evt);
                 return false;
             }
             return true;
         }
 
+        function parseVersionString(str, delimit) {
+            if (typeof(str) != 'string') {
+              return {major: 0, minor: 0, patch: 0};
+            }
+            delimit = delimit || '.';
+            var x = str.split(delimit);
+            // parse from string or default to 0 if can't parse
+            var maj = parseInt(x[0]) || 0;
+            var min = parseInt(x[1]) || 0;
+            var pat = parseInt(x[2]) || 0;
+            return {major: maj, minor: min, patch: pat};
+        };
+      
         /* -- tag for code merge --
         function supportForAnimationEvents() {
         function supportForCssMatrix() {
         function supportForTouchEvents() {
-        function supportForTransform3d() {
-        };
         */
-
+        function supportForTouchScroll() {
+            var reg = /OS (5(_\d+)*) like Mac OS X/i;
+            
+            var arrays, version;
+            
+            version = {major: 0, minor: 0, patch: 0};
+            arrays = reg.exec(navigator.userAgent);
+            if (arrays && arrays.length > 1) {
+                version = parseVersionString(arrays[1], '_');
+            }
+            return version.major >= 5;
+        };
+        function supportForTransform3d() {
+            _debug();
+  
+            var head, body, style, div, result;
+  
+            head = document.getElementsByTagName('head')[0];
+            body = document.body;
+  
+            style = document.createElement('style');
+            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-ms-transform-3d),(-webkit-transform-3d),(modernizr){#jqtTestFor3dSupport{height:3px}}';
+  
+            div = document.createElement('div');
+            div.id = 'jqtTestFor3dSupport';
+  
+            // Add to the page
+            head.appendChild(style);
+            body.appendChild(div);
+  
+            // Check the result
+            result = div.offsetHeight === 3;
+  
+            // Clean up
+            style.parentNode.removeChild(style);
+            div.parentNode.removeChild(div);
+  
+            // Pass back result
+            // _debug('Support for 3d transforms: ' + result);
+            return result;
+        };
         function clickHandler(e) {
             _debug();
 
@@ -976,7 +1044,7 @@
             }
 
             // Prevent default if we found an internal link (relative or absolute)
-            if ($el && $el.attr('href') && !$el.isExternalLink()) {
+            if ($el && $el.attr('href') && !$el.isExternalLink() && !$el.hasClass("nofasttouch")) {
                 _debug('Need to prevent default click behavior');
                 e.preventDefault();
             } else {
@@ -1123,18 +1191,18 @@
 
                     if ($el.is(jQTSettings.dialogSelector) || $el.find(jQTSettings.dialogSelector).length > 0) {
                       pageback = function(returns) {
-                        console.warn("pageback is called. returns: " + JSON.stringify(returns));
+                        //console.warn("pageback is called. returns: " + JSON.stringify(returns));
 
                         var $page = $(this);
                         if (returns) {
                           for (var i=0, len=returns.length; i<len; i++) {
                             var item = returns[i];
-                            var $item = $el.find('input[data-sourcename="' + item.name + '"], input[name="' + item.name + '"]').first();
+                            var $item = $el.find('input[data-sourcename="' + item.name + '"], input[name="' + item.name + '"], textarea[data-sourcename="' + item.name + '"], textarea[name="' + item.name + '"]').first();
                             if (i === 0 && $item.length === 0) {
                               // sloppy workaround for the simpliest
-                              var $item = $el.find('input[value]').eq(i);
+                              var $item = $el.find('input[value], textarea[value]').eq(i);
                             }
-                            console.warn("setting value for item: " + $item.attr("id"));
+                            //console.warn("setting value for item: " + $item.attr("name"));
                             $item.val(item.value);
                             if ($item.attr('type') === 'radio' || $item.attr('type') === 'checkbox') {
                               $item.attr('checked', true);
@@ -1143,11 +1211,22 @@
                         } // (!returns) indicates dialog was cancelled
                       };
 
-                      $el.find('input[data-sourcename]').each(function(i, input) {
+                      $el.find('input[data-sourcename], textarea[data-sourcename]').each(function(i, input) {
                         var $input = $(input);
                         var name = $input.attr('data-sourcename');
                         if (name) {
                           search[name] = $input.val();
+                        }
+                        var $target = $(hash).data('referrer', $el).find('input[data-sourcename="' + name + '"], input[name="' + name + '"], textarea[data-sourcename="' + name + '"], textarea[name="' + name + '"]').first();
+                        var $radio = $target.filter('[type="radio"]');
+                        if ($radio.length === 0 || !!$input.val()) {
+                          $target.val($input.val());
+                        } else {
+                          if (!!$target.prop) { // jQuery 1.6+
+                            $target.prop('checked', false);
+                          } else {
+                            $target.attr('checked', false);
+                          }
                         }
                       });
                     }
@@ -1206,6 +1285,10 @@
                 } else {
                     return;
                 }
+            }
+            if ($el.hasClass("nofasttouch")) {
+                // let the regular click handler to handle it, if at all.
+                return;
             }
 
             if (tapReady == false) {
@@ -1289,8 +1372,8 @@
             function updateChanges(e) {
                 var point = e.originalEvent;
                 var first = $.support.touch? point.changedTouches[0]: point;
-                deltaX = first.clientX - startX;
-                deltaY = first.clientY - startY;
+                deltaX = first.pageX - startX;
+                deltaY = first.pageY - startY;
                 deltaT = (new Date).getTime() - startTime;
                 var absElOffset = $el.offset();
                 elX = absElOffset.left - elStartX;
@@ -1303,8 +1386,8 @@
                 inprogress = true, swipped = false, tapped = false,
                 moved = false, timed = false, pressed = false;
                 point = e.originalEvent;
-                startX = $.support.touch? point.changedTouches[0].clientX: point.clientX;
-                startY = $.support.touch? point.changedTouches[0].clientY: point.clientY;
+                startX = $.support.touch? point.changedTouches[0].pageX: point.pageX;
+                startY = $.support.touch? point.changedTouches[0].pageY: point.pageY;
                 startTime = (new Date).getTime();
                 endX = null, endY = null, endTime = null;
                 deltaX = 0;
@@ -1419,6 +1502,8 @@
             $.support.touch = (typeof Touch != "undefined");
             $.support.WebKitAnimationEvent = (typeof WebKitTransitionEvent != "undefined");
             $.support.wide = (window.screen.width >= 768);
+            $.support.transform3d = supportForTransform3d();
+            $.support.touchScroll =  supportForTouchScroll();
 
             // Public jQuery Fns
             $.fn.isExternalLink = function() {
@@ -1486,6 +1571,45 @@
                 console.warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". This might cause problems, so you should prolly wrap your panels in a div with the id "jqt".');
                 $body = $('body').attr('id', 'jqt');
             }
+            
+            // Add some specific css if need be
+            if ($.support.transform3d) {
+                $body.addClass('supports3d');
+            }
+            /*
+            if (!$.support.touchScroll || !jQTSettings.useTouchScroll) {
+                $body.addClass('unfixed');
+            }
+            */
+
+            // workaround flexible-box jump issue: 
+            // https://bugs.webkit.org/show_bug.cgi?id=46657
+            if (jQTSettings.workaroundFlexboxJump) {
+              var afjTimer;
+
+              function resumeFlex($page) {
+                clearTimeout(afjTimer); 
+                $page.find('.view').each(function (i, view) {
+                  $(view).css({'height': undefined});
+                });
+                afjTimer = setTimeout(function() {
+                  $page.find('.view').each(function (i, view) {
+                    var height = $(view).height(); 
+                    $(view).css({'height': ($(view).height() + 'px')});
+                  });                  
+                }, 75);
+              }
+              $("#jqt").delegate('#jqt > *', 'pageAnimationEnd', function(event, info) {
+                if (info.direction == 'in') {
+                  resumeFlex($(this));
+                }
+              });
+              $(window).resize(function() {
+                $('#jqt > .current').each(function(i, one) {
+                  resumeFlex($(one));
+                });
+              });
+            }
 
             $body.bind('tap', tapHandler);
             $(allSelectors.join(', ')).css('-webkit-touch-callout', 'none');
@@ -1526,7 +1650,7 @@
                     }
                 });
             }
-
+            
             for (var i=0, len=jQTSettings.engageable.length; i<len; i++) {
               var item = jQTSettings.engageable[i];
               $(item.query).each(function(e, gear) {
@@ -1625,6 +1749,11 @@
                     }
 
                     addPageToHistory(currentAside);
+
+                    if (currentAside.data(KEY_PAGE_INITIALIZED) !== true) {
+                      currentAside.data(KEY_PAGE_INITIALIZED, true);
+                      currentAside.trigger('pageinit', {page: currentAside.attr('id')});
+                    }
                     currentAside.trigger('pagein', {hash: '#' + currentAside[0].id, search: {}, referer: document.referrer});
                 }
                 defaultSection = "main";
@@ -1650,6 +1779,11 @@
             }
             currentPage.addClass('current alphapage');
             addPageToHistory(currentPage);
+
+            if (currentPage.data(KEY_PAGE_INITIALIZED) !== true) {
+              currentPage.data(KEY_PAGE_INITIALIZED, true);
+              currentPage.trigger('pageinit', {page: currentPage.attr('id')});
+            }
             currentPage.trigger('pagein', {hash: '#' + currentPage[0].id, search: search, referer: document.referrer});
 
             // adjust visibiliy of elements
@@ -1662,9 +1796,6 @@
             // move to init page be specified in querystring
             var $page = $("#jqt > " + startpage);
             $page = $("#jqt > " + startpage);
-            $page.each(function(i, page) {
-              $body.trigger("pageinit");
-            });
 
             if (startpage) {
               var section = $page.attr("section");
