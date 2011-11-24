@@ -207,12 +207,12 @@
   </script>
   </head>
   <body>
-    <div id="jqt" class="initstate unfixed">
+    <div id="jqt" class="initstate">
       <div id="z-listpane" class="pane form" section="aside">
         <div class="bar">
           <label class="radio"><input type="radio" name="categories" title="Featured" value="Featured" checked><span>Featured</span></label><label class="radio"><input type="radio" name="categories" title="All" value="All"><span>All</span></label>
         </div>
-        <div class="content">
+        <div class="view">
           <ul id="featured-applist" class="plastic">
           </ul>
           <ul id="applist" class="plastic">
@@ -239,16 +239,18 @@
             <h1>Info</h1>
             <a href="#" class="back">Back</a>
         </div>
-        <div id="appdetail">
-        </div>
-        <div class="footer showonnouser">
-            <div>You are not signed in.</div>
-            <!-- @TODO - hardcode path -->
-            <div><a href="http://www.pageforest.com/sign-in/directory/" target="_blank" class="span button white nouserstate sign-in-anchor">Sign In</a></div>
-        </div>
-        <div class="footer showonuser">
-           <div class="welcome-message">Welcome</div>
-           <div><a href="#" class="sign-out span button white nouserstate">Sign Out</a></div>
+        <div class="view">
+          <div id="appdetail">
+          </div>
+          <div class="footer showonnouser">
+              <div>You are not signed in.</div>
+              <!-- @TODO - hardcode path -->
+              <div><a href="http://www.pageforest.com/sign-in/directory/" target="_blank" class="span button white nouserstate sign-in-anchor">Sign In</a></div>
+          </div>
+          <div class="footer showonuser">
+             <div class="welcome-message">Welcome</div>
+             <div><a href="#" class="sign-out span button white nouserstate">Sign Out</a></div>
+          </div>
         </div>
       </div>
     </div>
